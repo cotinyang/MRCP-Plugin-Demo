@@ -1,0 +1,5 @@
+tocTab[tocTab.length] = new Array("3.4.1.1:1", "", "MRCP Resource Hierarchy", "EARoot/EA3/EA4/EA1/EA1/EA218.htm", "175.png", "17", "0", "", "Logical diagram0","{EA29B133-8A0A-454f-BFBB-EA875D4FA1FD}");
+tocTab[tocTab.length] = new Array("3.4.1.1:2", "", "RecognizerResource", "EARoot/EA3/EA4/EA1/EA1/EA220.htm", "5.png", "149", "0", "", "Class0","{26E6E686-0C0D-4ef1-A928-475C372A538F}");
+tocTab[tocTab.length] = new Array("3.4.1.1:3", "", "Resource", "EARoot/EA3/EA4/EA1/EA1/EA221.htm", "5.png", "147", "0", "", "Class0","{0AED0AEE-D457-4ace-8666-96C17AD53B26}");
+tocTab[tocTab.length] = new Array("3.4.1.1:4", "", "ResourceFactory", "EARoot/EA3/EA4/EA1/EA1/EA222.htm", "5.png", "146", "0", "", "Class0","{28A10AFD-66BE-46cf-A434-114168303AB9}");
+tocTab[tocTab.length] = new Array("3.4.1.1:5", "", "SynthesizerResource", "EARoot/EA3/EA4/EA1/EA1/EA223.htm", "5.png", "148", "0", "", "Class0","{7794501C-C665-442f-BEF4-E05E8F2C77EB}");

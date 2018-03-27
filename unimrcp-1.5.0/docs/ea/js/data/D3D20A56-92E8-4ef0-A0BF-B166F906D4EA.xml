@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("4.1:1", "", "MRCP-SofiaSIP", "EARoot/EA4/EA1/EA408.htm", "178.png", "45", "0", "", "Component diagram0","{92991574-7D61-4972-92EC-140714E80696}");
+tocTab[tocTab.length] = new Array("4.1:2", "", "MRCP-SofiaSIP", "EARoot/EA4/EA1/EA411.htm", "10.png", "327", "0", "", "Component0","{9E55F3C7-EB51-4f03-9C63-4C50590F752B}");
+tocTab[tocTab.length] = new Array("4.1:3", "", "«interface» SignalingInterface", "EARoot/EA4/EA1/EA412.htm", "8.png", "326", "0", "", "Interface0","{F9A70C90-D718-4cd7-BB90-25EB7918F52A}");
+tocTab[tocTab.length] = new Array("4.1:4", "", "SofiaSIP", "EARoot/EA4/EA1/EA413.htm", "10.png", "324", "0", "", "Component0","{934D8CC5-64C8-4946-85E5-BFF27408B02C}");

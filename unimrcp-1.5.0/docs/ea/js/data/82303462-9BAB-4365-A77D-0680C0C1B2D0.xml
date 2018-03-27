@@ -1,0 +1,5 @@
+tocTab[tocTab.length] = new Array("5:1", "", "Plugins", "EARoot/EA5/EA420.htm", "178.png", "42", "0", "", "Component diagram0","{90FD6A41-6E00-4b2e-B120-DBB15B8FC22B}");
+tocTab[tocTab.length] = new Array("5.1", "1", "Demo-Verifier", "EARoot/EA5/EA425.htm", "4.png", "", "", "{6F97B012-B325-4180-8078-1C7A5775660D}", "Package");
+tocTab[tocTab.length] = new Array("5.2", "1", "MRCP-Recorder", "EARoot/EA5/EA427.htm", "4.png", "", "", "{54F85D67-508F-41b0-A5E6-AC6D94455113}", "Package");
+tocTab[tocTab.length] = new Array("5.3", "1", "Demo-Synthesizer", "EARoot/EA5/EA429.htm", "4.png", "", "", "{603B56EB-3C8D-45b0-9A08-0049919B9BD2}", "Package");
+tocTab[tocTab.length] = new Array("5.4", "1", "Demo-Recognizer", "EARoot/EA5/EA430.htm", "4.png", "", "", "{3A3C0649-4AB8-43d1-9F18-FC97FA98E262}", "Package");

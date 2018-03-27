@@ -1,0 +1,3 @@
+tocTab[tocTab.length] = new Array("3.2.4:1", "", "AptTask Sequence Diagram", "EARoot/EA3/EA2/EA4/EA125.htm", "185.png", "9", "0", "", "Sequence diagram0","{65EBFDB4-C6BA-424b-B73A-70529F9BF72E}");
+tocTab[tocTab.length] = new Array("3.2.4:2", "", "«control» Task/Thread Context", "EARoot/EA3/EA2/EA4/EA127.htm", "57.png", "63", "0", "", "Sequence0","{706EF882-86DA-4c54-A3C7-17E6B806893B}");
+tocTab[tocTab.length] = new Array("3.2.4:3", "", "User Context", "EARoot/EA3/EA2/EA4/EA128.htm", "6.png", "62", "0", "", "Actor0","{4A71446A-08E5-4b43-A4C9-D92AE945E3B3}");

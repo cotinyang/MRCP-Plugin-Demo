@@ -1,0 +1,10 @@
+tocTab[tocTab.length] = new Array("2.2:1", "", "UniMRCP-Server", "EARoot/EA2/EA2/EA51.htm", "178.png", "50", "0", "", "Component diagram0","{F9A435CE-D898-4b4c-A3FB-D0EAFB901381}");
+tocTab[tocTab.length] = new Array("2.2:2", "", "UseCase-MRCPv1", "EARoot/EA2/EA2/EA53.htm", "178.png", "51", "0", "", "Component diagram0","{E0CB2A35-08C3-4ac8-B7F3-A4289556FED3}");
+tocTab[tocTab.length] = new Array("2.2:3", "", "UseCase-MRCPv2", "EARoot/EA2/EA2/EA55.htm", "178.png", "52", "0", "", "Component diagram0","{919C457E-EE88-4dd8-B49B-A8A49EE1834D}");
+tocTab[tocTab.length] = new Array("2.2:4", "", "UseCase-DirectMedia", "EARoot/EA2/EA2/EA57.htm", "178.png", "59", "0", "", "Component diagram0","{1D0783E5-191D-487b-A92A-8E442A0CF515}");
+tocTab[tocTab.length] = new Array("2.2:5", "", "UseCase-Combined", "EARoot/EA2/EA2/EA59.htm", "178.png", "53", "0", "", "Component diagram0","{E0D4A6EB-19F2-48c0-90E1-DB1925A20A04}");
+tocTab[tocTab.length] = new Array("2.2:6", "", "ASR/TTS Engine", "EARoot/EA2/EA2/EA64.htm", "10.png", "356", "0", "", "Component0","{DCAB05ED-208D-4362-969C-AB56990BE523}");
+tocTab[tocTab.length] = new Array("2.2:7", "", "IPPhone", "EARoot/EA2/EA2/EA65.htm", "10.png", "402", "0", "", "Component0","{5C3853D0-0D69-40ab-BF39-01F77B216365}");
+tocTab[tocTab.length] = new Array("2.2:8", "", "IVR / MRCPv1 Client", "EARoot/EA2/EA2/EA66.htm", "10.png", "354", "0", "", "Component0","{970A39AA-19B5-404a-873A-3C62CBBB7D36}");
+tocTab[tocTab.length] = new Array("2.2:9", "", "IVR / MRCPv2 Client", "EARoot/EA2/EA2/EA67.htm", "10.png", "362", "0", "", "Component0","{44AC721C-3A08-4bfb-82AD-719022E7313E}");
+tocTab[tocTab.length] = new Array("2.2:10", "", "UniMRCP Server", "EARoot/EA2/EA2/EA68.htm", "10.png", "355", "0", "", "Component0","{C7AB8388-2BA6-4975-9B58-85A2002636C4}");

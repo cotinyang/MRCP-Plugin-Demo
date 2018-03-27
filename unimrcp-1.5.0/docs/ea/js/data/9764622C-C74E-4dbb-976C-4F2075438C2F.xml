@@ -1,0 +1,5 @@
+tocTab[tocTab.length] = new Array("3.2.1:1", "", "AptTask Hierarchy", "EARoot/EA3/EA2/EA1/EA98.htm", "175.png", "8", "0", "", "Logical diagram0","{93AB41C0-A1A4-4f10-96CA-0355E9FB5DCF}");
+tocTab[tocTab.length] = new Array("3.2.1:2", "", "AptConsumerTask", "EARoot/EA3/EA2/EA1/EA104.htm", "5.png", "52", "0", "", "Class0","{DCEE06CD-73FB-472c-9F11-0B26DA5B8FD3}");
+tocTab[tocTab.length] = new Array("3.2.1:3", "", "AptNetClientTask", "EARoot/EA3/EA2/EA1/EA105.htm", "5.png", "53", "0", "", "Class0","{A03DFE2A-BCEE-4327-94CA-3A70F4A25403}");
+tocTab[tocTab.length] = new Array("3.2.1:4", "", "AptNetServerTask", "EARoot/EA3/EA2/EA1/EA106.htm", "5.png", "54", "0", "", "Class0","{549F57FF-8F1B-41fa-B465-3405822E03DC}");
+tocTab[tocTab.length] = new Array("3.2.1:5", "", "AptTask", "EARoot/EA3/EA2/EA1/EA107.htm", "5.png", "50", "0", "", "Class0","{906765FC-0E5E-4813-A8B3-C3FA3615BA32}");

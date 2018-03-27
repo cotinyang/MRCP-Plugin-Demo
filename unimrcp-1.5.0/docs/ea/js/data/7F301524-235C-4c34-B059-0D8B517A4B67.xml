@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("3.4.5:1", "", "MRCP-Client", "EARoot/EA3/EA4/EA5/EA291.htm", "178.png", "28", "0", "", "Component diagram0","{433CF666-88B5-43c4-8428-09C30AF30483}");
+tocTab[tocTab.length] = new Array("3.4.5.1", "1", "Hierarchy Diagram", "EARoot/EA3/EA4/EA5/EA299.htm", "4.png", "", "", "{99A9CE5F-7D50-484d-940D-CA3856B8D051}", "Package");
+tocTab[tocTab.length] = new Array("3.4.5.2", "1", "Activity Diagram", "EARoot/EA3/EA4/EA5/EA300.htm", "4.png", "", "", "{053A198B-363C-446b-9F99-F803A89244D7}", "Package");
+tocTab[tocTab.length] = new Array("3.4.5.3", "1", "Sequence Diagram", "EARoot/EA3/EA4/EA5/EA301.htm", "4.png", "", "", "{494A7E3C-8456-494a-BCD0-5028ADCAE2C2}", "Package");

@@ -1,0 +1,3 @@
+tocTab[tocTab.length] = new Array("3.4.3:1", "", "MRCP-Signaling", "EARoot/EA3/EA4/EA3/EA281.htm", "175.png", "43", "0", "", "Logical diagram0","{3E0656AA-B9ED-42af-AE16-1822127EEC52}");
+tocTab[tocTab.length] = new Array("3.4.3:2", "", "Session", "EARoot/EA3/EA4/EA3/EA284.htm", "5.png", "315", "0", "", "Class0","{7FEB4186-AB52-4566-B778-6BDF5A0BED93}");
+tocTab[tocTab.length] = new Array("3.4.3:3", "", "SignalingAgent", "EARoot/EA3/EA4/EA3/EA285.htm", "5.png", "314", "0", "", "Class0","{8C453145-D583-4d74-8BAD-5B6D8D451D3E}");

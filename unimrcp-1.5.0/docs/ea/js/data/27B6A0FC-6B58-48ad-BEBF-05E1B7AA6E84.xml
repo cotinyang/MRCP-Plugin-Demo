@@ -1,0 +1,5 @@
+tocTab[tocTab.length] = new Array("3.4.1.2:1", "", "Synthesizer State Machine", "EARoot/EA3/EA4/EA1/EA2/EA224.htm", "183.png", "18", "0", "", "Statechart diagram0","{99D24E2C-99B9-4796-A2A3-683EDFFF1583}");
+tocTab[tocTab.length] = new Array("3.4.1.2:2", "", "Idle", "EARoot/EA3/EA4/EA1/EA2/EA226.htm", "20.png", "152", "0", "", "State0","{72B53CA2-E0EF-4b57-A6A1-2960587C6803}");
+tocTab[tocTab.length] = new Array("3.4.1.2:3", "", "Paused", "EARoot/EA3/EA4/EA1/EA2/EA227.htm", "20.png", "156", "0", "", "State0","{7B7C0BE0-A93F-43a4-B594-BA6061A9B23E}");
+tocTab[tocTab.length] = new Array("3.4.1.2:4", "", "Speaking", "EARoot/EA3/EA4/EA1/EA2/EA228.htm", "20.png", "157", "0", "", "State0","{24542B2A-2965-4c60-8620-7A9009D8D172}");
+tocTab[tocTab.length] = new Array("3.4.1.2:5", "", "Speaking", "EARoot/EA3/EA4/EA1/EA2/EA229.htm", "20.png", "155", "0", "", "State0","{C732F7B6-FE12-4172-B998-248F30AAC848}");

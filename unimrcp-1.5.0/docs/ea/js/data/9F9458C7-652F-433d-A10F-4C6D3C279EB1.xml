@@ -1,0 +1,12 @@
+tocTab[tocTab.length] = new Array("2.1:1", "", "UniMRCP-Client", "EARoot/EA2/EA1/EA24.htm", "178.png", "49", "0", "", "Component diagram0","{829E7E61-C169-4377-839C-DC7CACEF07BF}");
+tocTab[tocTab.length] = new Array("2.1:2", "", "UseCase-MRCPv1", "EARoot/EA2/EA1/EA26.htm", "178.png", "47", "0", "", "Component diagram0","{F47947B4-5C7A-4f0e-AAB0-83E7D529DBC5}");
+tocTab[tocTab.length] = new Array("2.1:3", "", "UseCase-MRCPv2", "EARoot/EA2/EA1/EA28.htm", "178.png", "46", "0", "", "Component diagram0","{28A7C7D5-CF55-440d-BE1E-3511FCA50FB8}");
+tocTab[tocTab.length] = new Array("2.1:4", "", "UseCase-BypassMedia", "EARoot/EA2/EA1/EA30.htm", "178.png", "58", "0", "", "Component diagram0","{BE54E086-02A8-4fa9-83E8-7CBC56826CD9}");
+tocTab[tocTab.length] = new Array("2.1:5", "", "UseCase-Combined", "EARoot/EA2/EA1/EA32.htm", "178.png", "48", "0", "", "Component diagram0","{A900C2DD-A5EA-42d4-87AA-2B85C587CD95}");
+tocTab[tocTab.length] = new Array("2.1:6", "", "IPPBX / IVR", "EARoot/EA2/EA1/EA39.htm", "10.png", "344", "0", "", "Component0","{1A39B920-F51D-41d6-89E6-B2CA5E3C2878}");
+tocTab[tocTab.length] = new Array("2.1:7", "", "IPPhone", "EARoot/EA2/EA1/EA40.htm", "10.png", "399", "0", "", "Component0","{59E47A25-6B79-4bf3-8BDC-9288D62ED29F}");
+tocTab[tocTab.length] = new Array("2.1:8", "", "MRCP-Client", "EARoot/EA2/EA1/EA41.htm", "99.png", "375", "0", "", "UMLDiagram0","{56846723-92AA-443e-ACFC-7F50AE08A1BE}");
+tocTab[tocTab.length] = new Array("2.1:9", "", "MRCP-Client", "EARoot/EA2/EA1/EA42.htm", "99.png", "376", "0", "", "UMLDiagram0","{305BA268-ED40-40ee-9FBC-99CFB76770F3}");
+tocTab[tocTab.length] = new Array("2.1:10", "", "MRCPv1 Server", "EARoot/EA2/EA1/EA43.htm", "10.png", "345", "0", "", "Component0","{610CF291-8DB1-4726-9D29-78E2DA5BD5C0}");
+tocTab[tocTab.length] = new Array("2.1:11", "", "MRCPv2 Server", "EARoot/EA2/EA1/EA44.htm", "10.png", "339", "0", "", "Component0","{E1F9D7B1-6B50-4408-B7CA-812B98DC3EEA}");
+tocTab[tocTab.length] = new Array("2.1:12", "", "UniMRCP Client", "EARoot/EA2/EA1/EA45.htm", "10.png", "338", "0", "", "Component0","{68B8C0F7-92CD-4995-97F3-9609E094DB0C}");

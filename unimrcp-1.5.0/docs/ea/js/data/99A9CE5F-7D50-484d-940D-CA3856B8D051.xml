@@ -1,0 +1,11 @@
+tocTab[tocTab.length] = new Array("3.4.5.1:1", "", "Client Hierarchy Diagram", "EARoot/EA3/EA4/EA5/EA1/EA302.htm", "175.png", "29", "0", "", "Logical diagram0","{A2EC2B8E-8021-4c8f-AFBE-4B9AEFE76AF8}");
+tocTab[tocTab.length] = new Array("3.4.5.1:2", "", "Session Hierarchy Diagram", "EARoot/EA3/EA4/EA5/EA1/EA304.htm", "175.png", "30", "0", "", "Logical diagram0","{C2AC1DF8-5DE4-4afd-8756-481091EAC8D6}");
+tocTab[tocTab.length] = new Array("3.4.5.1:3", "", "Profile", "EARoot/EA3/EA4/EA5/EA1/EA306.htm", "5.png", "393", "0", "", "Class0","{14056A69-6D0B-4458-83ED-094AE1E32355}");
+tocTab[tocTab.length] = new Array("3.4.5.1:4", "", "Application", "EARoot/EA3/EA4/EA5/EA1/EA307.htm", "5.png", "218", "0", "", "Class0","{9777DA42-391C-4d2f-B399-A82551BCBD5F}");
+tocTab[tocTab.length] = new Array("3.4.5.1:5", "", "ClientChannel", "EARoot/EA3/EA4/EA5/EA1/EA308.htm", "5.png", "220", "0", "", "Class0","{26D1B0E7-6F0F-4c33-A9B1-0B1D252B3096}");
+tocTab[tocTab.length] = new Array("3.4.5.1:6", "", "ClientSession", "EARoot/EA3/EA4/EA5/EA1/EA309.htm", "5.png", "219", "0", "", "Class0","{4C556775-915F-4e59-A672-456EC912DA6F}");
+tocTab[tocTab.length] = new Array("3.4.5.1:7", "", "ConnectionAgent", "EARoot/EA3/EA4/EA5/EA1/EA310.htm", "5.png", "216", "0", "", "Class0","{6A2D96AB-71EC-4445-A4E9-AB7E93868F42}");
+tocTab[tocTab.length] = new Array("3.4.5.1:8", "", "MediaEngine", "EARoot/EA3/EA4/EA5/EA1/EA311.htm", "5.png", "217", "0", "", "Class0","{72491C5D-65CF-4f0c-B622-525A2AD68452}");
+tocTab[tocTab.length] = new Array("3.4.5.1:9", "", "MRCPClient", "EARoot/EA3/EA4/EA5/EA1/EA312.htm", "5.png", "213", "0", "", "Class0","{BECDC58B-F425-4c41-9DA6-DFACFA1B1C73}");
+tocTab[tocTab.length] = new Array("3.4.5.1:10", "", "ResourceFactory", "EARoot/EA3/EA4/EA5/EA1/EA313.htm", "5.png", "214", "0", "", "Class0","{29993928-87BD-474b-89D4-77A32421B17E}");
+tocTab[tocTab.length] = new Array("3.4.5.1:11", "", "SignalingAgent", "EARoot/EA3/EA4/EA5/EA1/EA314.htm", "5.png", "215", "0", "", "Class0","{37FD32A9-F34F-431d-849D-F810ECA52498}");

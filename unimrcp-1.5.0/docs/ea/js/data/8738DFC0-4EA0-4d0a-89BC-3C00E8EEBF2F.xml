@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("3.3.2.2:1", "", "Bridge", "EARoot/EA3/EA3/EA2/EA2/EA165.htm", "25.png", "113", "0", "", "Object0","{53962AA2-3614-4269-B4B1-96376E27FBEE}");
+tocTab[tocTab.length] = new Array("3.3.2.2:2", "", "Decoder", "EARoot/EA3/EA3/EA2/EA2/EA166.htm", "25.png", "116", "0", "", "Object0","{67B23A31-DFC3-4cdd-B26D-B6E790BB2904}");
+tocTab[tocTab.length] = new Array("3.3.2.2:3", "", "Sink Stream", "EARoot/EA3/EA3/EA2/EA2/EA167.htm", "25.png", "115", "0", "", "Object0","{1C13CB3B-E057-4c38-8858-5AE8D1E3C78F}");
+tocTab[tocTab.length] = new Array("3.3.2.2:4", "", "Source Stream", "EARoot/EA3/EA3/EA2/EA2/EA168.htm", "25.png", "114", "0", "", "Object0","{F8659E7D-1173-4e1b-B9AE-793D54E3DAE3}");

@@ -1,0 +1,169 @@
+Changes for UniMRCP-deps-1.5.0
+
+  APR library
+
+  * None.
+
+  APR-util library
+
+  * None.
+
+  Sofia-SIP library
+
+  * Fixed VS2015 build by defining snprintf only for _MSC_VER < 1900 in win32/config.h.in too.
+  * Fixed a possible out-of-bounds read in sresolv.
+  * Fixed resource leaks in stun.
+  * Fixed compilation warnings C4456 and C4457 occurred when declaration of a variable in inner
+    scope hides declaration of another variable in outer scope.
+  * Fixed compilation warnings by setting MOD_ZD and MOD_ZU printf modifiers accordingly for 
+    x64 architecture in win32/config.h.in.
+  * Fixed compilation errors when Windows SDK 10 is used with VS2015 or VS2017 by including 
+    windows.h in win32/sofia-sip/su_configure.h.
+  * Fixed redefinition of STRICT() macro in sdp_parse.c previously defined in minwindef.h
+    when Windows SDK 10 is used with VS2015 or VS2017.
+
+
+Changes for UniMRCP-deps-1.4.0
+
+  APR library
+
+  * Rebased the APR library on top of version 1.5.2.
+
+  APR-util library
+
+  * Added a missing include for apr_time.h in apr_queue.h.  
+
+  Sofia-SIP library
+
+  * Fixed a memory leak in processing of SIP OPTIONS request.
+
+
+Changes for UniMRCP-deps-1.3.0
+
+  APR library
+
+  * Use apr_cpystrn() instead of strncpy() since the latter doesn't always 
+    NUL terminate (patch #0009).
+
+  APR-util library
+
+  * Rebased the APR-util library on top of version 1.5.4.
+  * Added a new APU feature macro APR_HAS_QUEUE_TIMEOUT and implemented corresponding 
+    functions apr_queue_timedpush() and apr_queue_timedpop() (patch #0006).
+
+  Sofia-SIP library
+
+  * Fixed an autoconf-2.64 warning: no AC_LANG_SOURCE call detected in body (patch #0018).
+  * Use libtoolize in autogen.sh to fix errors regarding LIBTOOL encountered with autoconf 2.63.
+    Also, use default automake and aclocal. Before, automake-1.9 was used (patch #0019).
+  * Use  AM_CPPFLAGS instead of deprecated INCLUDES (patch #0020).
+  * Fixed compilation warnings encountered while building Sofia-SIP with 
+    HAVE_OPENSSL and HAVE_TLS enabled (patch #0021).
+  * While logging SIP messages, compose a timestamp based on the current date and local time (patch #0022).
+  * Optionally added tport_tls.c and tport_type_tls.c into VS2010 build (patch #0023).
+  * Fixed tport logging to dump an entire SIP message composed of multiple iovecs (patch #0024).
+  * Fixed memory leak on TLS connection cleanup (patch #0025).
+  * TLS type (master or slave) is set upon creation and should not be copied from master to slave (patch #0027).
+  * Fixed memory leaks which may occur on verification of peer certificate 
+    once the TLS connection is established (patch #0028).
+  * Disable warnings related to the use of inet_ntoa() and friends being compiled 
+    with Platform Toolset >= 120, affected since VS2013 Update 3 (patch #0029).
+
+  Miscellaneous
+
+  * The installer script build-dep-libs.sh now can be used out of box on Debian/Ubuntu too.
+
+
+Changes for UniMRCP-deps-1.2.1
+
+  APR library
+
+  * Rebased the APR library on top of version 1.5.1.
+  * Added a new APR feature macro APR_HAS_THREADSAFE_POOLS (patch #0006).
+  * Added a new APR feature macro APR_HAS_SETTHREADNAME and implemented the corresponding 
+    function apr_thread_name_set() for win and unix (patch #0007).
+
+  Sofia-SIP library
+
+  * Added support for WSAPoll() (patch #0015).
+  * Comply with the aggressive-loop-optimization introduced in gcc 4.8 (patch #0017).
+
+
+Changes for UniMRCP-deps-1.2.0
+
+  APR library
+
+  * Rebased the APR library on top of version 1.5.0.
+  * Added the support for VS2013 Platform Toolset v120 (patch #0002).
+  * Fixed a cross-compilation issue on x86 for x64 target (patch #0003).
+  * Corrected the script libapr.rc to support the Resource View (patch #0005).
+
+  APR-util library
+
+  * Rebased the APR-util library on top of version 1.5.3.
+  * Fixed a compilation warning for x64 target in apr_thread_pool.c (patch #0001).
+  * Fixed compilation warnings for x64 target in the bundled expat library (patch #0002).
+  * Corrected the script libaprutil.rc to support the Resource View (patch #0004).
+
+  Sofia-SIP library
+
+  * Suppressed a false compilation warning in sres.c (patch #0006).
+  * Fixed compilation warnings for x64 (patch #0007).
+  * Added the support for VS2013 Platform Toolset v120 (patch #0010).
+  * Fixed unconditional rebuilds in VS2010 and above (patch #0011).
+  * Added a filter file for VS2010 (patch #0012).
+  * Added a resource script libsofia_sip_ua.rc (patch #0014).
+
+  Miscellaneous
+
+  * Added optional command-line arguments to the installer script build-dep-libs.sh.
+
+
+Changes for UniMRCP-deps-1.1.3
+
+  APR library
+
+  * Rebased the APR library on top of version 1.4.6.
+
+  APR-util library
+
+  * Rebased the APR-util library on top of version 1.5.1.
+
+  Sofia-SIP library
+
+  * Rebased the Sofia-SIP library on top of version 1.12.11-196-g8cb7baa.
+  * Fixed a crash in nta_agent_add_tport(). A local variable could be referenced out of its scope.
+  * Fixed a memory corruption. A data key could be deleted without being initialized.
+  * Fixed a memory leak in nua_create(). When initialization of a User Agent stack failed, the 
+    routine could leave a small memory leak.
+  * Fixed some compilation warnings.
+
+
+Changes for UniMRCP-deps-1.1.2
+
+  APR library
+
+  * Fixed another thread-safety issue in the APR memory pools. Not only memory allocations but also
+    operations to register and unregister cleanups must be thread-safe.
+
+
+Changes for UniMRCP-deps-1.1.1
+
+  APR library
+
+  * Upgraded the APR library to version 1.4.5.
+
+  APR-util library
+
+  * Upgraded the APR-util library to version 1.3.12.
+
+  Sofia-SIP library
+
+  * Upgraded the Sofia-SIP library to version 1.12.11-195-gf5ee2e0.
+
+
+Changes for UniMRCP-deps-1.1.0
+
+  APR-util library
+
+  * Upgraded the APR-util library to version 1.3.10.

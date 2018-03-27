@@ -1,0 +1,115 @@
+==============================================
+Release notes for current version of Sofia-SIP
+==============================================
+
+Changes since last release
+--------------------------
+
+<changes since last written in freshmeat.net "Changes:" style;
+ and in less than 10 lines, written in 3rd person English, with
+ complete sentences />
+
+Bugs in blaa and foo have been fixed. The stack now supports
+use of foobar...
+
+API/ABI changes and versioning
+------------------------------
+
+<see previous release notes at
+ http://sofia-sip.sourceforge.net/relnotes/ for examples ;
+ - should include all changes to public headers, and
+   other important information to developers;
+ - and should be updated _continuously_! />
+
+**template**: New features in API are marked with Doxytag macro @VERSION_1_XX_X.
+
+libsofia-sip-ua:
+- **template**: Added foobar() function (sofia-sip/foobar.h).
+- Added nta_leg_get_call_id() function to <sofia-sip/nta.h>
+- Added SOATAG_USER_O_LINE() tag (sofia-sip/soa_tag.h)
+- Added msg_q_value() function (sofia-sip/msg_mime.h).
+- Added msg_accept_match() function (sofia-sip/msg_mime.h).
+- Added NUTAG_AUTO100() tag (sofia-sip/nua_tag.h)
+- Added NUTAG_ACCEPT_MULTIPART() tag (sofia-sip/nua_tag.h).
+- Added NUTAG_MAX_RETRY_AFTER() tag (sofia-sip/nua_tag.h)
+- Added NUTAG_APPL_EVENT() tag (sofia-sip/nua_tag.h)
+- Added NUTAG_DEFERRABLE_TIMERS() tag (sofia-sip/nua_tag.h).
+- Added typedef su_time64_t and functions su_now64(), su_stamp64(),
+  su_time64_to_time(), su_time_to_time64(), su_time64_add(), and
+  su_duration64() (sofia-sip/su_time.h).
+- Added su_root_stamp64() and su_root_stamp64_offset() (sofia-sip/su_wait.h).
+- Added functions su_timer_set_interval64() and su_timer_is_running() 
+  (sofia-sip/su_wait.h)
+- Added function su_randint64() and include file <sofia-sip/su_random.h>
+- This release is ABI/API compatible with applications linked against
+  any 1.12.x release. However, applications built against this release won't
+  work against an older library. The ABI has been tested with the nua module
+  unit test (test_nua) built against original 1.12.0 release.
+
+libsofia-sip-ua-glib:
+- No ABI/API changes, compatible with 1.12.0. Note, libsofia-sip-ua-glib
+  interface is not considered stable and may change in a future 1.12.x
+  release.
+
+Contributors to this release
+----------------------------
+
+<list of people who contributed to _this_ release
+ - update as people's patches are added, or when you commit stuff
+ - current development team members (see AUTHORS) may be omitted,
+   or listed at the end of the contribur list (depending on the scope
+   of the work done since the last release)
+ - name of the contributor should be enough (email addresses in AUTHORS),
+   plus a _brief_ description of what was contributed
+ - roughly sorted by number of patches accepted
+/>
+
+- 
+- **template**: First Surname (patch to nua/soa/msg)
+- Benoit Vallee (win32 install script)
+- Michael Jerris and other FreeSwitch contributors (numerous fixes)
+- timeless (fixes to sizeof goofs)
+- Jakub Sitnicki (bug fix to su_home_move())
+
+See the AUTHORS file in the distribution package.
+
+Notes on new features
+---------------------
+
+<information about major new features
+ - new/changed/removed functionality
+ - links to further documentation
+ - section may be omitted for minor releases
+/>
+
+Bugs fixed in this release
+--------------------------
+
+< notable bugs fixed in this release
+ - check the sf.net bug tracker; see closed bugs,
+   sorted by closing date
+ - other bugs as fixed in CVS/darcs
+/>
+
+- **template**: #9499652 sf.net bug item title
+- Fixed crash in case of response timeout in nua
+- Fixed assertion failure in case BYE was sent before 200 OK to invite
+  was received (reported by Jerry Richards)
+- Fixed sres_blocking_complete() reporting bogus errors (patch by <Yuri
+  AT rawbw DOT com>)
+- If initial OPTIONS used to verify registration fails, it is not retried
+  after re-REGISTER.
+- Fixed multiple Coverity issues.
+- Updating SDP version on o= line if the SDP was changed processing answer.
+  Thanks for Kristian Tronnberg for reporting the issue.
+- Incorporated fixes for multiple issues from Freeswitch.
+- MeeGo bug #15577: msg_addr_zero confuses sizeof pointer for sizeof *pointer
+- MeeGo bug #15573: su_task_init use of sizeof typedef causes analysis tool 
+  to fret  (reports by timeless)
+- Now using same Call-ID when retransmitting authenticated requests by NUA
+  (report by Olivier Deme)
+- Now including media activity tags in nua_i_invite events
+- Removed a memory leak from su_home_move() (fix by Jakub Sitnicki)
+- Fixed bug with changing timer deferability when set (Mikhail Zabaluev)
+- Fixed bug with extra OPTIONS keepalives and probes (Mikhail Zabaluev)
+- Fixed bug with session timer using Require: timer when not needed

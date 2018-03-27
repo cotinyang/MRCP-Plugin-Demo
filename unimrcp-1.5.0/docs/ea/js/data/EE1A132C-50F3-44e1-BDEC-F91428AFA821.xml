@@ -1,0 +1,17 @@
+tocTab[tocTab.length] = new Array("3.4.2.2:1", "", "Activity Diagram", "EARoot/EA3/EA4/EA2/EA2/EA252.htm", "181.png", "24", "0", "", "Activity diagram0","{9E2825A9-026F-4e34-B318-F184F7BAC0E5}");
+tocTab[tocTab.length] = new Array("3.4.2.2:3", "", "ActivityFinal", "EARoot/EA3/EA4/EA2/EA2/EA256.htm", "68.png", "188", "0", "", "StateNode0","{61E7B020-81AC-47aa-918B-DFE159683DFE}");
+tocTab[tocTab.length] = new Array("3.4.2.2:4", "", "ActivityInitial", "EARoot/EA3/EA4/EA2/EA2/EA257.htm", "68.png", "180", "0", "", "StateNode0","{434D6E0F-4995-48b4-8372-164F6B059F98}");
+tocTab[tocTab.length] = new Array("3.4.2.2:5", "", "Create Connection Agent", "EARoot/EA3/EA4/EA2/EA2/EA258.htm", "21.png", "181", "0", "", "Activity0","{CCADB026-08F4-403b-9D43-EE1EDADB676A}");
+tocTab[tocTab.length] = new Array("3.4.2.2:6", "", "Destroy Connection Agent", "EARoot/EA3/EA4/EA2/EA2/EA259.htm", "21.png", "187", "0", "", "Activity0","{24D5F377-E686-4592-9048-916687A4FC70}");
+tocTab[tocTab.length] = new Array("3.4.2.2:7", "", "Processing", "EARoot/EA3/EA4/EA2/EA2/EA260.htm", "21.png", "185", "0", "", "Activity0","{4A99CE72-6504-46b5-BB29-251C08E785C9}");
+tocTab[tocTab.length] = new Array("3.4.2.2:8", "", "Set Event Handler", "EARoot/EA3/EA4/EA2/EA2/EA261.htm", "21.png", "182", "0", "", "Activity0","{E9BD9081-4C97-4f47-9A3D-DEEBF81E8DD0}");
+tocTab[tocTab.length] = new Array("3.4.2.2:9", "", "Set Resource Factory", "EARoot/EA3/EA4/EA2/EA2/EA262.htm", "21.png", "183", "0", "", "Activity0","{790BB48A-FA6A-49f6-AD6A-2A3AFB4FF3C7}");
+tocTab[tocTab.length] = new Array("3.4.2.2:10", "", "Start Connection Agent", "EARoot/EA3/EA4/EA2/EA2/EA263.htm", "21.png", "184", "0", "", "Activity0","{EEB58020-96FF-42d4-9DD4-49DAB7B76DA9}");
+tocTab[tocTab.length] = new Array("3.4.2.2:11", "", "Terminate Connection Agent", "EARoot/EA3/EA4/EA2/EA2/EA264.htm", "21.png", "186", "0", "", "Activity0","{82DE7924-2935-49f1-8CD3-6B871AED90F7}");
+tocTab[tocTab.length] = new Array("3.4.2.2:2", "", "Processing", "EARoot/EA3/EA4/EA2/EA2/EA254.htm", "181.png", "25", "185", "", "Activity diagram0","{E632224E-4D51-4033-9E23-5BF10DB16906}");
+tocTab[tocTab.length] = new Array("3.4.2.2:12", "", "ActivityFinal", "EARoot/EA3/EA4/EA2/EA2/EA265.htm", "68.png", "197", "185", "", "StateNode0","{D5532DAB-DEC9-4a3d-9812-DE7A5A0C21B4}");
+tocTab[tocTab.length] = new Array("3.4.2.2:13", "", "ActivityInitial", "EARoot/EA3/EA4/EA2/EA2/EA266.htm", "68.png", "192", "185", "", "StateNode0","{B94DE7D6-68BB-4ed8-9D58-2E7834A14FA5}");
+tocTab[tocTab.length] = new Array("3.4.2.2:14", "", "Create Control Channel", "EARoot/EA3/EA4/EA2/EA2/EA267.htm", "21.png", "193", "185", "", "Activity0","{56C99E1D-F69D-4069-8B9D-A9CEFD358B9E}");
+tocTab[tocTab.length] = new Array("3.4.2.2:15", "", "Modify Control Channel", "EARoot/EA3/EA4/EA2/EA2/EA268.htm", "21.png", "194", "185", "", "Activity0","{3C2E5292-E7D6-4bb9-8AB1-C169B3FCB903}");
+tocTab[tocTab.length] = new Array("3.4.2.2:16", "", "Remove Control Channel", "EARoot/EA3/EA4/EA2/EA2/EA269.htm", "21.png", "195", "185", "", "Activity0","{275C092D-1388-4c36-AEDA-1A4FD4BAC927}");
+tocTab[tocTab.length] = new Array("3.4.2.2:17", "", "Send Message", "EARoot/EA3/EA4/EA2/EA2/EA270.htm", "21.png", "196", "185", "", "Activity0","{20AE2AC1-A08F-4b5a-A2ED-0EDD3041A4F5}");

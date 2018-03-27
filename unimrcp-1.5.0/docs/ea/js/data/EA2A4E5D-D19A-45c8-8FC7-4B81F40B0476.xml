@@ -1,0 +1,6 @@
+tocTab[tocTab.length] = new Array("3.2:1", "", "APR-Toolkit", "EARoot/EA3/EA2/EA85.htm", "178.png", "5", "0", "", "Component diagram0","{C9E916B9-E8AD-405d-B2BE-8333464BE73D}");
+tocTab[tocTab.length] = new Array("3.2.1", "1", "AptTask Hierarchy", "EARoot/EA3/EA2/EA93.htm", "4.png", "", "", "{9764622C-C74E-4dbb-976C-4F2075438C2F}", "Package");
+tocTab[tocTab.length] = new Array("3.2.2", "1", "AptTask Activity Diagram", "EARoot/EA3/EA2/EA94.htm", "4.png", "", "", "{37EAF43A-D13B-48ac-A0E4-AB38515A0806}", "Package");
+tocTab[tocTab.length] = new Array("3.2.3", "1", "AptTask State Diagram", "EARoot/EA3/EA2/EA95.htm", "4.png", "", "", "{D47CDE81-4DD7-487a-AA79-C7CDFB149746}", "Package");
+tocTab[tocTab.length] = new Array("3.2.4", "1", "AptTask Sequence Diagram", "EARoot/EA3/EA2/EA96.htm", "4.png", "", "", "{06EA5DCA-7A3C-4de5-9F32-03A256F6F514}", "Package");
+tocTab[tocTab.length] = new Array("3.2.5", "1", "AptTask Composite Sequence Diagram", "EARoot/EA3/EA2/EA97.htm", "4.png", "", "", "{051FAF49-3CEB-4a03-B386-6FC9201A978D}", "Package");

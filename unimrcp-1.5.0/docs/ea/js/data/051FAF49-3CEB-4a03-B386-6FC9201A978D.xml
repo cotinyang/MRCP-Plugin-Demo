@@ -1,0 +1,5 @@
+tocTab[tocTab.length] = new Array("3.2.5:1", "", "AptTask Composite Sequence Diagram", "EARoot/EA3/EA2/EA5/EA129.htm", "185.png", "11", "0", "", "Sequence diagram0","{786BF886-0A7D-4d5c-9FAA-9A8137B60A90}");
+tocTab[tocTab.length] = new Array("3.2.5:2", "", "Actor", "EARoot/EA3/EA2/EA5/EA131.htm", "6.png", "67", "0", "", "Actor0","{2FA7D02E-FD78-45b4-B361-D184F99BB391}");
+tocTab[tocTab.length] = new Array("3.2.5:3", "", "«boundary» MasterTask", "EARoot/EA3/EA2/EA5/EA132.htm", "57.png", "68", "0", "", "Sequence0","{4B424B53-D7B1-490c-8D5E-4A903568A81D}");
+tocTab[tocTab.length] = new Array("3.2.5:4", "", "«control» SlaveTask1", "EARoot/EA3/EA2/EA5/EA134.htm", "57.png", "69", "0", "", "Sequence0","{3DA1FD13-D308-473b-B552-B3FFE48B8A8A}");
+tocTab[tocTab.length] = new Array("3.2.5:5", "", "«control» SlaveTask2", "EARoot/EA3/EA2/EA5/EA135.htm", "57.png", "70", "0", "", "Sequence0","{870FCD21-6A55-4515-BCB1-3BD36D6FA017}");

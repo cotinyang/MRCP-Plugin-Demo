@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{f3d72265-16a4-4944-8aa5-d5d49c963f61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\buckets">
+      <UniqueIdentifier>{6d3112b4-2bbc-4129-928b-39764fcf306e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\crypto">
+      <UniqueIdentifier>{da43df3a-9389-453c-8811-00ee52e410cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dbd">
+      <UniqueIdentifier>{80080a23-26a4-4f05-8260-6363c68a5b53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dbm">
+      <UniqueIdentifier>{c7b37b1d-2a90-4c82-876d-d88526e5f11d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\encoding">
+      <UniqueIdentifier>{c8564fe6-6226-4297-828f-0b8ad8cc64a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\hooks">
+      <UniqueIdentifier>{d07efbb3-73ce-4d93-b6c5-aca92232ec31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ldap">
+      <UniqueIdentifier>{213dd9a3-0378-4ed4-90fa-2d4b058f6cf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\memcache">
+      <UniqueIdentifier>{50fc857b-a1f0-4215-82cf-3139d347e96d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\misc">
+      <UniqueIdentifier>{adf80398-df0c-4e87-9820-5a24ebd522be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sdbm">
+      <UniqueIdentifier>{58e2181e-b7ba-4129-bb83-9d804db28527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\strmatch">
+      <UniqueIdentifier>{e9b118f4-5640-4606-9688-e19e08b882ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\uri">
+      <UniqueIdentifier>{0b147521-ac74-45b5-ad9f-349f53c6a533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\xlate">
+      <UniqueIdentifier>{bd11d5ea-de4f-48e5-8bec-4d3eeabc5518}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\xml">
+      <UniqueIdentifier>{9fd65aca-cd19-458d-86c6-59db4e918a95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{d7c26437-a1a8-403c-bd62-bee68978d85d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public Header Files">
+      <UniqueIdentifier>{77f7efaa-8214-41af-9e45-27db11089677}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{ab90a5c8-6ca1-464d-98c2-de883966f54f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="buckets\apr_brigade.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_alloc.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_eos.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_file.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_flush.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_heap.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_mmap.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_pipe.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_pool.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_refcount.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_simple.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="buckets\apr_buckets_socket.c">
+      <Filter>Source Files\buckets</Filter>
+    </ClCompile>
+    <ClCompile Include="crypto\apr_md4.c">
+      <Filter>Source Files\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="crypto\apr_md5.c">
+      <Filter>Source Files\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="crypto\apr_sha1.c">
+      <Filter>Source Files\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="crypto\getuuid.c">
+      <Filter>Source Files\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="crypto\uuid.c">
+      <Filter>Source Files\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd.c">
+      <Filter>Source Files\dbd</Filter>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_freetds.c">
+      <Filter>Source Files\dbd</Filter>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_mysql.c">
+      <Filter>Source Files\dbd</Filter>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_odbc.c">
+      <Filter>Source Files\dbd</Filter>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_oracle.c">
+      <Filter>Source Files\dbd</Filter>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_pgsql.c">
+      <Filter>Source Files\dbd</Filter>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_sqlite2.c">
+      <Filter>Source Files\dbd</Filter>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_sqlite3.c">
+      <Filter>Source Files\dbd</Filter>
+    </ClCompile>
+    <ClCompile Include="dbm\apr_dbm.c">
+      <Filter>Source Files\dbm</Filter>
+    </ClCompile>
+    <ClCompile Include="dbm\apr_dbm_berkeleydb.c">
+      <Filter>Source Files\dbm</Filter>
+    </ClCompile>
+    <ClCompile Include="dbm\apr_dbm_gdbm.c">
+      <Filter>Source Files\dbm</Filter>
+    </ClCompile>
+    <ClCompile Include="dbm\apr_dbm_sdbm.c">
+      <Filter>Source Files\dbm</Filter>
+    </ClCompile>
+    <ClCompile Include="encoding\apr_base64.c">
+      <Filter>Source Files\encoding</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\apr_hooks.c">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="ldap\apr_ldap_init.c">
+      <Filter>Source Files\ldap</Filter>
+    </ClCompile>
+    <ClCompile Include="ldap\apr_ldap_option.c">
+      <Filter>Source Files\ldap</Filter>
+    </ClCompile>
+    <ClCompile Include="ldap\apr_ldap_rebind.c">
+      <Filter>Source Files\ldap</Filter>
+    </ClCompile>
+    <ClCompile Include="ldap\apr_ldap_stub.c">
+      <Filter>Source Files\ldap</Filter>
+    </ClCompile>
+    <ClCompile Include="ldap\apr_ldap_url.c">
+      <Filter>Source Files\ldap</Filter>
+    </ClCompile>
+    <ClCompile Include="memcache\apr_memcache.c">
+      <Filter>Source Files\memcache</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\apr_date.c">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\apr_queue.c">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\apr_reslist.c">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\apr_rmm.c">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\apr_thread_pool.c">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\apu_dso.c">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\apu_version.c">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="dbm\sdbm\sdbm.c">
+      <Filter>Source Files\sdbm</Filter>
+    </ClCompile>
+    <ClCompile Include="dbm\sdbm\sdbm_hash.c">
+      <Filter>Source Files\sdbm</Filter>
+    </ClCompile>
+    <ClCompile Include="dbm\sdbm\sdbm_lock.c">
+      <Filter>Source Files\sdbm</Filter>
+    </ClCompile>
+    <ClCompile Include="dbm\sdbm\sdbm_pair.c">
+      <Filter>Source Files\sdbm</Filter>
+    </ClCompile>
+    <ClCompile Include="strmatch\apr_strmatch.c">
+      <Filter>Source Files\strmatch</Filter>
+    </ClCompile>
+    <ClCompile Include="uri\apr_uri.c">
+      <Filter>Source Files\uri</Filter>
+    </ClCompile>
+    <ClCompile Include="xlate\xlate.c">
+      <Filter>Source Files\xlate</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\apr_xml.c">
+      <Filter>Source Files\xml</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dbm\sdbm\sdbm_pair.h">
+      <Filter>Source Files\sdbm</Filter>
+    </ClInclude>
+    <ClInclude Include="dbm\sdbm\sdbm_private.h">
+      <Filter>Source Files\sdbm</Filter>
+    </ClInclude>
+    <ClInclude Include="dbm\sdbm\sdbm_tune.h">
+      <Filter>Source Files\sdbm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_anylock.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_base64.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_buckets.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_date.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_dbm.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_hooks.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_ldap_url.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_md4.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_md5.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_memcache.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_optional.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_optional_hooks.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_queue.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_reslist.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_rmm.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_sdbm.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_sha1.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_strmatch.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_thread_pool.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_uri.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_uuid.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_xlate.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apr_xml.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\apu_version.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\apr_ldap.h.in">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="include\apr_ldap.hnw">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="include\apu.h.in">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="include\apu.hnw">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="include\private\apu_config.h.in">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="include\private\apu_select_dbm.h.in">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="include\apu_want.h.in">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="include\apu_want.hnw">
+      <Filter>Generated Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="include\apr_ldap.hw">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\apu.hw">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\private\apu_config.hw">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\private\apu_select_dbm.hw">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\apu_want.hw">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="libaprutil.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

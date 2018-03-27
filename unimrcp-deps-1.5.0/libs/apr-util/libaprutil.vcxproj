@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{73DEB27C-F629-4B4D-85BD-F1CADCF11265}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Platform)'=='Win32'">$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Platform)'=='x64'">$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)-1</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/EHsc  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./include;../apr/include;./include/private;../apr-iconv/include;./dbm/sdbm;./xml/expat/lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;APU_DECLARE_EXPORT;APU_USE_SDBM;WIN32;_WINDOWS;XML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>./include;../apr/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib;mswsock.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress>0x6EE60000</BaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake />
+    <PostBuildEvent>
+      <Message>Embed .manifest</Message>
+      <Command>if exist $(TargetPath).manifest mt.exe -manifest $(TargetPath).manifest -outputresource:$(TargetPath)%3b2</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/EHsc  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./include;../apr/include;./include/private;../apr-iconv/include;./dbm/sdbm;./xml/expat/lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;APU_DECLARE_EXPORT;APU_USE_SDBM;WIN32;_WINDOWS;_WIN64;XML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>./include;../apr/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib;mswsock.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress>0x6EE60000</BaseAddress>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake />
+    <PostBuildEvent>
+      <Message>Embed .manifest</Message>
+      <Command>if exist $(TargetPath).manifest mt.exe -manifest $(TargetPath).manifest -outputresource:$(TargetPath)%3b2</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>./include;../apr/include;./include/private;../apr-iconv/include;./dbm/sdbm;./xml/expat/lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;APU_DECLARE_EXPORT;APU_USE_SDBM;WIN32;_WINDOWS;XML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>./include;../apr/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib;mswsock.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <BaseAddress>0x6EE60000</BaseAddress>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake />
+    <PostBuildEvent>
+      <Message>Embed .manifest</Message>
+      <Command>if exist $(TargetPath).manifest mt.exe -manifest $(TargetPath).manifest -outputresource:$(TargetPath)%3b2</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>./include;../apr/include;./include/private;../apr-iconv/include;./dbm/sdbm;./xml/expat/lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;APU_DECLARE_EXPORT;APU_USE_SDBM;WIN32;_WINDOWS;_WIN64;XML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>./include;../apr/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib;mswsock.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <BaseAddress>0x6EE60000</BaseAddress>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake />
+    <PostBuildEvent>
+      <Message>Embed .manifest</Message>
+      <Command>if exist $(TargetPath).manifest mt.exe -manifest $(TargetPath).manifest -outputresource:$(TargetPath)%3b2</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="buckets\apr_brigade.c" />
+    <ClCompile Include="buckets\apr_buckets.c" />
+    <ClCompile Include="buckets\apr_buckets_alloc.c" />
+    <ClCompile Include="buckets\apr_buckets_eos.c" />
+    <ClCompile Include="buckets\apr_buckets_file.c" />
+    <ClCompile Include="buckets\apr_buckets_flush.c" />
+    <ClCompile Include="buckets\apr_buckets_heap.c" />
+    <ClCompile Include="buckets\apr_buckets_mmap.c" />
+    <ClCompile Include="buckets\apr_buckets_pipe.c" />
+    <ClCompile Include="buckets\apr_buckets_pool.c" />
+    <ClCompile Include="buckets\apr_buckets_refcount.c" />
+    <ClCompile Include="buckets\apr_buckets_simple.c" />
+    <ClCompile Include="buckets\apr_buckets_socket.c" />
+    <ClCompile Include="crypto\apr_md4.c" />
+    <ClCompile Include="crypto\apr_md5.c" />
+    <ClCompile Include="crypto\apr_sha1.c" />
+    <ClCompile Include="crypto\getuuid.c" />
+    <ClCompile Include="crypto\uuid.c" />
+    <ClCompile Include="dbd\apr_dbd.c" />
+    <ClCompile Include="dbd\apr_dbd_freetds.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_mysql.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_odbc.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_oracle.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_pgsql.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_sqlite2.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="dbd\apr_dbd_sqlite3.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="dbm\apr_dbm.c" />
+    <ClCompile Include="dbm\apr_dbm_berkeleydb.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="dbm\apr_dbm_gdbm.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="dbm\apr_dbm_sdbm.c" />
+    <ClCompile Include="encoding\apr_base64.c" />
+    <ClCompile Include="hooks\apr_hooks.c" />
+    <ClCompile Include="ldap\apr_ldap_init.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="ldap\apr_ldap_option.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="ldap\apr_ldap_rebind.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="ldap\apr_ldap_stub.c" />
+    <ClCompile Include="ldap\apr_ldap_url.c" />
+    <ClCompile Include="memcache\apr_memcache.c" />
+    <ClCompile Include="misc\apr_date.c" />
+    <ClCompile Include="misc\apr_queue.c" />
+    <ClCompile Include="misc\apr_reslist.c" />
+    <ClCompile Include="misc\apr_rmm.c" />
+    <ClCompile Include="misc\apr_thread_pool.c" />
+    <ClCompile Include="misc\apu_dso.c" />
+    <ClCompile Include="misc\apu_version.c" />
+    <ClCompile Include="dbm\sdbm\sdbm.c" />
+    <ClCompile Include="dbm\sdbm\sdbm_hash.c" />
+    <ClCompile Include="dbm\sdbm\sdbm_lock.c" />
+    <ClCompile Include="dbm\sdbm\sdbm_pair.c" />
+    <ClCompile Include="strmatch\apr_strmatch.c" />
+    <ClCompile Include="uri\apr_uri.c" />
+    <ClCompile Include="xlate\xlate.c" />
+    <ClCompile Include="xml\apr_xml.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dbm\sdbm\sdbm_pair.h" />
+    <ClInclude Include="dbm\sdbm\sdbm_private.h" />
+    <ClInclude Include="dbm\sdbm\sdbm_tune.h" />
+    <ClInclude Include="include\apr_anylock.h" />
+    <ClInclude Include="include\apr_base64.h" />
+    <ClInclude Include="include\apr_buckets.h" />
+    <ClInclude Include="include\apr_date.h" />
+    <ClInclude Include="include\apr_dbm.h" />
+    <ClInclude Include="include\apr_hooks.h" />
+    <ClInclude Include="include\apr_ldap_url.h" />
+    <ClInclude Include="include\apr_md4.h" />
+    <ClInclude Include="include\apr_md5.h" />
+    <ClInclude Include="include\apr_memcache.h" />
+    <ClInclude Include="include\apr_optional.h" />
+    <ClInclude Include="include\apr_optional_hooks.h" />
+    <ClInclude Include="include\apr_queue.h" />
+    <ClInclude Include="include\apr_reslist.h" />
+    <ClInclude Include="include\apr_rmm.h" />
+    <ClInclude Include="include\apr_sdbm.h" />
+    <ClInclude Include="include\apr_sha1.h" />
+    <ClInclude Include="include\apr_strmatch.h" />
+    <ClInclude Include="include\apr_thread_pool.h" />
+    <ClInclude Include="include\apr_uri.h" />
+    <ClInclude Include="include\apr_uuid.h" />
+    <ClInclude Include="include\apr_xlate.h" />
+    <ClInclude Include="include\apr_xml.h" />
+    <ClInclude Include="include\apu_version.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\apr_ldap.h.in" />
+    <None Include="include\apr_ldap.hnw" />
+    <CustomBuild Include="include\apr_ldap.hw">
+      <Message>Creating apr_ldap.h from apr_ldap.hw</Message>
+      <Command>type .\include\apr_ldap.hw &gt; .\include\apr_ldap.h</Command>
+      <Outputs>.\include\apr_ldap.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="include\apu.h.in" />
+    <None Include="include\apu.hnw" />
+    <CustomBuild Include="include\apu.hw">
+      <Message>Creating apu.h from apu.hw</Message>
+      <Command>type .\include\apu.hw &gt; .\include\apu.h</Command>
+      <Outputs>.\include\apu.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="include\private\apu_config.h.in" />
+    <CustomBuild Include="include\private\apu_config.hw">
+      <Message>Creating apu_config.h from apu_config.hw</Message>
+      <Command>type .\include\private\apu_config.hw &gt; .\include\private\apu_config.h</Command>
+      <Outputs>.\include\private\apu_config.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="include\private\apu_select_dbm.h.in" />
+    <CustomBuild Include="include\private\apu_select_dbm.hw">
+      <Message>Creating apu_select_dbm.h from apu_select_dbm.hw</Message>
+      <Command>type .\include\private\apu_select_dbm.hw &gt; .\include\private\apu_select_dbm.h</Command>
+      <Outputs>.\include\private\apu_select_dbm.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="include\apu_want.h.in" />
+    <None Include="include\apu_want.hnw" />
+    <CustomBuild Include="include\apu_want.hw">
+      <Message>Creating apu_want.h from apu_want.hw</Message>
+      <Command>type .\include\apu_want.hw &gt; .\include\apu_want.h</Command>
+      <Outputs>.\include\apu_want.h;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="libaprutil.rc">
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\apr\libapr.vcxproj">
+      <Project>{a74881c1-090a-4a0f-ac0e-79f5d3bd872c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="xml\expat\lib\xml.vcxproj">
+      <Project>{eff1229b-ad2f-4682-9c89-6a4982142a5d}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

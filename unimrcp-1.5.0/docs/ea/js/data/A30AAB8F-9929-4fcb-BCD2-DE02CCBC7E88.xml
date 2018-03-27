@@ -1,0 +1,14 @@
+tocTab[tocTab.length] = new Array("3.4.6.2:1", "", "Activity Diagram", "EARoot/EA3/EA4/EA6/EA2/EA376.htm", "181.png", "38", "0", "", "Activity diagram0","{C48A5D2E-EFF1-4190-8E40-60F14828F9A8}");
+tocTab[tocTab.length] = new Array("3.4.6.2:3", "", "ActivityFinal", "EARoot/EA3/EA4/EA6/EA2/EA380.htm", "68.png", "295", "0", "", "StateNode0","{74A30BEE-86FA-4d4a-A146-7717152319E7}");
+tocTab[tocTab.length] = new Array("3.4.6.2:4", "", "ActivityInitial", "EARoot/EA3/EA4/EA6/EA2/EA381.htm", "68.png", "284", "0", "", "StateNode0","{B87F90C9-A2C0-4bd7-B114-63616C51422A}");
+tocTab[tocTab.length] = new Array("3.4.6.2:5", "", "Create MRCP Server", "EARoot/EA3/EA4/EA6/EA2/EA382.htm", "21.png", "285", "0", "", "Activity0","{19EAACA8-3120-4068-BEF5-A23C61BACAAA}");
+tocTab[tocTab.length] = new Array("3.4.6.2:6", "", "Destroy MRCP Server", "EARoot/EA3/EA4/EA6/EA2/EA383.htm", "21.png", "293", "0", "", "Activity0","{A72332CA-FC4A-42b8-BC7E-87BE24432176}");
+tocTab[tocTab.length] = new Array("3.4.6.2:7", "", "Register Application", "EARoot/EA3/EA4/EA6/EA2/EA384.htm", "21.png", "290", "0", "", "Activity0","{258E632B-EE36-4486-925D-7F9D9571C25B}");
+tocTab[tocTab.length] = new Array("3.4.6.2:8", "", "Register Connection Agent", "EARoot/EA3/EA4/EA6/EA2/EA385.htm", "21.png", "289", "0", "", "Activity0","{89AF586A-6D90-45b6-BAFA-AD82216B3403}");
+tocTab[tocTab.length] = new Array("3.4.6.2:9", "", "Register Media Engine", "EARoot/EA3/EA4/EA6/EA2/EA386.htm", "21.png", "287", "0", "", "Activity0","{E2642BE9-2529-44be-A9BA-BAAFA9C72E2F}");
+tocTab[tocTab.length] = new Array("3.4.6.2:10", "", "Register Resource Factory", "EARoot/EA3/EA4/EA6/EA2/EA387.htm", "21.png", "286", "0", "", "Activity0","{AB8B8462-7870-457c-B7AA-B25C2D866570}");
+tocTab[tocTab.length] = new Array("3.4.6.2:11", "", "Register Signaling Agent", "EARoot/EA3/EA4/EA6/EA2/EA388.htm", "21.png", "288", "0", "", "Activity0","{F8FBD5C4-7E90-41d6-9994-5EA5BF30C6A3}");
+tocTab[tocTab.length] = new Array("3.4.6.2:12", "", "Start MRCP Server", "EARoot/EA3/EA4/EA6/EA2/EA389.htm", "21.png", "291", "0", "", "Activity0","{9B23B330-DE34-4b4b-BD9C-D82655280FAD}");
+tocTab[tocTab.length] = new Array("3.4.6.2:13", "", "Terminate MRCP Server", "EARoot/EA3/EA4/EA6/EA2/EA390.htm", "21.png", "292", "0", "", "Activity0","{41C04F09-D6E5-44a5-9907-9DE497DD641F}");
+tocTab[tocTab.length] = new Array("3.4.6.2:14", "", "Session Processing", "EARoot/EA3/EA4/EA6/EA2/EA391.htm", "21.png", "294", "0", "", "Activity0","{8AB90AD0-000B-48a2-A09C-0BD3EC608F67}");
+tocTab[tocTab.length] = new Array("3.4.6.2:2", "", "Session Processing", "EARoot/EA3/EA4/EA6/EA2/EA378.htm", "181.png", "39", "294", "", "Activity diagram0","{D3AB8B7B-31D6-4774-8654-FD4CE66A5879}");

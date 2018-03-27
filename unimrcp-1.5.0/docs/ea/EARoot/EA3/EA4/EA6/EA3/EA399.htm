@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Resource Engine</title>
+<link href="../../../../../css/ea.css" rel="stylesheet" type="text/css" />
+<script>
+function initPage(src) {
+	if(parent==this&&(this.location+"").indexOf('EARoot')!=-1)
+		document.location=(this.location+"").substring(0,(this.location+"").indexOf('EARoot'))+"index"+(this.location+"").substring((this.location+"").lastIndexOf('.'))+"?goto="+((this.location+"").substring((this.location+"").indexOf('EARoot')+7,(this.location+"").lastIndexOf('.')).replace(/\//g,':').replace(/EA/g,""));
+	else
+		parent.initPage(src);
+}
+</script>
+</head>
+<body onload="initPage(this);" class="Content">
+<div class="pageHeader"></div>
+<div class="PageBody">
+	<span class="ObjectTitle">Resource Engine  : public  &lt;&lt;control&gt;&gt; sequence</span>
+	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic">Created:</td>
+			<td width="85%" class="ObjectDetailsValue">7/11/2008 9:38:42 PM</td>
+		</tr>
+		<tr>
+			<td class="ObjectDetailsTopic">Modified:</td>
+			<td class="ObjectDetailsValue">7/11/2008 9:38:48 PM</td>
+		</tr>
+		<tr style="height: 10px"><td colspan="2"></td></tr>
+		<tr>
+			<td class="ObjectDetailsTopic"><img src="../../../../../images/plus03.gif" align="absmiddle" id="proj" onclick="parent.toggleData(this.id)" />Project:</td>
+			<td class="ObjectDetailsValue"></td>
+		</tr>
+		<tr id="proj00" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Author:</td>
+			<td class="ObjectDetailsValue">arsen</td>
+		</tr>
+		<tr id="proj01" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Version:</td>
+			<td class="ObjectDetailsValue">1.0</td>
+		</tr>
+		<tr id="proj02" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Phase:</td>
+			<td class="ObjectDetailsValue">1.0</td>
+		</tr>
+		<tr id="proj03" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Status:</td>
+			<td class="ObjectDetailsValue">Proposed</td>
+		</tr>
+		<tr id="proj04" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Complexity:</td>
+			<td class="ObjectDetailsValue">Easy</td>
+		</tr>
+		<tr>
+			<td class="ObjectDetailsTopic"><img src="../../../../../images/plus03.gif" align="absmiddle" id="adv" onclick="parent.toggleData(this.id)" />Advanced:</td>
+			<td class="ObjectDetailsValue"></td>
+		</tr>
+		<tr id="adv00" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
+			<td class="ObjectDetailsValue">{E55C949A-F1AE-4ba6-A0D2-8D52940E4A2A}</td>
+		</tr>
+		<tr id="adv01" style="display: none;">
+			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
+			<td class="ObjectDetailsValue"><a href="EA392.htm">Sequence Diagram</a></td>
+		</tr>
+	</table>
+	
+	<div class="TableGroup" id="TableGroup">
+		<ul class="ItemTitle">
+			<li onClick="parent.toggleItem('MessagesTo');" id="MessagesToTitle">Messages To</li>
+			<li onClick="parent.toggleItem('MessagesFrom');" id="MessagesFromTitle">Messages From</li>
+		</ul>
+		<div class="ItemBody" id="MessagesToTable">
+			<table border="0" cellspacing="0" cellpadding="0" class="Table">
+				<tr>
+					<td width="30%" class="TableHeading">Element</td>
+					<td width="30%" class="TableHeading">Message</td>
+					<td width="40%" class="TableHeading">Details</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA397.htm">«boundary» MRCP Server</a></td>
+					<td width="30%" class="TableRow" valign="top">On Open Channel</td>
+					<td width="40%" class="TableRow" valign="top"><strong>Type:</strong> Sequence<br />Asynchronous Call</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA397.htm">«boundary» MRCP Server</a></td>
+					<td width="30%" class="TableRow" valign="top">Receive Response</td>
+					<td width="40%" class="TableRow" valign="top"><strong>Type:</strong> Sequence<br />Asynchronous Call</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA397.htm">«boundary» MRCP Server</a></td>
+					<td width="30%" class="TableRow" valign="top">On Close Channel</td>
+					<td width="40%" class="TableRow" valign="top"><strong>Type:</strong> Sequence<br />Asynchronous Call</td>
+				</tr>
+
+			</table>
+		</div>
+		<div class="ItemBody" id="MessagesFromTable">
+			<table border="0" cellspacing="0" cellpadding="0" class="Table">
+				<tr>
+					<td width="30%" class="TableHeading">Element</td>
+					<td width="30%" class="TableHeading">Message</td>
+					<td width="40%" class="TableHeading">Details</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA397.htm">«boundary» MRCP Server</a></td>
+					<td width="30%" class="TableRow" valign="top">Open Channel</td>
+					<td width="40%" class="TableRow" valign="top"><strong>Type:</strong> Sequence<br />Asynchronous Call</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA397.htm">«boundary» MRCP Server</a></td>
+					<td width="30%" class="TableRow" valign="top">Process Request</td>
+					<td width="40%" class="TableRow" valign="top"><strong>Type:</strong> Sequence<br />Asynchronous Call</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA397.htm">«boundary» MRCP Server</a></td>
+					<td width="30%" class="TableRow" valign="top">Close Channel</td>
+					<td width="40%" class="TableRow" valign="top"><strong>Type:</strong> Sequence<br />Synchronous Call</td>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+<div class="pageFooter"></div>
+ 
+</body>
+</html>

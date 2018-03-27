@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("3.4.2.3:1", "", "Client Sequence Diagram", "EARoot/EA3/EA4/EA2/EA3/EA271.htm", "185.png", "26", "0", "", "Sequence diagram0","{84364A32-EB84-4290-8E79-1A31174E4A39}");
+tocTab[tocTab.length] = new Array("3.4.2.3:2", "", "MRCPv2 Client", "EARoot/EA3/EA4/EA2/EA3/EA273.htm", "6.png", "202", "0", "", "Actor0","{5B7E7CA7-D3AB-4dcd-90EC-06B273BD1C6A}");
+tocTab[tocTab.length] = new Array("3.4.2.3:3", "", "«boundary» MRCPv2 Client Connection Task", "EARoot/EA3/EA4/EA2/EA3/EA274.htm", "57.png", "203", "0", "", "Sequence0","{305EA3A8-E74C-4043-8A01-DB961D392F52}");
+tocTab[tocTab.length] = new Array("3.4.2.3:4", "", "«control» MRCPv2 Server", "EARoot/EA3/EA4/EA2/EA3/EA275.htm", "57.png", "204", "0", "", "Sequence0","{86EF76F2-7A3A-480d-86C3-D942039E0D66}");

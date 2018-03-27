@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("4.2:1", "", "MRCP-UniRTSP", "EARoot/EA4/EA2/EA414.htm", "178.png", "54", "0", "", "Component diagram0","{07F69548-A025-49a8-B17E-826016489992}");
+tocTab[tocTab.length] = new Array("4.2:2", "", "MRCP-UniRTSP", "EARoot/EA4/EA2/EA416.htm", "10.png", "372", "0", "", "Component0","{F57C3BE8-FC81-4072-BC36-A1E80D84B195}");
+tocTab[tocTab.length] = new Array("4.2:3", "", "«interface» SignalingInterface", "EARoot/EA4/EA2/EA417.htm", "8.png", "371", "0", "", "Interface0","{6E2157A8-EEC5-4603-A0E7-EA9E97C5D5B6}");
+tocTab[tocTab.length] = new Array("4.2:4", "", "UniRTSP", "EARoot/EA4/EA2/EA418.htm", "10.png", "370", "0", "", "Component0","{995831F2-393C-4b7a-863C-CC58BD4F1B90}");

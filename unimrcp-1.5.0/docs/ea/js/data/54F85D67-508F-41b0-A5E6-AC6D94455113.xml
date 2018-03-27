@@ -1,0 +1,3 @@
+tocTab[tocTab.length] = new Array("5.2:1", "", "MRCP-Recorder", "EARoot/EA5/EA2/EA436.htm", "178.png", "63", "0", "", "Component diagram0","{CD83FA4D-B8F6-4073-B90A-C05E93478625}");
+tocTab[tocTab.length] = new Array("5.2:2", "", "«interface» EngineInterface", "EARoot/EA5/EA2/EA438.htm", "8.png", "413", "0", "", "Interface0","{FB7C509C-C5DE-43a4-B825-1532796D7DC3}");
+tocTab[tocTab.length] = new Array("5.2:3", "", "MRCP-Recorder", "EARoot/EA5/EA2/EA440.htm", "10.png", "414", "0", "", "Component0","{B874D3A8-FA8B-49e6-9A20-B6988871EA96}");

@@ -1,0 +1,54 @@
+INTRODUCTION
+============
+
+This package contains 3-rd party libraries and tools required to build the UniMRCP project.
+
+1. APR (Apache Portable Runtime) library
+
+* Description: APR is the base portability library.
+* Version: 1.5.2
+* Base: http://www.unimrcp.org/dependencies/apr-1.5.2.tar.gz
+* Patches: http://www.unimrcp.org/dependencies/apr-1.5.2-patches.tar.gz
+* Notes:
+    In the original distribution of the APR library, which can be downloaded from the location
+    specified above, operations on memory pools are not thread-safe. Whereas, the version of the
+    APR library included in this package is patched to make the memory pools thread-safe.
+
+2. APR-util (Apache Portable Runtime Utilities) library
+
+* Description: APR-util provides a number of helpful abstractions on top of APR.
+* Version: 1.5.4
+* Base: http://www.unimrcp.org/dependencies/apr-util-1.5.4.tar.gz
+* Patches: http://www.unimrcp.org/dependencies/apr-util-1.5.4-patches.tar.gz
+
+3. Sofia-SIP library
+
+* Description: Sofia-SIP is a SIP User-Agent library, compliant with the IETF RFC3261 specification.
+* Version: 1.12.11-234-gd74df2e
+* Repository: https://github.com/unispeech/sofia-sip
+* Notes:
+  * The version of the Sofia-SIP library included in this package is checked out from the GitHub 
+    repository unispeech/sofia-sip. This is a clone of the Sofia-SIP library maintained for needs of
+    the UniMRCP project.
+
+
+COMPATIBILITY
+=============
+
+This package is compatible with UniMRCP 1.0.0 r1725 and above.
+
+
+INSTALLATION
+============
+
+1. Extract the package content into a local directory.
+2. Run the script ./build-dep-libs.sh and follow the instructions.
+
+
+REFERENCES
+==========
+
+* http://www.unimrcp.org/downloads/dependencies
+* http://www.unimrcp.org/dependencies
+* http://apr.apache.org
+* http://sofia-sip.sourceforge.net

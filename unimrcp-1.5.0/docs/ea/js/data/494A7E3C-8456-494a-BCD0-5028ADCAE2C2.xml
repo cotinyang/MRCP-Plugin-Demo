@@ -1,0 +1,7 @@
+tocTab[tocTab.length] = new Array("3.4.5.3:1", "", "Sequence Diagram", "EARoot/EA3/EA4/EA5/EA3/EA344.htm", "185.png", "33", "0", "", "Sequence diagram0","{3ACAF9ED-06BF-4176-8735-30EECDF7973D}");
+tocTab[tocTab.length] = new Array("3.4.5.3:2", "", "Application", "EARoot/EA3/EA4/EA5/EA3/EA346.htm", "6.png", "255", "0", "", "Actor0","{E58743CD-DF99-415c-8B69-4610F2CC65C7}");
+tocTab[tocTab.length] = new Array("3.4.5.3:3", "", "«control» Connection Agent", "EARoot/EA3/EA4/EA5/EA3/EA347.htm", "57.png", "258", "0", "", "Sequence0","{206592B3-79D4-417f-ADF4-DD599710F32C}");
+tocTab[tocTab.length] = new Array("3.4.5.3:4", "", "«control» Media Engine", "EARoot/EA3/EA4/EA5/EA3/EA348.htm", "57.png", "259", "0", "", "Sequence0","{E5D6DCD2-2936-41b8-B513-EA1635702655}");
+tocTab[tocTab.length] = new Array("3.4.5.3:5", "", "«boundary» MRCP Client", "EARoot/EA3/EA4/EA5/EA3/EA349.htm", "57.png", "256", "0", "", "Sequence0","{3E1583FC-7B45-45bb-B890-4A732015B001}");
+tocTab[tocTab.length] = new Array("3.4.5.3:6", "", "«boundary» MRCP Server", "EARoot/EA3/EA4/EA5/EA3/EA351.htm", "57.png", "260", "0", "", "Sequence0","{F397D589-BCAA-4435-8209-0A1E64C51B59}");
+tocTab[tocTab.length] = new Array("3.4.5.3:7", "", "«control» Signaling Agent", "EARoot/EA3/EA4/EA5/EA3/EA352.htm", "57.png", "257", "0", "", "Sequence0","{E97CE5FC-EC9C-44f4-A768-D723153EEF93}");
