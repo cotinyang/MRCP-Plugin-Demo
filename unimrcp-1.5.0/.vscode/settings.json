@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "mrcp_engine_loader.h": "c",
+        "apt_dir_layout.h": "c",
+        "apt_log.h": "c",
+        "apt_pool.h": "c",
+        "apt_multipart_content.h": "c",
+        "mrcp_client_session.h": "c",
+        "mrcp_session_descriptor.h": "c",
+        "mrcp_server_session.h": "c",
+        "mrcp_server.h": "c",
+        "stdlib.h": "c",
+        "unistd.h": "c",
+        "string.h": "c",
+        "stdio.h": "c",
+        "msp_cmn.h": "c",
+        "qtts.h": "c"
+    }
+}

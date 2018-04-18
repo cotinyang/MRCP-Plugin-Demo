@@ -1,0 +1,11 @@
+prefix=/usr/local/unimrcp
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include  -I/usr/local/apr/include/apr-1 
+
+Name: unimrcpserver
+Description: UniMRCP Server Stack
+Requires: 
+Version: 1.5.0
+Libs: -L${libdir} -lunimrcpserver
+Cflags:  -DLINUX -D_REENTRANT -D_GNU_SOURCE -g -O2 -pthread -I${includedir}

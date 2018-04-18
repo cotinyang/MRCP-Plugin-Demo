@@ -1,0 +1,8 @@
+#! /bin/sh
+#
+# Created by configure
+
+"./configure" \
+"--with-apr=/home/cotin/share/unimrcp-deps-1.5.0/libs/apr" \
+"--prefix=/usr/local/apr" \
+"$@"

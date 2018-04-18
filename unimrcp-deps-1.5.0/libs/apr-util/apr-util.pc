@@ -1,0 +1,13 @@
+prefix=/usr/local/apr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+APRUTIL_MAJOR_VERSION=1
+includedir=${prefix}/include/apr-${APRUTIL_MAJOR_VERSION}
+
+Name: APR Utils
+Description: Companion library for APR
+Version: 1.5.4
+# assume that apr-util requires libapr of same major version
+Requires: apr-1
+Libs: -L${libdir} -laprutil-${APRUTIL_MAJOR_VERSION}  /home/cotin/share/unimrcp-deps-1.5.0/libs/apr-util/xml/expat/libexpat.la
+Cflags: -I${includedir}

@@ -1,0 +1,16 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+libexecdir=${exec_prefix}/libexec
+includedir=${prefix}/include
+include_sofiadir=${includedir}/sofia-sip-1.12
+datarootdir=${prefix}/share
+sofiaawkdir=${datarootdir}/sofia-sip
+
+Name: sofia-sip-ua
+Description: Sofia-SIP - a RFC3261 compliant SIP User-Agent library
+Version: 1.12.11-234-gd74df2e
+Libs: -L${libdir} -lsofia-sip-ua
+Libs.private: -lssl -lcrypto   -lpthread 
+Cflags: -I${includedir}/sofia-sip-1.12
+

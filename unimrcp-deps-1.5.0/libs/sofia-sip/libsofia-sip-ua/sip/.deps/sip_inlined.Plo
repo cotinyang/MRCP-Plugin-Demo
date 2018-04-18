@@ -1,0 +1,10 @@
+sip_inlined.lo: sip_inlined.c /usr/include/stdc-predef.h ../../config.h \
+ ../su/sofia-sip/su_config.h ../su/sofia-sip/su_configure.h
+
+/usr/include/stdc-predef.h:
+
+../../config.h:
+
+../su/sofia-sip/su_config.h:
+
+../su/sofia-sip/su_configure.h:
