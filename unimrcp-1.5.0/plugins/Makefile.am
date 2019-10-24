@@ -6,16 +6,16 @@ if DEMOSYNTH_PLUGIN
 SUBDIRS               += demo-synth
 endif
 
-if XFYUNSYNTH_PLUGIN
-SUBDIRS               += xfyun-synth
+if aneexSYNTH_PLUGIN
+SUBDIRS               += aneex-synth
 endif
 
 if DEMORECOG_PLUGIN
 SUBDIRS               += demo-recog
 endif
 
-if XFYUNRECOG_PLUGIN
-SUBDIRS               += xfyun-recog
+if aneexRECOG_PLUGIN
+SUBDIRS               += aneex-recog
 endif
 
 if DEMOVERIFIER_PLUGIN
