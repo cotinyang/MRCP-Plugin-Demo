@@ -807,8 +807,8 @@ do
     "plugins/xfyun-recog/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/xfyun-recog/Makefile" ;;
     "plugins/demo-verifier/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/demo-verifier/Makefile" ;;
     "platforms/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/Makefile" ;;
-    "platforms/libunimrcp-server/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/libunimrcp-server/Makefile" ;;
-    "platforms/libunimrcp-client/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/libunimrcp-client/Makefile" ;;
+    #"platforms/libunimrcp-server/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/libunimrcp-server/Makefile" ;;
+    #"platforms/libunimrcp-client/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/libunimrcp-client/Makefile" ;;
     "platforms/unimrcp-server/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/unimrcp-server/Makefile" ;;
     "platforms/unimrcp-client/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/unimrcp-client/Makefile" ;;
     "platforms/libasr-client/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/libasr-client/Makefile" ;;
