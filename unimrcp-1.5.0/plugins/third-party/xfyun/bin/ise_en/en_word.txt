@@ -1,9 +1,0 @@
-[word]
-autumn
-ball
-horse
-more
-short
-small
-sport
-walk 
