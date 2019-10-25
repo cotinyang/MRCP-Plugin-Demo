@@ -338,9 +338,7 @@ vardir = ${exec_prefix}/var
 AM_CPPFLAGS = $(UNIMRCP_PLUGIN_INCLUDES)
 plugin_LTLIBRARIES = aneexsynth.la
 aneexsynth_la_SOURCES = src/aneex_synth_engine.c
-aneexsynth_la_LDFLAGS = $(UNIMRCP_PLUGIN_OPTS) \
-                              -L$(top_srcdir)/plugins/third-party/aneex/libs/x64 \
-                              -lmsc -ldl -lpthread -lrt
+aneexsynth_la_LDFLAGS = 
 
 aneexsynth_ladir = $(libdir)
 MAINTAINERCLEANFILES = Makefile.in
@@ -352,9 +350,7 @@ UNIMRCP_PLUGIN_INCLUDES = -I$(top_srcdir)/libs/mrcp-engine/include \
 	-I$(top_srcdir)/libs/mrcp/control/include \
 	-I$(top_srcdir)/libs/mrcp/resources/include \
 	-I$(top_srcdir)/libs/mpf/include \
-	-I$(top_srcdir)/libs/apr-toolkit/include \
-	$(UNIMRCP_APR_INCLUDES) \
-	-I$(top_srcdir)/plugins/third-party/aneex/include
+	-I$(top_srcdir)/libs/apr-toolkit/include 
 
 # Linker options (LDFLAGS)
 UNIMRCP_PLUGIN_OPTS = -module $(PLUGIN_LT_VERSION)

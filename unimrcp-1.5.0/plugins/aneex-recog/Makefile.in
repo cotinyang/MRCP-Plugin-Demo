@@ -341,12 +341,10 @@ vardir = @vardir@
 AM_CPPFLAGS = $(UNIMRCP_PLUGIN_INCLUDES)
 plugin_LTLIBRARIES = aneexrecog.la
 aneexrecog_la_SOURCES = src/aneex_recog_engine.c
-aneexrecog_la_LDFLAGS = $(UNIMRCP_PLUGIN_OPTS) \
-                              -L$(top_srcdir)/plugins/third-party/aneex/libs/x64 \
-                              -lmsc -ldl -lpthread -lrt
+aneexrecog_la_LDFLAGS = 
 
 aneexrecog_ladir = $(libdir)
-aneexrecog_la_DATA = $(top_srcdir)/plugins/third-party/aneex/libs/x64/libmsc.so
+aneexrecog_la_DATA = 
 MAINTAINERCLEANFILES = Makefile.in
 
 # Includes
@@ -356,9 +354,7 @@ UNIMRCP_PLUGIN_INCLUDES = -I$(top_srcdir)/libs/mrcp-engine/include \
 	-I$(top_srcdir)/libs/mrcp/control/include \
 	-I$(top_srcdir)/libs/mrcp/resources/include \
 	-I$(top_srcdir)/libs/mpf/include \
-	-I$(top_srcdir)/libs/apr-toolkit/include \
-	$(UNIMRCP_APR_INCLUDES) \
-	-I$(top_srcdir)/plugins/third-party/aneex/include
+	-I$(top_srcdir)/libs/apr-toolkit/include 
 
 # Linker options (LDFLAGS)
 UNIMRCP_PLUGIN_OPTS = -module $(PLUGIN_LT_VERSION)

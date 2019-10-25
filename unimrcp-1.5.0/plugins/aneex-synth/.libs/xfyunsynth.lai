@@ -17,7 +17,7 @@ old_library='aneexsynth.a'
 inherited_linker_flags=' -pthread'
 
 # Libraries that this one depends upon.
-dependency_libs=' -L../../plugins/third-party/aneex/libs/x64 -lmsc -ldl -lpthread -lrt'
+dependency_libs=''
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''

@@ -85,10 +85,6 @@ src/aneex_recog_engine.lo: src/aneex_recog_engine.c \
  ../../libs/apr-toolkit/include/apt_task.h \
  ../../libs/apr-toolkit/include/apt_task_msg.h \
  ../../libs/apr-toolkit/include/apt_timer_queue.h \
- ../../plugins/third-party/aneex/include/qisr.h \
- ../../plugins/third-party/aneex/include/msp_types.h \
- ../../plugins/third-party/aneex/include/msp_cmn.h \
- ../../plugins/third-party/aneex/include/msp_errors.h
 
 /usr/include/stdc-predef.h:
 
@@ -345,11 +341,3 @@ src/aneex_recog_engine.lo: src/aneex_recog_engine.c \
 ../../libs/apr-toolkit/include/apt_task_msg.h:
 
 ../../libs/apr-toolkit/include/apt_timer_queue.h:
-
-../../plugins/third-party/aneex/include/qisr.h:
-
-../../plugins/third-party/aneex/include/msp_types.h:
-
-../../plugins/third-party/aneex/include/msp_cmn.h:
-
-../../plugins/third-party/aneex/include/msp_errors.h:
