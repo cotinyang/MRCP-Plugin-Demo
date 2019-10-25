@@ -172,20 +172,20 @@ UNI_PLUGIN_ENABLED(demosynth)
 
 AM_CONDITIONAL([DEMOSYNTH_PLUGIN],[test "${enable_demosynth_plugin}" = "yes"])
 
-dnl aneex synthesizer plugin.
-UNI_PLUGIN_ENABLED(aneexsynth)
+dnl XFyun synthesizer plugin.
+UNI_PLUGIN_ENABLED(xfyunsynth)
 
-AM_CONDITIONAL([aneexSYNTH_PLUGIN],[test "${enable_aneexsynth_plugin}" = "yes"])
+AM_CONDITIONAL([XFYUNSYNTH_PLUGIN],[test "${enable_xfyunsynth_plugin}" = "yes"])
 
 dnl Demo recognizer plugin.
 UNI_PLUGIN_ENABLED(demorecog)
 
 AM_CONDITIONAL([DEMORECOG_PLUGIN],[test "${enable_demorecog_plugin}" = "yes"])
 
-dnl aneex recognizer plugin.
-UNI_PLUGIN_ENABLED(aneexrecog)
+dnl XFyun recognizer plugin.
+UNI_PLUGIN_ENABLED(xfyunrecog)
 
-AM_CONDITIONAL([aneexRECOG_PLUGIN],[test "${enable_aneexrecog_plugin}" = "yes"])
+AM_CONDITIONAL([XFYUNRECOG_PLUGIN],[test "${enable_xfyunrecog_plugin}" = "yes"])
 
 dnl Demo verifier plugin.
 UNI_PLUGIN_ENABLED(demoverifier)
@@ -225,9 +225,9 @@ AC_CONFIG_FILES([
     plugins/Makefile
     plugins/mrcp-recorder/Makefile
     plugins/demo-synth/Makefile
-    plugins/aneex-synth/Makefile
+    plugins/xfyun-synth/Makefile
     plugins/demo-recog/Makefile
-    plugins/aneex-recog/Makefile
+    plugins/xfyun-recog/Makefile
     plugins/demo-verifier/Makefile
     platforms/Makefile
     platforms/libunimrcp-server/Makefile
@@ -278,9 +278,9 @@ echo UniMRCP server lib............ : $enable_server_lib
 echo UniMRCP server app............ : $enable_server_app
 echo
 echo Demo synthesizer plugin....... : $enable_demosynth_plugin
-echo aneex synthesizer plugin...... : $enable_aneexsynth_plugin
+echo XFyun synthesizer plugin...... : $enable_xfyunsynth_plugin
 echo Demo recognizer plugin........ : $enable_demorecog_plugin
-echo aneex recognizer plugin....... : $enable_aneexrecog_plugin
+echo XFyun recognizer plugin....... : $enable_xfyunrecog_plugin
 echo Demo verifier plugin.......... : $enable_demoverifier_plugin
 echo Recorder plugin............... : $enable_recorder_plugin
 echo
