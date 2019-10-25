@@ -115,7 +115,7 @@
       <engine id="Demo-Recog-1" name="demorecog" enable="true"/>
       <engine id="Demo-Verifier-1" name="demoverifier" enable="true"/>
       <engine id="Recorder-1" name="mrcprecorder" enable="true"/>
-
+	  <engine id="Aneex-Recog-1" name="aneexrecog" enable="true"/>
       <!--
         Engines may have additional named ("max-channel-count") and generic (name/value) parameters.
         For example:
