@@ -617,9 +617,8 @@ config.status:1148: creating modules/mrcp-unirtsp/Makefile
 config.status:1148: creating plugins/Makefile
 config.status:1148: creating plugins/mrcp-recorder/Makefile
 config.status:1148: creating plugins/demo-synth/Makefile
-config.status:1148: creating plugins/xfyun-synth/Makefile
 config.status:1148: creating plugins/demo-recog/Makefile
-config.status:1148: creating plugins/xfyun-recog/Makefile
+config.status:1148: creating plugins/aneex-recog/Makefile
 config.status:1148: creating plugins/demo-verifier/Makefile
 config.status:1148: creating platforms/Makefile
 config.status:1148: creating platforms/libunimrcp-server/Makefile
@@ -859,10 +858,8 @@ UNIMRCP_SOFIA_LIBS='-L/usr/local/lib -lsofia-sip-ua  '
 UNI_DOTTED_VERSION='1.5.0'
 UNI_LT_VERSION='-version-info 5:0:5'
 VERSION='1.5.0'
-XFYUNRECOG_PLUGIN_FALSE='#'
-XFYUNRECOG_PLUGIN_TRUE=''
-XFYUNSYNTH_PLUGIN_FALSE='#'
-XFYUNSYNTH_PLUGIN_TRUE=''
+ANEEXRECOG_PLUGIN_FALSE='#'
+ANEEXRECOG_PLUGIN_TRUE=''
 ac_aux_dir='build'
 ac_ct_AR='ar'
 ac_ct_CC='gcc'

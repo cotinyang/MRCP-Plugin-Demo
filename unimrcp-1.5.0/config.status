@@ -393,7 +393,7 @@ on `(hostname || uname -n) 2>/dev/null | sed 1q`
 "
 
 # Files that config.status was made for.
-config_files=" Makefile libs/Makefile libs/apr-toolkit/Makefile libs/mpf/Makefile libs/mrcp/Makefile libs/mrcp-signaling/Makefile libs/mrcpv2-transport/Makefile libs/mrcp-engine/Makefile libs/mrcp-server/Makefile libs/mrcp-client/Makefile libs/uni-rtsp/Makefile modules/Makefile modules/mrcp-sofiasip/Makefile modules/mrcp-unirtsp/Makefile plugins/Makefile plugins/mrcp-recorder/Makefile plugins/demo-synth/Makefile plugins/xfyun-synth/Makefile plugins/demo-recog/Makefile plugins/xfyun-recog/Makefile plugins/demo-verifier/Makefile platforms/Makefile platforms/libunimrcp-server/Makefile platforms/libunimrcp-client/Makefile platforms/unimrcp-server/Makefile platforms/unimrcp-client/Makefile platforms/libasr-client/Makefile platforms/asr-client/Makefile platforms/umc/Makefile tests/Makefile tests/apttest/Makefile tests/mpftest/Makefile tests/mrcptest/Makefile tests/rtsptest/Makefile tests/strtablegen/Makefile build/Makefile build/pkgconfig/Makefile build/pkgconfig/unimrcpclient.pc build/pkgconfig/unimrcpserver.pc build/pkgconfig/unimrcpplugin.pc conf/Makefile data/Makefile docs/doxygen.conf"
+config_files=" Makefile libs/Makefile libs/apr-toolkit/Makefile libs/mpf/Makefile libs/mrcp/Makefile libs/mrcp-signaling/Makefile libs/mrcpv2-transport/Makefile libs/mrcp-engine/Makefile libs/mrcp-server/Makefile libs/mrcp-client/Makefile libs/uni-rtsp/Makefile modules/Makefile modules/mrcp-sofiasip/Makefile modules/mrcp-unirtsp/Makefile plugins/Makefile plugins/mrcp-recorder/Makefile plugins/demo-recog/Makefile plugins/aneex-recog/Makefile plugins/demo-verifier/Makefile platforms/Makefile platforms/libunimrcp-server/Makefile platforms/libunimrcp-client/Makefile platforms/unimrcp-server/Makefile platforms/unimrcp-client/Makefile platforms/libasr-client/Makefile platforms/asr-client/Makefile platforms/umc/Makefile tests/Makefile tests/apttest/Makefile tests/mpftest/Makefile tests/mrcptest/Makefile tests/rtsptest/Makefile tests/strtablegen/Makefile build/Makefile build/pkgconfig/Makefile build/pkgconfig/unimrcpclient.pc build/pkgconfig/unimrcpserver.pc build/pkgconfig/unimrcpplugin.pc conf/Makefile data/Makefile docs/doxygen.conf"
 config_commands=" depfiles libtool"
 
 ac_cs_usage="\
@@ -802,9 +802,8 @@ do
     "plugins/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/Makefile" ;;
     "plugins/mrcp-recorder/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/mrcp-recorder/Makefile" ;;
     "plugins/demo-synth/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/demo-synth/Makefile" ;;
-    "plugins/xfyun-synth/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/xfyun-synth/Makefile" ;;
     "plugins/demo-recog/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/demo-recog/Makefile" ;;
-    "plugins/xfyun-recog/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/xfyun-recog/Makefile" ;;
+    "plugins/aneex-recog/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/aneex-recog/Makefile" ;;
     "plugins/demo-verifier/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/demo-verifier/Makefile" ;;
     "platforms/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/Makefile" ;;
     "platforms/libunimrcp-server/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/libunimrcp-server/Makefile" ;;
@@ -904,12 +903,10 @@ S["RECORDER_PLUGIN_FALSE"]="#"
 S["RECORDER_PLUGIN_TRUE"]=""
 S["DEMOVERIFIER_PLUGIN_FALSE"]="#"
 S["DEMOVERIFIER_PLUGIN_TRUE"]=""
-S["XFYUNRECOG_PLUGIN_FALSE"]="#"
-S["XFYUNRECOG_PLUGIN_TRUE"]=""
+S["ANEEXRECOG_PLUGIN_FALSE"]="#"
+S["ANEEXRECOG_PLUGIN_TRUE"]=""
 S["DEMORECOG_PLUGIN_FALSE"]="#"
 S["DEMORECOG_PLUGIN_TRUE"]=""
-S["XFYUNSYNTH_PLUGIN_FALSE"]="#"
-S["XFYUNSYNTH_PLUGIN_TRUE"]=""
 S["DEMOSYNTH_PLUGIN_FALSE"]="#"
 S["DEMOSYNTH_PLUGIN_TRUE"]=""
 S["UNIMRCP_SERVER_APP_FALSE"]="#"

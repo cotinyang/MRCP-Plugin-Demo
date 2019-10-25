@@ -641,12 +641,10 @@ RECORDER_PLUGIN_FALSE
 RECORDER_PLUGIN_TRUE
 DEMOVERIFIER_PLUGIN_FALSE
 DEMOVERIFIER_PLUGIN_TRUE
-XFYUNRECOG_PLUGIN_FALSE
-XFYUNRECOG_PLUGIN_TRUE
+ANEEXRECOG_PLUGIN_FALSE
+ANEEXRECOG_PLUGIN_TRUE
 DEMORECOG_PLUGIN_FALSE
 DEMORECOG_PLUGIN_TRUE
-XFYUNSYNTH_PLUGIN_FALSE
-XFYUNSYNTH_PLUGIN_TRUE
 DEMOSYNTH_PLUGIN_FALSE
 DEMOSYNTH_PLUGIN_TRUE
 UNIMRCP_SERVER_APP_FALSE
@@ -820,9 +818,8 @@ enable_asr_client
 enable_server_lib
 enable_server_app
 enable_demosynth_plugin
-enable_xfyunsynth_plugin
 enable_demorecog_plugin
-enable_xfyunrecog_plugin
+enable_aneexrecog_plugin
 enable_demoverifier_plugin
 enable_recorder_plugin
 enable_test_suites
@@ -1483,12 +1480,10 @@ Optional Features:
   --disable-server-app    exclude unimrcpserver app from build
   --disable-demosynth-plugin
                           exclude demosynth plugin from build
-  --disable-xfyunsynth-plugin
-                          exclude xfyunsynth plugin from build
   --disable-demorecog-plugin
                           exclude demorecog plugin from build
-  --disable-xfyunrecog-plugin
-                          exclude xfyunrecog plugin from build
+  --disable-aneexrecog-plugin
+                          exclude aneexrecog plugin from build
   --disable-demoverifier-plugin
                           exclude demoverifier plugin from build
   --disable-recorder-plugin
@@ -17938,26 +17933,6 @@ else
 fi
 
 
-
-    # Check whether --enable-xfyunsynth-plugin was given.
-if test "${enable_xfyunsynth_plugin+set}" = set; then :
-  enableval=$enable_xfyunsynth_plugin; enable_xfyunsynth_plugin="$enableval"
-else
-  enable_xfyunsynth_plugin="yes"
-fi
-
-
-
- if test "${enable_xfyunsynth_plugin}" = "yes"; then
-  XFYUNSYNTH_PLUGIN_TRUE=
-  XFYUNSYNTH_PLUGIN_FALSE='#'
-else
-  XFYUNSYNTH_PLUGIN_TRUE='#'
-  XFYUNSYNTH_PLUGIN_FALSE=
-fi
-
-
-
     # Check whether --enable-demorecog-plugin was given.
 if test "${enable_demorecog_plugin+set}" = set; then :
   enableval=$enable_demorecog_plugin; enable_demorecog_plugin="$enableval"
@@ -17977,21 +17952,21 @@ fi
 
 
 
-    # Check whether --enable-xfyunrecog-plugin was given.
-if test "${enable_xfyunrecog_plugin+set}" = set; then :
-  enableval=$enable_xfyunrecog_plugin; enable_xfyunrecog_plugin="$enableval"
+    # Check whether --enable-aneexrecog-plugin was given.
+if test "${enable_aneexrecog_plugin+set}" = set; then :
+  enableval=$enable_aneexrecog_plugin; enable_aneexrecog_plugin="$enableval"
 else
-  enable_xfyunrecog_plugin="yes"
+  enable_aneexrecog_plugin="yes"
 fi
 
 
 
- if test "${enable_xfyunrecog_plugin}" = "yes"; then
-  XFYUNRECOG_PLUGIN_TRUE=
-  XFYUNRECOG_PLUGIN_FALSE='#'
+ if test "${enable_aneexrecog_plugin}" = "yes"; then
+  ANEEXRECOG_PLUGIN_TRUE=
+  ANEEXRECOG_PLUGIN_FALSE='#'
 else
-  XFYUNRECOG_PLUGIN_TRUE='#'
-  XFYUNRECOG_PLUGIN_FALSE=
+  ANEEXRECOG_PLUGIN_TRUE='#'
+  ANEEXRECOG_PLUGIN_FALSE=
 fi
 
 
@@ -18059,7 +18034,7 @@ else
 fi
 
 
-ac_config_files="$ac_config_files Makefile libs/Makefile libs/apr-toolkit/Makefile libs/mpf/Makefile libs/mrcp/Makefile libs/mrcp-signaling/Makefile libs/mrcpv2-transport/Makefile libs/mrcp-engine/Makefile libs/mrcp-server/Makefile libs/mrcp-client/Makefile libs/uni-rtsp/Makefile modules/Makefile modules/mrcp-sofiasip/Makefile modules/mrcp-unirtsp/Makefile plugins/Makefile plugins/mrcp-recorder/Makefile plugins/demo-synth/Makefile plugins/xfyun-synth/Makefile plugins/demo-recog/Makefile plugins/xfyun-recog/Makefile plugins/demo-verifier/Makefile platforms/Makefile platforms/libunimrcp-server/Makefile platforms/libunimrcp-client/Makefile platforms/unimrcp-server/Makefile platforms/unimrcp-client/Makefile platforms/libasr-client/Makefile platforms/asr-client/Makefile platforms/umc/Makefile tests/Makefile tests/apttest/Makefile tests/mpftest/Makefile tests/mrcptest/Makefile tests/rtsptest/Makefile tests/strtablegen/Makefile build/Makefile build/pkgconfig/Makefile build/pkgconfig/unimrcpclient.pc build/pkgconfig/unimrcpserver.pc build/pkgconfig/unimrcpplugin.pc conf/Makefile data/Makefile docs/doxygen.conf"
+ac_config_files="$ac_config_files Makefile libs/Makefile libs/apr-toolkit/Makefile libs/mpf/Makefile libs/mrcp/Makefile libs/mrcp-signaling/Makefile libs/mrcpv2-transport/Makefile libs/mrcp-engine/Makefile libs/mrcp-server/Makefile libs/mrcp-client/Makefile libs/uni-rtsp/Makefile modules/Makefile modules/mrcp-sofiasip/Makefile modules/mrcp-unirtsp/Makefile plugins/Makefile plugins/mrcp-recorder/Makefile plugins/demo-synth/Makefile plugins/demo-recog/Makefile plugins/aneex-recog/Makefile plugins/demo-verifier/Makefile platforms/Makefile platforms/libunimrcp-server/Makefile platforms/libunimrcp-client/Makefile platforms/unimrcp-server/Makefile platforms/unimrcp-client/Makefile platforms/libasr-client/Makefile platforms/asr-client/Makefile platforms/umc/Makefile tests/Makefile tests/apttest/Makefile tests/mpftest/Makefile tests/mrcptest/Makefile tests/rtsptest/Makefile tests/strtablegen/Makefile build/Makefile build/pkgconfig/Makefile build/pkgconfig/unimrcpclient.pc build/pkgconfig/unimrcpserver.pc build/pkgconfig/unimrcpplugin.pc conf/Makefile data/Makefile docs/doxygen.conf"
 
 
 cat >confcache <<\_ACEOF
@@ -18267,16 +18242,12 @@ if test -z "${DEMOSYNTH_PLUGIN_TRUE}" && test -z "${DEMOSYNTH_PLUGIN_FALSE}"; th
   as_fn_error $? "conditional \"DEMOSYNTH_PLUGIN\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${XFYUNSYNTH_PLUGIN_TRUE}" && test -z "${XFYUNSYNTH_PLUGIN_FALSE}"; then
-  as_fn_error $? "conditional \"XFYUNSYNTH_PLUGIN\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
 if test -z "${DEMORECOG_PLUGIN_TRUE}" && test -z "${DEMORECOG_PLUGIN_FALSE}"; then
   as_fn_error $? "conditional \"DEMORECOG_PLUGIN\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${XFYUNRECOG_PLUGIN_TRUE}" && test -z "${XFYUNRECOG_PLUGIN_FALSE}"; then
-  as_fn_error $? "conditional \"XFYUNRECOG_PLUGIN\" was never defined.
+if test -z "${ANEEXRECOG_PLUGIN_TRUE}" && test -z "${ANEEXRECOG_PLUGIN_FALSE}"; then
+  as_fn_error $? "conditional \"ANEEXRECOG_PLUGIN\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${DEMOVERIFIER_PLUGIN_TRUE}" && test -z "${DEMOVERIFIER_PLUGIN_FALSE}"; then
@@ -19261,9 +19232,8 @@ do
     "plugins/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/Makefile" ;;
     "plugins/mrcp-recorder/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/mrcp-recorder/Makefile" ;;
     "plugins/demo-synth/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/demo-synth/Makefile" ;;
-    "plugins/xfyun-synth/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/xfyun-synth/Makefile" ;;
     "plugins/demo-recog/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/demo-recog/Makefile" ;;
-    "plugins/xfyun-recog/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/xfyun-recog/Makefile" ;;
+    "plugins/aneex-recog/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/aneex-recog/Makefile" ;;
     "plugins/demo-verifier/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/demo-verifier/Makefile" ;;
     "platforms/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/Makefile" ;;
     "platforms/libunimrcp-server/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/libunimrcp-server/Makefile" ;;
@@ -20668,9 +20638,8 @@ echo UniMRCP server lib............ : $enable_server_lib
 echo UniMRCP server app............ : $enable_server_app
 echo
 echo Demo synthesizer plugin....... : $enable_demosynth_plugin
-echo XFyun synthesizer plugin...... : $enable_xfyunsynth_plugin
 echo Demo recognizer plugin........ : $enable_demorecog_plugin
-echo XFyun recognizer plugin....... : $enable_xfyunrecog_plugin
+echo Aneex recognizer plugin....... : $enable_aneexrecog_plugin
 echo Demo verifier plugin.......... : $enable_demoverifier_plugin
 echo Recorder plugin............... : $enable_recorder_plugin
 echo

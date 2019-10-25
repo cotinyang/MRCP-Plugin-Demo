@@ -31,10 +31,6 @@
 #include "mpf_activity_detector.h"
 #include "apt_consumer_task.h"
 #include "apt_log.h"
-#include "qisr.h"
-#include "msp_cmn.h"
-#include "msp_errors.h"
-
 
 #define RECOG_ENGINE_TASK_NAME "Aneex Recog Engine"
 
@@ -113,8 +109,6 @@ struct aneex_recog_channel_t {
 	/** File to write utterance to */
 	FILE                    *audio_out;
 	
-	const char				*session_id;
-	const char				*last_result;
 	apt_bool_t				recog_started;
 };
 
@@ -147,22 +141,6 @@ MRCP_PLUGIN_LOG_SOURCE_IMPLEMENT(RECOG_PLUGIN,"RECOG-PLUGIN")
 /** Use custom log source mark */
 #define RECOG_LOG_MARK   APT_LOG_MARK_DECLARE(RECOG_PLUGIN)
 
-static apt_bool_t aneex_login()
-{
-	int			ret						=	MSP_SUCCESS;
-	const char* login_params			=	"appid = xxxxxxxx, work_dir = ."; // з™»еЅ•еЏ‚ж•°пјЊappidдёЋmscеє“з»‘е®љ,иЇ·е‹їйљЏж„Џж”№еЉЁ
-
-	/* з”Ёж€·з™»еЅ• */
-	ret = MSPLogin(NULL, NULL, login_params); //з¬¬дёЂдёЄеЏ‚ж•°ж�Їз”Ёж€·еђЌпјЊз¬¬дєЊдёЄеЏ‚ж•°ж�ЇеЇ†з ЃпјЊеќ‡дј NULLеЌіеЏЇпјЊз¬¬дё‰дёЄеЏ‚ж•°ж�Їз™»еЅ•еЏ‚ж•°
-	if (MSP_SUCCESS != ret)
-	{
-		apt_log(RECOG_LOG_MARK,APT_PRIO_ERROR,"[aneex] MSPLogin failed , Error code %d.", ret);
-		return FALSE; //з™»еЅ•е¤±иґҐпјЊйЂЂе‡єз™»еЅ•
-	}
-	apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] MSPLogin success");
-	return TRUE;
-}
-
 /** Create aneex recognizer engine */
 MRCP_PLUGIN_DECLARE(mrcp_engine_t*) mrcp_plugin_create(apr_pool_t *pool)
 {
@@ -170,10 +148,6 @@ MRCP_PLUGIN_DECLARE(mrcp_engine_t*) mrcp_plugin_create(apr_pool_t *pool)
 	apt_task_t *task;
 	apt_task_vtable_t *vtable;
 	apt_task_msg_pool_t *msg_pool;
-
-	if(!aneex_login()) {
-		return NULL;
-	}
 
 	msg_pool = apt_task_msg_pool_create_dynamic(sizeof(aneex_recog_msg_t),pool);
 	aneex_engine->task = apt_consumer_task_create(aneex_engine,msg_pool,pool);
@@ -241,9 +215,8 @@ static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *e
 	recog_channel->stop_response = NULL;
 	recog_channel->detector = mpf_activity_detector_create(pool);
 	recog_channel->audio_out = NULL;
-	recog_channel->session_id = NULL;
-	recog_channel->last_result = NULL;
 	recog_channel->recog_started = FALSE;
+
 	capabilities = mpf_sink_stream_capabilities_create(pool);
 	mpf_codec_capabilities_add(
 			&capabilities->codecs,
@@ -345,18 +318,13 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 
 	/* reset */
 	int errcode = MSP_SUCCESS;
-	const char*	session_begin_params = "sub = iat, domain = iat, language = zh_cn, accent = mandarin, sample_rate = 8000, result_type = plain, result_encoding = utf8";
-	recog_channel->session_id = QISRSessionBegin(NULL, session_begin_params, &errcode); //еђ¬е†™дёЌйњЂи¦ЃиЇ­жі•пјЊз¬¬дёЂдёЄеЏ‚ж•°дёєNULL
 	if (MSP_SUCCESS != errcode)
 	{
-		apt_log(RECOG_LOG_MARK,APT_PRIO_WARNING,"[aneex] QISRSessionBegin failed! error code:%d\n", errcode);
+		apt_log(RECOG_LOG_MARK,APT_PRIO_WARNING,"[aneex] Failed! error code:%d\n", errcode);
 		return FALSE;
 	}
-	apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] QISRSessionBegin suceess!");
+	apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] Suceess!");
 	
-	recog_channel->last_result = NULL;
-	recog_channel->recog_started = FALSE;
-
 	recog_channel->recog_request = request;
 
 	return TRUE;
@@ -455,49 +423,41 @@ static apt_bool_t aneex_recog_start_of_input(aneex_recog_channel_t *recog_channe
 /* Load aneex recognition result */
 static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, mrcp_message_t *message)
 {
-	apt_str_t *body = &message->body;
-	if(!recog_channel->last_result) {
+	FILE *file;
+	mrcp_engine_channel_t *channel = recog_channel->channel;
+	const apt_dir_layout_t *dir_layout = channel->engine->dir_layout;
+	char *file_path = apt_datadir_filepath_get(dir_layout,"result.xml",message->pool);
+	if(!file_path) {
 		return FALSE;
 	}
 
-	body->buf = apr_psprintf(message->pool,
-		"<?xml version=\"1.0\"?>\n"
-		"<result>\n"
-		"  <interpretation confidence=\"%d\">\n"
-		"    <instance>%s</instance>\n"
-		"    <input mode=\"speech\">%s</input>\n"
-		"  </interpretation>\n"
-		"</result>\n",
-		99,
-		recog_channel->last_result,
-		recog_channel->last_result);
-	if(body->buf) {
+	/* read the demo result from file */
+	file = fopen(file_path,"r");
+	if(file) {
 		mrcp_generic_header_t *generic_header;
+		char text[1024];
+		apr_size_t size;
+		size = fread(text,1,sizeof(text),file);
+		apt_string_assign_n(&message->body,text,size,message->pool);
+		fclose(file);
+
+		/* get/allocate generic header */
 		generic_header = mrcp_generic_header_prepare(message);
 		if(generic_header) {
-			/* set content type */
+			/* set content types */
 			apt_string_assign(&generic_header->content_type,"application/x-nlsml",message->pool);
 			mrcp_generic_header_property_add(message,GENERIC_HEADER_CONTENT_TYPE);
 		}
-		
-		body->length = strlen(body->buf);
 	}
-	return TRUE;
-}
 
-void aneex_recog_end_session(aneex_recog_channel_t *recog_channel){
-	if(recog_channel->session_id) {
-		apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] QISRSessionEnd suceess!");
-		QISRSessionEnd(recog_channel->session_id, "mrcp channel closed");
-		recog_channel->session_id = NULL;
-	}
+	return TRUE;
 }
 
 /* Raise aneex RECOGNITION-COMPLETE event */
 static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_channel, mrcp_recog_completion_cause_e cause)
 {
 	aneex_recog_stream_recog(recog_channel, NULL, 0);
-	aneex_recog_end_session(recog_channel);
+
 	mrcp_recog_header_t *recog_header;
 	/* create RECOGNITION-COMPLETE event */
 	mrcp_message_t *message = mrcp_event_create(
@@ -531,57 +491,14 @@ static apt_bool_t aneex_recog_stream_recog(aneex_recog_channel_t *recog_channel,
 							   const void *voice_data,
 							   unsigned int voice_len 
 							   ) {
-	// int MSPAPI QISRAudioWrite(const char* sessionID, const void* waveData, unsigned int waveLen, int audioStatus, int *epStatus, int *recogStatus);
-	int aud_stat = MSP_AUDIO_SAMPLE_CONTINUE;		//йџійў‘зЉ¶жЂЃ
-	int ep_stat	= MSP_EP_LOOKING_FOR_SPEECH;		//з«Їз‚№жЈЂжµ‹
-	int rec_stat = MSP_REC_STATUS_SUCCESS;			//иЇ†е€«зЉ¶жЂЃ
 	int ret = 0;
 	if(FALSE == recog_channel->recog_started) {
 		apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] start recog");
 		recog_channel->recog_started = TRUE;
-		aud_stat = MSP_AUDIO_SAMPLE_FIRST;
 	} else if(0 == voice_len) {
 		apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] finish recog");
-		aud_stat = MSP_AUDIO_SAMPLE_LAST;
 	}
-	if(NULL == recog_channel->session_id) {
-		return FALSE;
-	}
-	ret = QISRAudioWrite(recog_channel->session_id, voice_data, voice_len, aud_stat, &ep_stat, &rec_stat);
-	if (MSP_SUCCESS != ret)
-	{
-		apt_log(RECOG_LOG_MARK,APT_PRIO_WARNING,"[aneex] QISRAudioWrite failed! error code:%d", ret);
-		return FALSE;
-	}
-	if(MSP_REC_STATUS_SUCCESS != rec_stat && MSP_AUDIO_SAMPLE_LAST != aud_stat) {
-		// apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] no need recog,rec_stat=%d,aud_stat=%d",rec_stat,aud_stat);
-		return TRUE;
-	}
-	while (1) 
-	{
-		const char *rslt = QISRGetResult(recog_channel->session_id, &rec_stat, 0, &ret);
-		if (MSP_SUCCESS != ret)
-		{
-			apt_log(RECOG_LOG_MARK,APT_PRIO_WARNING,"[aneex] QISRGetResult failed, error code: %d", ret);
-			return FALSE;
-		}
-		if (NULL != rslt)
-		{
-			if(NULL == recog_channel->last_result) {
-				recog_channel->last_result = apr_pstrdup(recog_channel->channel->pool,rslt);
-			} else {
-				// recog_channel->last_result = apr_psprintf(recog_channel->channel->pool,"%s%s",recog_channel->last_result,rslt);
-				recog_channel->last_result = apr_pstrcat(recog_channel->channel->pool, recog_channel->last_result,rslt);
-			}
-		}
-		apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] Get recog result:%s",rslt);
 
-		if(MSP_AUDIO_SAMPLE_LAST == aud_stat && MSP_REC_STATUS_COMPLETE != rec_stat) {
-			usleep(150*1000);
-			continue;
-		}
-		break;
-	}
 	return TRUE;
 }
 
