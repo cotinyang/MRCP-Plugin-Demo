@@ -33,7 +33,7 @@ struct mrcp_resource_loader_t {
 static const apt_str_table_item_t mrcp_resource_string_table[] = {
 	{{"speechsynth",11},6},
 	{{"speechrecog",11},6},
-	{{"aneexrecog",10},6},
+	{{"aneexrecog", 10},6},
 	{{"recorder",    8},0},
 	{{"speakverify",11},3}
 };
@@ -81,7 +81,7 @@ MRCP_DECLARE(apt_bool_t) mrcp_resource_load(mrcp_resource_loader_t *loader, cons
 
 	mrcp_resource_t *resource = mrcp_resource_create_by_id(id,loader->pool);
 	if(!resource) {
-		apt_log(APT_LOG_MARK,APT_PRIO_NOTICE,"Failed to Load Resource [%d]",id);
+		apt_log(APT_LOG_MARK,APT_PRIO_NOTICE,"Failed to Load Resource [%d]",name);
 		return FALSE;
 	}
 
@@ -126,6 +126,9 @@ static mrcp_resource_t* mrcp_resource_create_by_id(mrcp_resource_id id, apr_pool
 			break;
 		case MRCP_RECORDER_RESOURCE:
 			resource = mrcp_recorder_resource_create(pool);
+			break;
+		case ANEEX_RECOGNIZER_RESOURCE:
+			resource = mrcp_recog_resource_create(pool);
 			break;
 		case MRCP_VERIFIER_RESOURCE:
 			resource = mrcp_verifier_resource_create(pool);

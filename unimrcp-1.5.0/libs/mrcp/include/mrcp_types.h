@@ -38,6 +38,7 @@ typedef enum {
 typedef enum {
 	MRCP_SYNTHESIZER_RESOURCE, /**< Synthesizer resource */
 	MRCP_RECOGNIZER_RESOURCE,  /**< Recognizer resource */
+	ANEEX_RECOGNIZER_RESOURCE,  /**< Audioneex recognizer resource */
 	MRCP_RECORDER_RESOURCE,    /**< Recorder resource */
 	MRCP_VERIFIER_RESOURCE,    /**< Verifier resource */
 
