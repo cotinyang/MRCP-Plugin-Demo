@@ -318,7 +318,7 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 
 	/* reset */
 	int errcode = MSP_SUCCESS;
-	if (MSP_SUCCESS != errcode)
+	if (errcode!=APR_SUCCESS)
 	{
 		apt_log(RECOG_LOG_MARK,APT_PRIO_WARNING,"[aneex] Failed! error code:%d\n", errcode);
 		return FALSE;
@@ -335,7 +335,6 @@ static apt_bool_t aneex_recog_channel_stop(mrcp_engine_channel_t *channel, mrcp_
 {
 	/* process STOP request */
 	aneex_recog_channel_t *recog_channel = channel->method_obj;
-	aneex_recog_end_session(recog_channel);
 	/* store STOP request, make sure there is no more activity and only then send the response */
 	recog_channel->stop_response = response;
 	return TRUE;
