@@ -84,6 +84,7 @@ host_triplet = @host@
 
 @DEMOSYNTH_PLUGIN_TRUE@am__append_2 = demo-16kHz.pcm demo-8kHz.pcm
 @DEMORECOG_PLUGIN_TRUE@am__append_3 = result.xml
+@ANNEXRECOG_PLUGIN_TRUE@am__append_3 = result.xml
 @DEMOVERIFIER_PLUGIN_TRUE@am__append_4 = result-verification.xml
 subdir = data
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am

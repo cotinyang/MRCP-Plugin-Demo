@@ -14,7 +14,6 @@
 
 @SET_MAKE@
 
-
 VPATH = @srcdir@
 am__is_gnu_make = test -n '$(MAKEFILE_LIST)' && test -n '$(MAKELEVEL)'
 am__make_running_with_option = \
@@ -130,8 +129,7 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(plugindir)" \
-	"$(DESTDIR)$(aneexrecog_ladir)"
+am__installdirs = "$(DESTDIR)$(plugindir)" 
 LTLIBRARIES = $(plugin_LTLIBRARIES)
 aneexrecog_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
@@ -185,7 +183,6 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-DATA = $(aneexrecog_la_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -341,20 +338,19 @@ vardir = @vardir@
 AM_CPPFLAGS = $(UNIMRCP_PLUGIN_INCLUDES)
 plugin_LTLIBRARIES = aneexrecog.la
 aneexrecog_la_SOURCES = src/aneex_recog_engine.c
-aneexrecog_la_LDFLAGS = 
-
-aneexrecog_ladir = $(libdir)
-aneexrecog_la_DATA = 
+aneexrecog_la_LDFLAGS = $(UNIMRCP_PLUGIN_OPTS)
 MAINTAINERCLEANFILES = Makefile.in
 
 # Includes
 UNIMRCP_PLUGIN_INCLUDES = -I$(top_srcdir)/libs/mrcp-engine/include \
-	-I$(top_srcdir)/libs/mrcp/include \
-	-I$(top_srcdir)/libs/mrcp/message/include \
-	-I$(top_srcdir)/libs/mrcp/control/include \
-	-I$(top_srcdir)/libs/mrcp/resources/include \
-	-I$(top_srcdir)/libs/mpf/include \
-	-I$(top_srcdir)/libs/apr-toolkit/include 
+                             -I$(top_srcdir)/libs/mrcp/include \
+                             -I$(top_srcdir)/libs/mrcp/message/include \
+                             -I$(top_srcdir)/libs/mrcp/control/include \
+                             -I$(top_srcdir)/libs/mrcp/resources/include \
+                             -I$(top_srcdir)/libs/mpf/include \
+                             -I$(top_srcdir)/libs/apr-toolkit/include \
+                             $(UNIMRCP_APR_INCLUDES)
+
 
 # Linker options (LDFLAGS)
 UNIMRCP_PLUGIN_OPTS = -module $(PLUGIN_LT_VERSION)
@@ -480,28 +476,6 @@ mostlyclean-libtool:
 clean-libtool:
 	-rm -rf .libs _libs
 	-rm -rf src/.libs src/_libs
-install-aneexrecog_laDATA: $(aneexrecog_la_DATA)
-	@$(NORMAL_INSTALL)
-	@list='$(aneexrecog_la_DATA)'; test -n "$(aneexrecog_ladir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(aneexrecog_ladir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(aneexrecog_ladir)" || exit 1; \
-	fi; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(aneexrecog_ladir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(aneexrecog_ladir)" || exit $$?; \
-	done
-
-uninstall-aneexrecog_laDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(aneexrecog_la_DATA)'; test -n "$(aneexrecog_ladir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(aneexrecog_ladir)'; $(am__uninstall_files_from_dir)
-
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
 tags: tags-am
@@ -586,9 +560,9 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LTLIBRARIES) $(DATA)
+all-am: Makefile $(LTLIBRARIES)
 installdirs:
-	for dir in "$(DESTDIR)$(plugindir)" "$(DESTDIR)$(aneexrecog_ladir)"; do \
+	for dir in "$(DESTDIR)$(plugindir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -706,12 +680,11 @@ uninstall-am: uninstall-pluginLTLIBRARIES uninstall-aneexrecog_laDATA
 	install-exec-am install-html install-html-am install-info \
 	install-info-am install-man install-pdf install-pdf-am \
 	install-pluginLTLIBRARIES install-ps install-ps-am \
-	install-strip install-aneexrecog_laDATA installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags tags-am uninstall uninstall-am \
-	uninstall-pluginLTLIBRARIES uninstall-aneexrecog_laDATA
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags tags-am uninstall uninstall-am \
+	uninstall-pluginLTLIBRARIES
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
