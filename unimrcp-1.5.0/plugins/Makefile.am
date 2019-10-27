@@ -6,15 +6,11 @@ if DEMOSYNTH_PLUGIN
 SUBDIRS               += demo-synth
 endif
 
-if aneexSYNTH_PLUGIN
-SUBDIRS               += aneex-synth
-endif
-
 if DEMORECOG_PLUGIN
 SUBDIRS               += demo-recog
 endif
 
-if aneexRECOG_PLUGIN
+if ANEEXRECOG_PLUGIN
 SUBDIRS               += aneex-recog
 endif
 
