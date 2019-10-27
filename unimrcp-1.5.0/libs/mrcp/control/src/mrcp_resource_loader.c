@@ -33,6 +33,7 @@ struct mrcp_resource_loader_t {
 static const apt_str_table_item_t mrcp_resource_string_table[] = {
 	{{"speechsynth",11},6},
 	{{"speechrecog",11},6},
+	{{"aneexrecog",10},6},
 	{{"recorder",    8},0},
 	{{"speakverify",11},3}
 };
