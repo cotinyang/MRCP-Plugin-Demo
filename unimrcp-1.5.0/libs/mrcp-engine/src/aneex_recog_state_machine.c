@@ -291,7 +291,7 @@ static apt_bool_t aneex_recog_request_stop(aneex_recog_state_machine_t *state_ma
 	return aneex_recog_response_dispatch(state_machine,response_message);
 }
 
-static apt_bool_t aneex_recog_response_stop(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_response_stop(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_message_t *pending_request;
 	mrcp_generic_header_t *generic_header = mrcp_generic_header_prepare(message);
@@ -314,7 +314,7 @@ static apt_bool_t aneex_recog_response_stop(aneex_recog_state_machine_t *state_m
 	return TRUE;
 }
 
-static apt_bool_t aneex_recog_event_start_of_input(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_event_start_of_input(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	if(!state_machine->recog) {
 		/* unexpected event, no in-progress recognition request */
@@ -330,7 +330,7 @@ static apt_bool_t aneex_recog_event_start_of_input(aneex_recog_state_machine_t *
 	return aneex_recog_event_dispatch(state_machine,message);
 }
 
-static apt_bool_t aneex_recog_event_recognition_complete(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_event_recognition_complete(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_message_t *pending_request;
 	if(!state_machine->recog) {
@@ -374,7 +374,7 @@ static apt_bool_t aneex_recog_event_recognition_complete(aneex_recog_state_machi
 	return TRUE;
 }
 
-static apt_bool_t aneex_recog_event_interpretation_complete(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_event_interpretation_complete(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	if(mrcp_resource_header_property_check(message,ANEEX_HEADER_COMPLETION_CAUSE) != TRUE) {
 		aneex_recog_header_t *recog_header = mrcp_resource_header_prepare(message);
