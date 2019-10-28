@@ -16,7 +16,7 @@
 
 #include "aneex_recog_header.h"
 
-/** String table of MRCPv1 recognizer header fields (mrcp_recog_header_id) */
+/** String table of MRCPv1 ANEEX header fields (mrcp_recog_header_id) */
 static const apt_str_table_item_t v1_recog_header_string_table[] = {
 	{{"Confidence-Threshold",             20},16},
 	{{"Sensitivity-Level",                17},14},
@@ -26,8 +26,8 @@ static const apt_str_table_item_t v1_recog_header_string_table[] = {
 	{{"Recognition-Timeout",              19},19},
 	{{"Waveform-Url",                     12},4},
 	{{"Completion-Cause",                 16},16},
-	{{"Recognizer-Context-Block",         24},16},
-	{{"Recognizer-Start-Timers",          23},18},
+	{{"ANEEX-Context-Block",         24},16},
+	{{"ANEEX-Start-Timers",          23},18},
 	{{"Speech-Complete-Timeout",          23},7},
 	{{"Speech-Incomplete-Timeout",        25},12},
 	{{"DTMF-Interdigit-Timeout",          23},10},
@@ -65,7 +65,7 @@ static const apt_str_table_item_t v1_recog_header_string_table[] = {
 	{{"Abort-Phrase-Enrollment",          23},0}
 };
 
-/** String table of MRCPv2 recognizer header fields (mrcp_recog_header_id) */
+/** String table of MRCPv2 ANEEX header fields (mrcp_recog_header_id) */
 static const apt_str_table_item_t v2_recog_header_string_table[] = {
 	{{"Confidence-Threshold",             20},16},
 	{{"Sensitivity-Level",                17},14},
@@ -75,7 +75,7 @@ static const apt_str_table_item_t v2_recog_header_string_table[] = {
 	{{"Recognition-Timeout",              19},19},
 	{{"Waveform-Uri",                     12},4},
 	{{"Completion-Cause",                 16},16},
-	{{"Recognizer-Context-Block",         24},7},
+	{{"ANEEX-Context-Block",         24},7},
 	{{"Start-Input-Timers",               18},18},
 	{{"Speech-Complete-Timeout",          23},7},
 	{{"Speech-Incomplete-Timeout",        25},12},
@@ -114,7 +114,7 @@ static const apt_str_table_item_t v2_recog_header_string_table[] = {
 	{{"Abort-Phrase-Enrollment",          23},0}
 };
 
-/** String table of MRCPv1 recognizer completion-cause fields (mrcp_recog_completion_cause_e) */
+/** String table of MRCPv1 ANEEX completion-cause fields (mrcp_recog_completion_cause_e) */
 static const apt_str_table_item_t v1_completion_cause_string_table[] = {
 	{{"success",                     7},1},
 	{{"no-match",                    8},8},
@@ -136,7 +136,7 @@ static const apt_str_table_item_t v1_completion_cause_string_table[] = {
 };
 
 
-/** String table of MRCPv2 recognizer completion-cause fields (mrcp_recog_completion_cause_e) */
+/** String table of MRCPv2 ANEEX completion-cause fields (mrcp_recog_completion_cause_e) */
 static const apt_str_table_item_t v2_completion_cause_string_table[] = {
 	{{"success",                     7},7},
 	{{"no-match",                    8},4},
@@ -144,7 +144,7 @@ static const apt_str_table_item_t v2_completion_cause_string_table[] = {
 	{{"hotword-maxtime",            15},0},
 	{{"grammar-load-failure",       20},8},
 	{{"grammar-compilation-failure",27},8},
-	{{"recognizer-error",           16},0},
+	{{"ANEEX-error",           16},0},
 	{{"speech-too-early",           16},1},
 	{{"success-maxtime",            15},15},
 	{{"uri-failure",                11},0},
@@ -157,7 +157,7 @@ static const apt_str_table_item_t v2_completion_cause_string_table[] = {
 	{{"grammar-definition-failure", 26},9}
 };
 
-/** Initialize recognizer header */
+/** Initialize ANEEX header */
 static void aneex_recog_header_init(aneex_recog_header_t *recog_header)
 {
 	recog_header->confidence_threshold = 0.0;
@@ -168,7 +168,7 @@ static void aneex_recog_header_init(aneex_recog_header_t *recog_header)
 	recog_header->recognition_timeout = 0;
 	apt_string_reset(&recog_header->waveform_uri);
 	recog_header->completion_cause = ANEEX_COMPLETION_CAUSE_COUNT;
-	apt_string_reset(&recog_header->recognizer_context_block);
+	apt_string_reset(&recog_header->ANEEX_context_block);
 	recog_header->start_input_timers = FALSE;
 	recog_header->speech_complete_timeout = 0;
 	recog_header->speech_incomplete_timeout = 0;
@@ -208,16 +208,16 @@ static void aneex_recog_header_init(aneex_recog_header_t *recog_header)
 	recog_header->abort_phrase_enrollment = FALSE;
 }
 
-/** Allocate MRCP recognizer header */
+/** Allocate MRCP ANEEX header */
 static void* aneex_recog_header_allocate(mrcp_header_accessor_t *accessor, apr_pool_t *pool)
 {
-	aneex_recog_header_t *recog_header = apr_palloc(pool,sizeof(mrcp_recog_header_t));
+	aneex_recog_header_t *recog_header = apr_palloc(pool,sizeof(aneex_recog_header_t));
 	aneex_recog_header_init(recog_header);
 	accessor->data = recog_header;
 	return accessor->data;
 }
 
-/** Parse MRCP recognizer header */
+/** Parse MRCP ANEEX header */
 static apt_bool_t aneex_recog_header_parse(aneex_recog_header_t *recog_header, apr_size_t id, const apt_str_t *value, apr_pool_t *pool)
 {
 	apt_bool_t status = TRUE;
@@ -237,8 +237,8 @@ static apt_bool_t aneex_recog_header_parse(aneex_recog_header_t *recog_header, a
 		case ANEEX_HEADER_COMPLETION_CAUSE:
 			recog_header->completion_cause = apt_size_value_parse(value);
 			break;
-		case ANEEX_HEADER_RECOGNIZER_CONTEXT_BLOCK:
-			recog_header->recognizer_context_block = *value;
+		case ANEEX_HEADER_ANEEX_CONTEXT_BLOCK:
+			recog_header->ANEEX_context_block = *value;
 			break;
 		case ANEEX_HEADER_START_INPUT_TIMERS:
 			apt_boolean_value_parse(value,&recog_header->start_input_timers);
@@ -366,171 +366,171 @@ static APR_INLINE apt_bool_t apt_size_value_generate_from_float(float value, apt
 	return apt_size_value_generate(s,str,pool);
 }
 
-/** Parse MRCPv1 recognizer header */
+/** Parse MRCPv1 ANEEX header */
 static apt_bool_t aneex_v1_recog_header_parse(mrcp_header_accessor_t *accessor, apr_size_t id, const apt_str_t *value, apr_pool_t *pool)
 {
 	aneex_recog_header_t *recog_header = accessor->data;
-	if(id == RECOGNIZER_HEADER_CONFIDENCE_THRESHOLD) {
+	if(id == ANEEX_HEADER_CONFIDENCE_THRESHOLD) {
 		recog_header->confidence_threshold = apt_size_value_parse_as_float(value);
 		return TRUE;
 	}
-	else if(id == RECOGNIZER_HEADER_SENSITIVITY_LEVEL) {
+	else if(id == ANEEX_HEADER_SENSITIVITY_LEVEL) {
 		recog_header->sensitivity_level = apt_size_value_parse_as_float(value);
 		return TRUE;
 	}
-	else if(id == RECOGNIZER_HEADER_SPEED_VS_ACCURACY) {
+	else if(id == ANEEX_HEADER_SPEED_VS_ACCURACY) {
 		recog_header->speed_vs_accuracy = apt_size_value_parse_as_float(value);
 		return TRUE;
 	}
 	return aneex_recog_header_parse(recog_header,id,value,pool);
 }
 
-/** Parse MRCPv2 recognizer header */
+/** Parse MRCPv2 ANEEX header */
 static apt_bool_t aneex_v2_recog_header_parse(mrcp_header_accessor_t *accessor, apr_size_t id, const apt_str_t *value, apr_pool_t *pool)
 {
 	aneex_recog_header_t *recog_header = accessor->data;
-	if(id == RECOGNIZER_HEADER_CONFIDENCE_THRESHOLD) {
+	if(id == ANEEX_HEADER_CONFIDENCE_THRESHOLD) {
 		recog_header->confidence_threshold = apt_float_value_parse(value);
 		return TRUE;
 	}
-	else if(id == RECOGNIZER_HEADER_SENSITIVITY_LEVEL) {
+	else if(id == ANEEX_HEADER_SENSITIVITY_LEVEL) {
 		recog_header->sensitivity_level = apt_float_value_parse(value);
 		return TRUE;
 	}
-	else if(id == RECOGNIZER_HEADER_SPEED_VS_ACCURACY) {
+	else if(id == ANEEX_HEADER_SPEED_VS_ACCURACY) {
 		recog_header->speed_vs_accuracy = apt_float_value_parse(value);
 		return TRUE;
 	}
 	return aneex_recog_header_parse(recog_header,id,value,pool);
 }
 
-/** Generate MRCP recognizer header */
+/** Generate MRCP ANEEX header */
 static apt_bool_t aneex_recog_header_generate(const aneex_recog_header_t *recog_header, apr_size_t id, apt_str_t *value, apr_pool_t *pool)
 {
 	switch(id) {
-		case RECOGNIZER_HEADER_N_BEST_LIST_LENGTH:
+		case ANEEX_HEADER_N_BEST_LIST_LENGTH:
 			apt_size_value_generate(recog_header->n_best_list_length,value,pool);
 			break;
-		case RECOGNIZER_HEADER_NO_INPUT_TIMEOUT:
+		case ANEEX_HEADER_NO_INPUT_TIMEOUT:
 			apt_size_value_generate(recog_header->no_input_timeout,value,pool);
 			break;
-		case RECOGNIZER_HEADER_RECOGNITION_TIMEOUT:
+		case ANEEX_HEADER_RECOGNITION_TIMEOUT:
 			apt_size_value_generate(recog_header->recognition_timeout,value,pool);
 			break;
-		case RECOGNIZER_HEADER_WAVEFORM_URI:
+		case ANEEX_HEADER_WAVEFORM_URI:
 			*value = recog_header->waveform_uri;
 			break;
-		case RECOGNIZER_HEADER_RECOGNIZER_CONTEXT_BLOCK:
-			*value = recog_header->recognizer_context_block;
+		case ANEEX_HEADER_ANEEX_CONTEXT_BLOCK:
+			*value = recog_header->ANEEX_context_block;
 			break;
-		case RECOGNIZER_HEADER_START_INPUT_TIMERS:
+		case ANEEX_HEADER_START_INPUT_TIMERS:
 			apt_boolean_value_generate(recog_header->start_input_timers,value,pool);
 			break;
-		case RECOGNIZER_HEADER_SPEECH_COMPLETE_TIMEOUT:
+		case ANEEX_HEADER_SPEECH_COMPLETE_TIMEOUT:
 			apt_size_value_generate(recog_header->speech_complete_timeout,value,pool);
 			break;
-		case RECOGNIZER_HEADER_SPEECH_INCOMPLETE_TIMEOUT:
+		case ANEEX_HEADER_SPEECH_INCOMPLETE_TIMEOUT:
 			apt_size_value_generate(recog_header->speech_incomplete_timeout,value,pool);
 			break;
-		case RECOGNIZER_HEADER_DTMF_INTERDIGIT_TIMEOUT:
+		case ANEEX_HEADER_DTMF_INTERDIGIT_TIMEOUT:
 			apt_size_value_generate(recog_header->dtmf_interdigit_timeout,value,pool);
 			break;
-		case RECOGNIZER_HEADER_DTMF_TERM_TIMEOUT:
+		case ANEEX_HEADER_DTMF_TERM_TIMEOUT:
 			apt_size_value_generate(recog_header->dtmf_term_timeout,value,pool);
 			break;
-		case RECOGNIZER_HEADER_DTMF_TERM_CHAR:
+		case ANEEX_HEADER_DTMF_TERM_CHAR:
 			value->length = 1;
 			value->buf = apr_palloc(pool,value->length);
 			*value->buf	= recog_header->dtmf_term_char;
 			break;
-		case RECOGNIZER_HEADER_FAILED_URI:
+		case ANEEX_HEADER_FAILED_URI:
 			*value = recog_header->failed_uri;
 			break;
-		case RECOGNIZER_HEADER_FAILED_URI_CAUSE:
+		case ANEEX_HEADER_FAILED_URI_CAUSE:
 			*value = recog_header->failed_uri_cause;
 			break;
-		case RECOGNIZER_HEADER_SAVE_WAVEFORM:
+		case ANEEX_HEADER_SAVE_WAVEFORM:
 			apt_boolean_value_generate(recog_header->save_waveform,value,pool);
 			break;
-		case RECOGNIZER_HEADER_NEW_AUDIO_CHANNEL:
+		case ANEEX_HEADER_NEW_AUDIO_CHANNEL:
 			apt_boolean_value_generate(recog_header->new_audio_channel,value,pool);
 			break;
-		case RECOGNIZER_HEADER_SPEECH_LANGUAGE:
+		case ANEEX_HEADER_SPEECH_LANGUAGE:
 			*value = recog_header->speech_language;
 			break;
-		case RECOGNIZER_HEADER_INPUT_TYPE:
+		case ANEEX_HEADER_INPUT_TYPE:
 			*value = recog_header->input_type;
 			break;
-		case RECOGNIZER_HEADER_INPUT_WAVEFORM_URI:
+		case ANEEX_HEADER_INPUT_WAVEFORM_URI:
 			*value = recog_header->input_waveform_uri;
 			break;
-		case RECOGNIZER_HEADER_COMPLETION_REASON:
+		case ANEEX_HEADER_COMPLETION_REASON:
 			*value = recog_header->completion_reason;
 			break;
-		case RECOGNIZER_HEADER_MEDIA_TYPE:
+		case ANEEX_HEADER_MEDIA_TYPE:
 			*value = recog_header->media_type;
 			break;
-		case RECOGNIZER_HEADER_VER_BUFFER_UTTERANCE:
+		case ANEEX_HEADER_VER_BUFFER_UTTERANCE:
 			apt_boolean_value_generate(recog_header->ver_buffer_utterance,value,pool);
 			break;
-		case RECOGNIZER_HEADER_RECOGNITION_MODE:
+		case ANEEX_HEADER_RECOGNITION_MODE:
 			*value = recog_header->recognition_mode;
 			break;
-		case RECOGNIZER_HEADER_CANCEL_IF_QUEUE:
+		case ANEEX_HEADER_CANCEL_IF_QUEUE:
 			apt_boolean_value_generate(recog_header->cancel_if_queue,value,pool);
 			break;
-		case RECOGNIZER_HEADER_HOTWORD_MAX_DURATION:
+		case ANEEX_HEADER_HOTWORD_MAX_DURATION:
 			apt_size_value_generate(recog_header->hotword_max_duration,value,pool);
 			break;
-		case RECOGNIZER_HEADER_HOTWORD_MIN_DURATION:
+		case ANEEX_HEADER_HOTWORD_MIN_DURATION:
 			apt_size_value_generate(recog_header->hotword_min_duration,value,pool);
 			break;
-		case RECOGNIZER_HEADER_INTERPRET_TEXT:
+		case ANEEX_HEADER_INTERPRET_TEXT:
 			*value = recog_header->interpret_text;
 			break;
-		case RECOGNIZER_HEADER_DTMF_BUFFER_TIME:
+		case ANEEX_HEADER_DTMF_BUFFER_TIME:
 			apt_size_value_generate(recog_header->dtmf_buffer_time,value,pool);
 			break;
-		case RECOGNIZER_HEADER_CLEAR_DTMF_BUFFER:
+		case ANEEX_HEADER_CLEAR_DTMF_BUFFER:
 			apt_boolean_value_generate(recog_header->clear_dtmf_buffer,value,pool);
 			break;
-		case RECOGNIZER_HEADER_EARLY_NO_MATCH:
+		case ANEEX_HEADER_EARLY_NO_MATCH:
 			apt_boolean_value_generate(recog_header->early_no_match,value,pool);
 			break;
-		case RECOGNIZER_HEADER_NUM_MIN_CONSISTENT_PRONUNCIATIONS:
+		case ANEEX_HEADER_NUM_MIN_CONSISTENT_PRONUNCIATIONS:
 			apt_size_value_generate(recog_header->num_min_consistent_pronunciations,value,pool);
 			break;
-		case RECOGNIZER_HEADER_CONSISTENCY_THRESHOLD:
+		case ANEEX_HEADER_CONSISTENCY_THRESHOLD:
 			apt_float_value_generate(recog_header->consistency_threshold,value,pool);
 			break;
-		case RECOGNIZER_HEADER_CLASH_THRESHOLD:
+		case ANEEX_HEADER_CLASH_THRESHOLD:
 			apt_float_value_generate(recog_header->clash_threshold,value,pool);
 			break;
-		case RECOGNIZER_HEADER_PERSONAL_GRAMMAR_URI:
+		case ANEEX_HEADER_PERSONAL_GRAMMAR_URI:
 			*value = recog_header->personal_grammar_uri;
 			break;
-		case RECOGNIZER_HEADER_ENROLL_UTTERANCE:
+		case ANEEX_HEADER_ENROLL_UTTERANCE:
 			apt_boolean_value_generate(recog_header->enroll_utterance,value,pool);
 			break;
-		case RECOGNIZER_HEADER_PHRASE_ID:
+		case ANEEX_HEADER_PHRASE_ID:
 			*value = recog_header->phrase_id;
 			break;
-		case RECOGNIZER_HEADER_PHRASE_NL:
+		case ANEEX_HEADER_PHRASE_NL:
 			*value = recog_header->phrase_nl;
 			break;
-		case RECOGNIZER_HEADER_WEIGHT:
+		case ANEEX_HEADER_WEIGHT:
 			apt_float_value_generate(recog_header->weight,value,pool);
 			break;
-		case RECOGNIZER_HEADER_SAVE_BEST_WAVEFORM:
+		case ANEEX_HEADER_SAVE_BEST_WAVEFORM:
 			apt_boolean_value_generate(recog_header->save_best_waveform,value,pool);
 			break;
-		case RECOGNIZER_HEADER_NEW_PHRASE_ID:
+		case ANEEX_HEADER_NEW_PHRASE_ID:
 			*value = recog_header->new_phrase_id;
 			break;
-		case RECOGNIZER_HEADER_CONFUSABLE_PHRASES_URI:
+		case ANEEX_HEADER_CONFUSABLE_PHRASES_URI:
 			*value = recog_header->confusable_phrases_uri;
 			break;
-		case RECOGNIZER_HEADER_ABORT_PHRASE_ENROLLMENT:
+		case ANEEX_HEADER_ABORT_PHRASE_ENROLLMENT:
 			apt_boolean_value_generate(recog_header->abort_phrase_enrollment,value,pool);
 			break;
 		default:
@@ -539,23 +539,23 @@ static apt_bool_t aneex_recog_header_generate(const aneex_recog_header_t *recog_
 	return TRUE;
 }
 
-/** Generate MRCPv1 recognizer header */
+/** Generate MRCPv1 ANEEX header */
 static apt_bool_t aneex_v1_recog_header_generate(const mrcp_header_accessor_t *accessor, apr_size_t id, apt_str_t *value, apr_pool_t *pool)
 {
 	aneex_recog_header_t *recog_header = accessor->data;
-	if(id == RECOGNIZER_HEADER_CONFIDENCE_THRESHOLD) {
+	if(id == ANEEX_HEADER_CONFIDENCE_THRESHOLD) {
 		return apt_size_value_generate_from_float(recog_header->confidence_threshold,value,pool);
 	}
-	else if(id == RECOGNIZER_HEADER_SENSITIVITY_LEVEL) {
+	else if(id == ANEEX_HEADER_SENSITIVITY_LEVEL) {
 		return apt_size_value_generate_from_float(recog_header->sensitivity_level,value,pool);
 	}
-	else if(id == RECOGNIZER_HEADER_SPEED_VS_ACCURACY) {
+	else if(id == ANEEX_HEADER_SPEED_VS_ACCURACY) {
 		return apt_size_value_generate_from_float(recog_header->speed_vs_accuracy,value,pool);
 	}
-	else if(id == RECOGNIZER_HEADER_COMPLETION_CAUSE) {
+	else if(id == ANEEX_HEADER_COMPLETION_CAUSE) {
 		return apt_completion_cause_generate(
 			v1_completion_cause_string_table,
-			RECOGNIZER_COMPLETION_CAUSE_COUNT,
+			ANEEX_COMPLETION_CAUSE_COUNT,
 			recog_header->completion_cause,
 			value,
 			pool);
@@ -563,23 +563,23 @@ static apt_bool_t aneex_v1_recog_header_generate(const mrcp_header_accessor_t *a
 	return aneex_recog_header_generate(recog_header,id,value,pool);
 }
 
-/** Generate MRCPv2 recognizer header */
+/** Generate MRCPv2 ANEEX header */
 static apt_bool_t aneex_v2_recog_header_generate(const mrcp_header_accessor_t *accessor, apr_size_t id, apt_str_t *value, apr_pool_t *pool)
 {
 	aneex_recog_header_t *recog_header = accessor->data;
-	if(id == RECOGNIZER_HEADER_CONFIDENCE_THRESHOLD) {
+	if(id == ANEEX_HEADER_CONFIDENCE_THRESHOLD) {
 		return apt_float_value_generate(recog_header->confidence_threshold,value,pool);
 	}
-	else if(id == RECOGNIZER_HEADER_SENSITIVITY_LEVEL) {
+	else if(id == ANEEX_HEADER_SENSITIVITY_LEVEL) {
 		return apt_float_value_generate(recog_header->sensitivity_level,value,pool);
 	}
-	else if(id == RECOGNIZER_HEADER_SPEED_VS_ACCURACY) {
+	else if(id == ANEEX_HEADER_SPEED_VS_ACCURACY) {
 		return apt_float_value_generate(recog_header->speed_vs_accuracy,value,pool);
 	}
-	else if(id == RECOGNIZER_HEADER_COMPLETION_CAUSE) {
+	else if(id == ANEEX_HEADER_COMPLETION_CAUSE) {
 		return apt_completion_cause_generate(
 			v2_completion_cause_string_table,
-			RECOGNIZER_COMPLETION_CAUSE_COUNT,
+			ANEEX_COMPLETION_CAUSE_COUNT,
 			recog_header->completion_cause,
 			value,
 			pool);
@@ -587,7 +587,7 @@ static apt_bool_t aneex_v2_recog_header_generate(const mrcp_header_accessor_t *a
 	return aneex_recog_header_generate(recog_header,id,value,pool);
 }
 
-/** Duplicate MRCP recognizer header */
+/** Duplicate MRCP ANEEX header */
 static apt_bool_t aneex_recog_header_duplicate(mrcp_header_accessor_t *accessor, const mrcp_header_accessor_t *src, apr_size_t id, const apt_str_t *value, apr_pool_t *pool)
 {
 	aneex_recog_header_t *recog_header = accessor->data;
@@ -599,139 +599,139 @@ static apt_bool_t aneex_recog_header_duplicate(mrcp_header_accessor_t *accessor,
 	}
 	
 	switch(id) {
-		case RECOGNIZER_HEADER_CONFIDENCE_THRESHOLD:
+		case ANEEX_HEADER_CONFIDENCE_THRESHOLD:
 			recog_header->confidence_threshold = src_recog_header->confidence_threshold;
 			break;
-		case RECOGNIZER_HEADER_SENSITIVITY_LEVEL:
+		case ANEEX_HEADER_SENSITIVITY_LEVEL:
 			recog_header->sensitivity_level = src_recog_header->sensitivity_level;
 			break;
-		case RECOGNIZER_HEADER_SPEED_VS_ACCURACY:
+		case ANEEX_HEADER_SPEED_VS_ACCURACY:
 			recog_header->speed_vs_accuracy = src_recog_header->speed_vs_accuracy;
 			break;
-		case RECOGNIZER_HEADER_N_BEST_LIST_LENGTH:
+		case ANEEX_HEADER_N_BEST_LIST_LENGTH:
 			recog_header->n_best_list_length = src_recog_header->n_best_list_length;
 			break;
-		case RECOGNIZER_HEADER_NO_INPUT_TIMEOUT:
+		case ANEEX_HEADER_NO_INPUT_TIMEOUT:
 			recog_header->no_input_timeout = src_recog_header->no_input_timeout;
 			break;
-		case RECOGNIZER_HEADER_RECOGNITION_TIMEOUT:
+		case ANEEX_HEADER_RECOGNITION_TIMEOUT:
 			recog_header->recognition_timeout = src_recog_header->recognition_timeout;
 			break;
-		case RECOGNIZER_HEADER_WAVEFORM_URI:
+		case ANEEX_HEADER_WAVEFORM_URI:
 			recog_header->waveform_uri = *value;
 			break;
-		case RECOGNIZER_HEADER_COMPLETION_CAUSE:
+		case ANEEX_HEADER_COMPLETION_CAUSE:
 			recog_header->completion_cause = src_recog_header->completion_cause;
 			break;
-		case RECOGNIZER_HEADER_RECOGNIZER_CONTEXT_BLOCK:
-			recog_header->recognizer_context_block = *value;
+		case ANEEX_HEADER_ANEEX_CONTEXT_BLOCK:
+			recog_header->ANEEX_context_block = *value;
 			break;
-		case RECOGNIZER_HEADER_START_INPUT_TIMERS:
+		case ANEEX_HEADER_START_INPUT_TIMERS:
 			recog_header->start_input_timers = src_recog_header->start_input_timers;
 			break;
-		case RECOGNIZER_HEADER_SPEECH_COMPLETE_TIMEOUT:
+		case ANEEXHEADER_SPEECH_COMPLETE_TIMEOUT:
 			recog_header->speech_complete_timeout = src_recog_header->speech_complete_timeout;
 			break;
-		case RECOGNIZER_HEADER_SPEECH_INCOMPLETE_TIMEOUT:
+		case ANEEX_HEADER_SPEECH_INCOMPLETE_TIMEOUT:
 			recog_header->speech_incomplete_timeout = src_recog_header->speech_incomplete_timeout;
 			break;
-		case RECOGNIZER_HEADER_DTMF_INTERDIGIT_TIMEOUT:
+		case ANEEX_HEADER_DTMF_INTERDIGIT_TIMEOUT:
 			recog_header->dtmf_interdigit_timeout = src_recog_header->dtmf_interdigit_timeout;
 			break;
-		case RECOGNIZER_HEADER_DTMF_TERM_TIMEOUT:
+		case ANEEX_HEADER_DTMF_TERM_TIMEOUT:
 			recog_header->dtmf_term_timeout = src_recog_header->dtmf_term_timeout;
 			break;
-		case RECOGNIZER_HEADER_DTMF_TERM_CHAR:
+		case ANEEX_HEADER_DTMF_TERM_CHAR:
 			recog_header->dtmf_term_char = src_recog_header->dtmf_term_char;
 			break;
-		case RECOGNIZER_HEADER_FAILED_URI:
+		case ANEEX_HEADER_FAILED_URI:
 			recog_header->failed_uri = *value;
 			break;
-		case RECOGNIZER_HEADER_FAILED_URI_CAUSE:
+		case ANEEX_HEADER_FAILED_URI_CAUSE:
 			recog_header->failed_uri_cause = *value;
 			break;
-		case RECOGNIZER_HEADER_SAVE_WAVEFORM:
+		case ANEEX_HEADER_SAVE_WAVEFORM:
 			recog_header->save_waveform = src_recog_header->save_waveform;
 			break;
-		case RECOGNIZER_HEADER_NEW_AUDIO_CHANNEL:
+		case ANEEX_HEADER_NEW_AUDIO_CHANNEL:
 			recog_header->new_audio_channel = src_recog_header->new_audio_channel;
 			break;
-		case RECOGNIZER_HEADER_SPEECH_LANGUAGE:
+		case ANEEX_HEADER_SPEECH_LANGUAGE:
 			recog_header->speech_language = *value;
 			break;
-		case RECOGNIZER_HEADER_INPUT_TYPE:
+		case ANEEX_HEADER_INPUT_TYPE:
 			recog_header->input_type = *value;
 			break;
-		case RECOGNIZER_HEADER_INPUT_WAVEFORM_URI:
+		case ANEEX_HEADER_INPUT_WAVEFORM_URI:
 			recog_header->input_waveform_uri = *value;
 			break;
-		case RECOGNIZER_HEADER_COMPLETION_REASON:
+		case ANEEX_HEADER_COMPLETION_REASON:
 			recog_header->completion_reason = *value;
 			break;
-		case RECOGNIZER_HEADER_MEDIA_TYPE:
+		case ANEEX_HEADER_MEDIA_TYPE:
 			recog_header->media_type = *value;
 			break;
-		case RECOGNIZER_HEADER_VER_BUFFER_UTTERANCE:
+		case ANEEX_HEADER_VER_BUFFER_UTTERANCE:
 			recog_header->ver_buffer_utterance = src_recog_header->ver_buffer_utterance;
 			break;
-		case RECOGNIZER_HEADER_RECOGNITION_MODE:
+		case ANEEX_HEADER_RECOGNITION_MODE:
 			recog_header->recognition_mode = *value;
 			break;
-		case RECOGNIZER_HEADER_CANCEL_IF_QUEUE:
+		case ANEEX_HEADER_CANCEL_IF_QUEUE:
 			recog_header->cancel_if_queue = src_recog_header->cancel_if_queue;
 			break;
-		case RECOGNIZER_HEADER_HOTWORD_MAX_DURATION:
+		case ANEEX_HEADER_HOTWORD_MAX_DURATION:
 			recog_header->hotword_max_duration = src_recog_header->hotword_max_duration;
 			break;
-		case RECOGNIZER_HEADER_HOTWORD_MIN_DURATION:
+		case ANEEX_HEADER_HOTWORD_MIN_DURATION:
 			recog_header->hotword_min_duration = src_recog_header->hotword_min_duration;
 			break;
-		case RECOGNIZER_HEADER_INTERPRET_TEXT:
+		case ANEEX_HEADER_INTERPRET_TEXT:
 			recog_header->interpret_text = *value;
 			break;
-		case RECOGNIZER_HEADER_DTMF_BUFFER_TIME:
+		case ANEEX_HEADER_DTMF_BUFFER_TIME:
 			recog_header->dtmf_buffer_time = src_recog_header->dtmf_buffer_time;
 			break;
-		case RECOGNIZER_HEADER_CLEAR_DTMF_BUFFER:
+		case ANEEX_HEADER_CLEAR_DTMF_BUFFER:
 			recog_header->clear_dtmf_buffer = src_recog_header->clear_dtmf_buffer;
 			break;
-		case RECOGNIZER_HEADER_EARLY_NO_MATCH:
+		case ANEEX_HEADER_EARLY_NO_MATCH:
 			recog_header->early_no_match = src_recog_header->early_no_match;
 			break;
-		case RECOGNIZER_HEADER_NUM_MIN_CONSISTENT_PRONUNCIATIONS:
+		case ANEEX_HEADER_NUM_MIN_CONSISTENT_PRONUNCIATIONS:
 			recog_header->num_min_consistent_pronunciations = src_recog_header->num_min_consistent_pronunciations;
 			break;
-		case RECOGNIZER_HEADER_CONSISTENCY_THRESHOLD:
+		case ANEEX_HEADER_CONSISTENCY_THRESHOLD:
 			recog_header->consistency_threshold = src_recog_header->consistency_threshold;
 			break;
-		case RECOGNIZER_HEADER_CLASH_THRESHOLD:
+		case ANEEX_HEADER_CLASH_THRESHOLD:
 			recog_header->clash_threshold = src_recog_header->clash_threshold;
 			break;
-		case RECOGNIZER_HEADER_PERSONAL_GRAMMAR_URI:
+		case ANEEX_HEADER_PERSONAL_GRAMMAR_URI:
 			recog_header->personal_grammar_uri = *value;
 			break;
-		case RECOGNIZER_HEADER_ENROLL_UTTERANCE:
+		case ANEEX_HEADER_ENROLL_UTTERANCE:
 			recog_header->enroll_utterance = src_recog_header->enroll_utterance;
 			break;
-		case RECOGNIZER_HEADER_PHRASE_ID:
+		case ANEEX_HEADER_PHRASE_ID:
 			recog_header->phrase_id = *value;
 			break;
-		case RECOGNIZER_HEADER_PHRASE_NL:
+		case ANEEX_HEADER_PHRASE_NL:
 			recog_header->phrase_nl = *value;
 			break;
-		case RECOGNIZER_HEADER_WEIGHT:
+		case ANEEX_HEADER_WEIGHT:
 			recog_header->weight = src_recog_header->weight;
 			break;
-		case RECOGNIZER_HEADER_SAVE_BEST_WAVEFORM:
+		case ANEEX_HEADER_SAVE_BEST_WAVEFORM:
 			recog_header->save_best_waveform = src_recog_header->save_best_waveform;
 			break;
-		case RECOGNIZER_HEADER_NEW_PHRASE_ID:
+		case ANEEX_HEADER_NEW_PHRASE_ID:
 			recog_header->new_phrase_id = *value;
 			break;
-		case RECOGNIZER_HEADER_CONFUSABLE_PHRASES_URI:
+		case ANEEX_HEADER_CONFUSABLE_PHRASES_URI:
 			recog_header->confusable_phrases_uri = *value;
 			break;
-		case RECOGNIZER_HEADER_ABORT_PHRASE_ENROLLMENT:
+		case ANEEX_HEADER_ABORT_PHRASE_ENROLLMENT:
 			recog_header->abort_phrase_enrollment = src_recog_header->abort_phrase_enrollment;
 			break;
 		default:
@@ -747,7 +747,7 @@ static const mrcp_header_vtable_t v1_vtable = {
 	aneex_v1_recog_header_generate,
 	aneex_recog_header_duplicate,
 	aneex_v1_recog_header_string_table,
-	RECOGNIZER_HEADER_COUNT
+	ANEEX_HEADER_COUNT
 };
 
 static const mrcp_header_vtable_t v2_vtable = {
@@ -757,7 +757,7 @@ static const mrcp_header_vtable_t v2_vtable = {
 	aneex_v2_recog_header_generate,
 	aneex_recog_header_duplicate,
 	aneex_v2_recog_header_string_table,
-	RECOGNIZER_HEADER_COUNT
+	ANEEX_HEADER_COUNT
 };
 
 const mrcp_header_vtable_t* aneex_recog_header_vtable_get(mrcp_version_e version)
@@ -775,5 +775,5 @@ MRCP_DECLARE(const apt_str_t*) aneex_recog_completion_cause_get(aneex_recog_comp
 		table = v1_completion_cause_string_table;
 	}
 
-	return apt_string_table_str_get(table,RECOGNIZER_COMPLETION_CAUSE_COUNT,completion_cause);
+	return apt_string_table_str_get(table,ANEEX_COMPLETION_CAUSE_COUNT,completion_cause);
 }
