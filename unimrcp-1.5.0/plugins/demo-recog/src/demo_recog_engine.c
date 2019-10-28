@@ -139,6 +139,8 @@ MRCP_PLUGIN_LOG_SOURCE_IMPLEMENT(RECOG_PLUGIN,"RECOG-PLUGIN")
 /** Create demo recognizer engine */
 MRCP_PLUGIN_DECLARE(mrcp_engine_t*) mrcp_plugin_create(apr_pool_t *pool)
 {
+    printf("DEBUG: Plugin: mrcp_plugin_create\n");
+
 	demo_recog_engine_t *demo_engine = apr_palloc(pool,sizeof(demo_recog_engine_t));
 	apt_task_t *task;
 	apt_task_vtable_t *vtable;
@@ -167,6 +169,8 @@ MRCP_PLUGIN_DECLARE(mrcp_engine_t*) mrcp_plugin_create(apr_pool_t *pool)
 /** Destroy recognizer engine */
 static apt_bool_t demo_recog_engine_destroy(mrcp_engine_t *engine)
 {
+    printf("DEBUG: Plugin: demo_recog_engine_destroy\n");
+
 	demo_recog_engine_t *demo_engine = engine->obj;
 	if(demo_engine->task) {
 		apt_task_t *task = apt_consumer_task_base_get(demo_engine->task);
@@ -179,6 +183,8 @@ static apt_bool_t demo_recog_engine_destroy(mrcp_engine_t *engine)
 /** Open recognizer engine */
 static apt_bool_t demo_recog_engine_open(mrcp_engine_t *engine)
 {
+    printf("DEBUG: Plugin: demo_recog_engine_open\n");
+
 	demo_recog_engine_t *demo_engine = engine->obj;
 	if(demo_engine->task) {
 		apt_task_t *task = apt_consumer_task_base_get(demo_engine->task);
@@ -190,6 +196,8 @@ static apt_bool_t demo_recog_engine_open(mrcp_engine_t *engine)
 /** Close recognizer engine */
 static apt_bool_t demo_recog_engine_close(mrcp_engine_t *engine)
 {
+    printf("DEBUG: Plugin: demo_recog_engine_close\n");
+
 	demo_recog_engine_t *demo_engine = engine->obj;
 	if(demo_engine->task) {
 		apt_task_t *task = apt_consumer_task_base_get(demo_engine->task);
@@ -200,6 +208,8 @@ static apt_bool_t demo_recog_engine_close(mrcp_engine_t *engine)
 
 static mrcp_engine_channel_t* demo_recog_engine_channel_create(mrcp_engine_t *engine, apr_pool_t *pool)
 {
+    printf("DEBUG: Plugin: demo_recog_engine_channel_create\n");
+
 	mpf_stream_capabilities_t *capabilities;
 	mpf_termination_t *termination; 
 
@@ -264,7 +274,7 @@ static apt_bool_t demo_recog_channel_request_process(mrcp_engine_channel_t *chan
 static apt_bool_t demo_recog_channel_recognize(mrcp_engine_channel_t *channel, mrcp_message_t *request, mrcp_message_t *response)
 {
 	/* process RECOGNIZE request */
-    printf("demo_recog_channel_recognize");
+    printf("DEBUG: Plugin: demo_recog_channel_recognize\n");
 
 	mrcp_recog_header_t *recog_header;
 	demo_recog_channel_t *recog_channel = channel->method_obj;
@@ -317,6 +327,8 @@ static apt_bool_t demo_recog_channel_recognize(mrcp_engine_channel_t *channel, m
 /** Process STOP request */
 static apt_bool_t demo_recog_channel_stop(mrcp_engine_channel_t *channel, mrcp_message_t *request, mrcp_message_t *response)
 {
+    printf("DEBUG: Plugin: demo_recog_channel_stop\n");
+
 	/* process STOP request */
 	demo_recog_channel_t *recog_channel = channel->method_obj;
 	/* store STOP request, make sure there is no more activity and only then send the response */
@@ -327,6 +339,8 @@ static apt_bool_t demo_recog_channel_stop(mrcp_engine_channel_t *channel, mrcp_m
 /** Process START-INPUT-TIMERS request */
 static apt_bool_t demo_recog_channel_timers_start(mrcp_engine_channel_t *channel, mrcp_message_t *request, mrcp_message_t *response)
 {
+    printf("DEBUG: Plugin: demo_recog_channel_timers_start\n");
+
 	demo_recog_channel_t *recog_channel = channel->method_obj;
 	recog_channel->timers_started = TRUE;
 	return mrcp_engine_channel_message_send(channel,response);
@@ -335,6 +349,8 @@ static apt_bool_t demo_recog_channel_timers_start(mrcp_engine_channel_t *channel
 /** Dispatch MRCP request */
 static apt_bool_t demo_recog_channel_request_dispatch(mrcp_engine_channel_t *channel, mrcp_message_t *request)
 {
+    printf("DEBUG: Plugin: demo_recog_channel_request_dispatch\n");
+
 	apt_bool_t processed = FALSE;
 	mrcp_message_t *response = mrcp_response_create(request,request->pool);
 	switch(request->start_line.method_id) {
@@ -386,6 +402,8 @@ static apt_bool_t demo_recog_stream_close(mpf_audio_stream_t *stream)
 /* Raise demo START-OF-INPUT event */
 static apt_bool_t demo_recog_start_of_input(demo_recog_channel_t *recog_channel)
 {
+    printf("DEBUG: Plugin: demo_recog_start_of_input\n");
+
 	/* create START-OF-INPUT event */
 	mrcp_message_t *message = mrcp_event_create(
 						recog_channel->recog_request,
@@ -404,6 +422,8 @@ static apt_bool_t demo_recog_start_of_input(demo_recog_channel_t *recog_channel)
 /* Load demo recognition result */
 static apt_bool_t demo_recog_result_load(demo_recog_channel_t *recog_channel, mrcp_message_t *message)
 {
+    printf("DEBUG: Plugin: demo_recog_result_load\n");
+
 	FILE *file;
 	mrcp_engine_channel_t *channel = recog_channel->channel;
 	const apt_dir_layout_t *dir_layout = channel->engine->dir_layout;
@@ -436,6 +456,8 @@ static apt_bool_t demo_recog_result_load(demo_recog_channel_t *recog_channel, mr
 /* Raise demo RECOGNITION-COMPLETE event */
 static apt_bool_t demo_recog_recognition_complete(demo_recog_channel_t *recog_channel, mrcp_recog_completion_cause_e cause)
 {
+    printf("DEBUG: Plugin: demo_recog_recognition_complete\n");
+
 	mrcp_recog_header_t *recog_header;
 	/* create RECOGNITION-COMPLETE event */
 	mrcp_message_t *message = mrcp_event_create(
@@ -468,6 +490,8 @@ static apt_bool_t demo_recog_recognition_complete(demo_recog_channel_t *recog_ch
 /** Callback is called from MPF engine context to write/send new frame */
 static apt_bool_t demo_recog_stream_write(mpf_audio_stream_t *stream, const mpf_frame_t *frame)
 {
+    printf("DEBUG: Plugin: demo_recog_stream_write\n");
+
 	demo_recog_channel_t *recog_channel = stream->obj;
 	if(recog_channel->stop_response) {
 		/* send asynchronous response to STOP request */
@@ -526,6 +550,8 @@ static apt_bool_t demo_recog_stream_write(mpf_audio_stream_t *stream, const mpf_
 
 static apt_bool_t demo_recog_msg_signal(demo_recog_msg_type_e type, mrcp_engine_channel_t *channel, mrcp_message_t *request)
 {
+    printf("DEBUG: Plugin: demo_recog_msg_signal\n");
+
 	apt_bool_t status = FALSE;
 	demo_recog_channel_t *demo_channel = channel->method_obj;
 	demo_recog_engine_t *demo_engine = demo_channel->demo_engine;
@@ -546,6 +572,8 @@ static apt_bool_t demo_recog_msg_signal(demo_recog_msg_type_e type, mrcp_engine_
 
 static apt_bool_t demo_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 {
+    printf("DEBUG: Plugin: demo_recog_msg_process\n");
+
 	demo_recog_msg_t *demo_msg = (demo_recog_msg_t*)msg->data;
 	switch(demo_msg->type) {
 		case DEMO_RECOG_MSG_OPEN_CHANNEL:
