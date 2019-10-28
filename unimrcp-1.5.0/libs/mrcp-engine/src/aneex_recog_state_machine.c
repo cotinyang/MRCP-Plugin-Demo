@@ -534,10 +534,10 @@ static apt_bool_t aneex_recog_state_deactivate(mrcp_state_machine_t *base)
 /** Create MRCP recognizer state machine */
 mrcp_state_machine_t* aneex_recog_state_machine_create(void *obj, mrcp_version_e version, apr_pool_t *pool)
 {
-	aneex_recog_state_machine_t *state_machine = apr_palloc(pool,sizeof(mrcp_recog_state_machine_t));
+	aneex_recog_state_machine_t *state_machine = apr_palloc(pool,sizeof(aneex_recog_state_machine_t));
 	mrcp_state_machine_init(&state_machine->base,obj);
-	state_machine->base.update = recog_state_update;
-	state_machine->base.deactivate = recog_state_deactivate;
+	state_machine->base.update = aneex_recog_state_update;
+	state_machine->base.deactivate = aneex_recog_state_deactivate;
 	state_machine->state = ANEEX_STATE_IDLE;
 	state_machine->is_pending = FALSE;
 	state_machine->active_request = NULL;
