@@ -32,7 +32,7 @@
 #include "apt_consumer_task.h"
 #include "apt_log.h"
 
-#define RECOG_ENGINE_TASK_NAME "Aneex Recog Engine"
+#define ANNEX_ENGINE_TASK_NAME "Aneex Recog Engine"
 
 typedef struct aneex_recog_engine_t aneex_recog_engine_t;
 typedef struct aneex_recog_channel_t aneex_recog_channel_t;
@@ -155,7 +155,7 @@ MRCP_PLUGIN_DECLARE(mrcp_engine_t*) mrcp_plugin_create(apr_pool_t *pool)
 		return NULL;
 	}
 	task = apt_consumer_task_base_get(aneex_engine->task);
-	apt_task_name_set(task,RECOG_ENGINE_TASK_NAME);
+	apt_task_name_set(task,ANEEX_ENGINE_TASK_NAME);
 	vtable = apt_task_vtable_get(task);
 	if(vtable) {
 		vtable->process_msg = aneex_recog_msg_process;
