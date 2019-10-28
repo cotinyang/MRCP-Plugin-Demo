@@ -420,8 +420,8 @@ static apt_bool_t aneex_recog_header_generate(const aneex_recog_header_t *recog_
 		case ANEEX_HEADER_WAVEFORM_URI:
 			*value = recog_header->waveform_uri;
 			break;
-		case ANEEX_HEADER_ANEEX_CONTEXT_BLOCK:
-			*value = recog_header->ANEEX_context_block;
+		case ANEEX_HEADER_RECOGNIZER_CONTEXT_BLOCK:
+			*value = recog_header->recognizer_context_block;
 			break;
 		case ANEEX_HEADER_START_INPUT_TIMERS:
 			apt_boolean_value_generate(recog_header->start_input_timers,value,pool);
