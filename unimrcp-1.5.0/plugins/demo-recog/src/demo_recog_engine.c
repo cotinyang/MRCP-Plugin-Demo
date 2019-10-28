@@ -550,7 +550,7 @@ static apt_bool_t demo_recog_stream_write(mpf_audio_stream_t *stream, const mpf_
 
 static apt_bool_t demo_recog_msg_signal(demo_recog_msg_type_e type, mrcp_engine_channel_t *channel, mrcp_message_t *request)
 {
-    printf("DEBUG: Plugin: demo_recog_msg_signal\n");
+    //printf("DEBUG: Plugin: demo_recog_msg_signal\n");
 
 	apt_bool_t status = FALSE;
 	demo_recog_channel_t *demo_channel = channel->method_obj;
@@ -572,7 +572,7 @@ static apt_bool_t demo_recog_msg_signal(demo_recog_msg_type_e type, mrcp_engine_
 
 static apt_bool_t demo_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 {
-    printf("DEBUG: Plugin: demo_recog_msg_process\n");
+    //printf("DEBUG: Plugin: demo_recog_msg_process\n");
 
 	demo_recog_msg_t *demo_msg = (demo_recog_msg_t*)msg->data;
 	switch(demo_msg->type) {
