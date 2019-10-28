@@ -109,6 +109,7 @@ am_libmrcpengine_la_OBJECTS = src/mrcp_engine_iface.lo \
 	src/mrcp_engine_impl.lo src/mrcp_engine_factory.lo \
 	src/mrcp_engine_loader.lo src/mrcp_synth_state_machine.lo \
 	src/mrcp_recog_state_machine.lo \
+	src/aneex_recog_state_machine.lo \	
 	src/mrcp_recorder_state_machine.lo \
 	src/mrcp_verifier_state_machine.lo
 libmrcpengine_la_OBJECTS = $(am_libmrcpengine_la_OBJECTS)
@@ -355,6 +356,7 @@ include_HEADERS = include/mrcp_engine_types.h \
                               include/mrcp_engine_impl.h \
                               include/mrcp_synth_engine.h \
                               include/mrcp_recog_engine.h \
+                              include/aneex_recog_engine.h \                              
                               include/mrcp_recorder_engine.h \
                               include/mrcp_verifier_engine.h \
                               include/mrcp_resource_engine.h \
@@ -363,6 +365,7 @@ include_HEADERS = include/mrcp_engine_types.h \
                               include/mrcp_state_machine.h \
                               include/mrcp_synth_state_machine.h \
                               include/mrcp_recog_state_machine.h \
+                              include/aneex_recog_state_machine.h \                              
                               include/mrcp_recorder_state_machine.h \
                               include/mrcp_verifier_state_machine.h
 
@@ -372,6 +375,7 @@ libmrcpengine_la_SOURCES = src/mrcp_engine_iface.c \
                               src/mrcp_engine_loader.c \
                               src/mrcp_synth_state_machine.c \
                               src/mrcp_recog_state_machine.c \
+                              src/aneex_recog_state_machine.c \                              
                               src/mrcp_recorder_state_machine.c \
                               src/mrcp_verifier_state_machine.c
 
@@ -438,6 +442,8 @@ src/mrcp_synth_state_machine.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/mrcp_recog_state_machine.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/aneex_recog_state_machine.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)	
 src/mrcp_recorder_state_machine.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/mrcp_verifier_state_machine.lo: src/$(am__dirstamp) \
@@ -459,6 +465,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mrcp_engine_impl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mrcp_engine_loader.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mrcp_recog_state_machine.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/aneex_recog_state_machine.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mrcp_recorder_state_machine.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mrcp_synth_state_machine.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mrcp_verifier_state_machine.Plo@am__quote@

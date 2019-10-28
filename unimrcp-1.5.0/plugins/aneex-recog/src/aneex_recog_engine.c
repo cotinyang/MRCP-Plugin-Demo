@@ -184,6 +184,8 @@ static apt_bool_t aneex_recog_engine_destroy(mrcp_engine_t *engine)
 /** Open recognizer engine */
 static apt_bool_t aneex_recog_engine_open(mrcp_engine_t *engine)
 {
+    printf("DEBUG: Plugin: demo_aneex_engine_open\n");
+
 	aneex_recog_engine_t *aneex_engine = engine->obj;
 	if(aneex_engine->task) {
 		apt_task_t *task = apt_consumer_task_base_get(aneex_engine->task);
@@ -205,6 +207,8 @@ static apt_bool_t aneex_recog_engine_close(mrcp_engine_t *engine)
 
 static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *engine, apr_pool_t *pool)
 {
+    printf("DEBUG: Plugin: aneex_recog_engine_channel_create start\n");
+
 	mpf_stream_capabilities_t *capabilities;
 	mpf_termination_t *termination; 
 
@@ -222,6 +226,8 @@ static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *e
 			&capabilities->codecs,
 			MPF_SAMPLE_RATE_8000 | MPF_SAMPLE_RATE_16000,
 			"LPCM");
+
+	//create link to DB file in /data
 
 	/* create media termination */
 	termination = mrcp_engine_audio_termination_create(
@@ -270,12 +276,15 @@ static apt_bool_t aneex_recog_channel_request_process(mrcp_engine_channel_t *cha
 /** Process RECOGNIZE request */
 static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, mrcp_message_t *request, mrcp_message_t *response)
 {
+    printf("DEBUG: Plugin: aneex_recog_channel_recognize start\n");
+
 	int errcode = APR_SUCCESS;
 	/* process RECOGNIZE request */
 	mrcp_recog_header_t *recog_header;
 	aneex_recog_channel_t *recog_channel = channel->method_obj;
-	const mpf_codec_descriptor_t *descriptor = mrcp_engine_sink_stream_codec_get(channel);
 
+	//прочитать аудио для распознавания
+	const mpf_codec_descriptor_t *descriptor = mrcp_engine_sink_stream_codec_get(channel);
 	if(!descriptor) {
 		apt_log(RECOG_LOG_MARK,APT_PRIO_WARNING,"Failed to Get Codec Descriptor " APT_SIDRES_FMT, MRCP_MESSAGE_SIDRES(request));
 		response->start_line.status_code = MRCP_STATUS_CODE_METHOD_FAILED;
@@ -298,6 +307,7 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 		}
 	}
 
+	// само распознавание
 	if(!recog_channel->audio_out) {
 		const apt_dir_layout_t *dir_layout = channel->engine->dir_layout;
 		char *file_name = apr_psprintf(channel->pool,"utter-%dkHz-%s.pcm",
@@ -318,12 +328,12 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 	mrcp_engine_channel_message_send(channel,response);
 
 	/* reset */
-	if (errcode!=APR_SUCCESS)
+	/*if (errcode!=APR_SUCCESS)
 	{
 		apt_log(RECOG_LOG_MARK,APT_PRIO_WARNING,"[aneex] Failed! error code:%d\n", errcode);
 		return FALSE;
 	}
-	apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] Suceess!");
+	apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] Suceess!");*/
 	
 	recog_channel->recog_request = request;
 

@@ -19,6 +19,7 @@
 #include "mrcp_resource.h"
 #include "mrcp_synth_resource.h"
 #include "mrcp_recog_resource.h"
+#include "aneex_recog_resource.h"
 #include "mrcp_recorder_resource.h"
 #include "mrcp_verifier_resource.h"
 #include "apt_log.h"
@@ -124,11 +125,11 @@ static mrcp_resource_t* mrcp_resource_create_by_id(mrcp_resource_id id, apr_pool
 		case MRCP_RECOGNIZER_RESOURCE:
 			resource = mrcp_recog_resource_create(pool);
 			break;
+		case ANEEX_RECOGNIZER_RESOURCE:
+			resource = aneex_recog_resource_create(pool);
+			break;
 		case MRCP_RECORDER_RESOURCE:
 			resource = mrcp_recorder_resource_create(pool);
-			break;
-		case ANEEX_RECOGNIZER_RESOURCE:
-			resource = mrcp_recog_resource_create(pool);
 			break;
 		case MRCP_VERIFIER_RESOURCE:
 			resource = mrcp_verifier_resource_create(pool);

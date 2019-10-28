@@ -115,6 +115,8 @@ am_libmrcp_la_OBJECTS = message/src/mrcp_start_line.lo \
 	resources/src/mrcp_synth_resource.lo \
 	resources/src/mrcp_recog_header.lo \
 	resources/src/mrcp_recog_resource.lo \
+	resources/src/aneex_recog_header.lo \
+	resources/src/aneex_recog_resource.lo \	
 	resources/src/mrcp_recorder_header.lo \
 	resources/src/mrcp_recorder_resource.lo \
 	resources/src/mrcp_verifier_header.lo \
@@ -370,7 +372,9 @@ include_HEADERS = include/mrcp.h \
                            resources/include/mrcp_synth_resource.h \
                            resources/include/mrcp_recog_header.h \
                            resources/include/mrcp_recog_resource.h \
-                           resources/include/mrcp_recorder_header.h \
+                           resources/include/mrcp_recog_header.h \
+                           resources/include/aneex_recog_resource.h \                           
+                           resources/include/aneex_recorder_header.h \
                            resources/include/mrcp_recorder_resource.h \
                            resources/include/mrcp_verifier_header.h \
                            resources/include/mrcp_verifier_resource.h
@@ -387,6 +391,8 @@ libmrcp_la_SOURCES = message/src/mrcp_start_line.c \
                            resources/src/mrcp_synth_resource.c \
                            resources/src/mrcp_recog_header.c \
                            resources/src/mrcp_recog_resource.c \
+                           resources/src/aneex_recog_header.c \
+                           resources/src/aneex_recog_resource.c \                           
                            resources/src/mrcp_recorder_header.c \
                            resources/src/mrcp_recorder_resource.c \
                            resources/src/mrcp_verifier_header.c \
@@ -515,6 +521,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@message/src/$(DEPDIR)/mrcp_start_line.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@resources/src/$(DEPDIR)/mrcp_recog_header.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@resources/src/$(DEPDIR)/mrcp_recog_resource.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@resources/src/$(DEPDIR)/aneex_recog_header.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@resources/src/$(DEPDIR)/aneex_recog_resource.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@resources/src/$(DEPDIR)/mrcp_recorder_header.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@resources/src/$(DEPDIR)/mrcp_recorder_resource.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@resources/src/$(DEPDIR)/mrcp_synth_header.Plo@am__quote@
