@@ -29,6 +29,7 @@
     <resource-factory>
       <resource id="speechsynth" enable="true"/>
       <resource id="speechrecog" enable="true"/>
+      <resource id="aneexrecog" enable="true"/>        
       <resource id="recorder" enable="true"/>
       <resource id="speakverify" enable="true"/>
     </resource-factory>

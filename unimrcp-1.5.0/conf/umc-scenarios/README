@@ -8,6 +8,7 @@ associated to one of the predefined classes as follows:
 
 	<umcscenario name="synth" class="Synthesizer">
 	<umcscenario name="recog" class="Recognizer">
+	<umcscenario name="aneex" class="Aneex recognizer">	
 	<umcscenario name="rec" class="Recorder">
 	<umcscenario name="verify" class="Verifier">
 	<umcscenario name="dtmf" class="DtmfRecognizer">
