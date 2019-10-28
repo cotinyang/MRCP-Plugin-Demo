@@ -31,6 +31,7 @@
 #include "mpf_activity_detector.h"
 #include "apt_consumer_task.h"
 #include "apt_log.h"
+#include <stdlib.h>
 
 #define RECOG_ENGINE_TASK_NAME "Demo Recog Engine"
 
@@ -263,8 +264,9 @@ static apt_bool_t demo_recog_channel_request_process(mrcp_engine_channel_t *chan
 static apt_bool_t demo_recog_channel_recognize(mrcp_engine_channel_t *channel, mrcp_message_t *request, mrcp_message_t *response)
 {
 	/* process RECOGNIZE request */
-    std::cout << "process RECOGNIZE request" << std::endl;
-    //sprintf(hex_str+i*2,"%02x",uuid.data[i]);
+    sprintf("demo_recog_channel_recognize");
+	apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"demo_recog_channel_recognize",file_path);
+
 	mrcp_recog_header_t *recog_header;
 	demo_recog_channel_t *recog_channel = channel->method_obj;
 	const mpf_codec_descriptor_t *descriptor = mrcp_engine_sink_stream_codec_get(channel);
