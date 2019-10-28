@@ -96,13 +96,13 @@ static APR_INLINE void aneex_recog_state_change(aneex_recog_state_machine_t *sta
 }
 
 
-static apt_bool_t aneex_recog_request_set_params(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_request_set_params(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_header_fields_set(state_machine->properties,&message->header,message->pool);
 	return aneex_recog_request_dispatch(state_machine,message);
 }
 
-static apt_bool_t aneex_recog_response_set_params(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_response_set_params(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	return aneex_recog_response_dispatch(state_machine,message);
 }
@@ -112,7 +112,7 @@ static apt_bool_t recog_request_get_params(aneex_recog_state_machine_t *state_ma
 	return aneex_recog_request_dispatch(state_machine,message);
 }
 
-static apt_bool_t aneex_recog_response_get_params(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_response_get_params(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_header_fields_get(&message->header,state_machine->properties,&state_machine->active_request->header,message->pool);
 	return aneex_recog_response_dispatch(state_machine,message);
@@ -132,7 +132,7 @@ static apt_bool_t aneex_recog_request_define_grammar(aneex_recog_state_machine_t
 	return aneex_recog_request_dispatch(state_machine,message);
 }
 
-static apt_bool_t aneex_recog_response_define_grammar(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_response_define_grammar(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	if(aneex_resource_header_property_check(message,ANEEX_HEADER_COMPLETION_CAUSE) != TRUE) {
 		aneex_recog_header_t *recog_header = aneex_resource_header_prepare(message);
@@ -142,7 +142,7 @@ static apt_bool_t aneex_recog_response_define_grammar(aneex_recog_state_machine_
 	return aneex_recog_response_dispatch(state_machine,message);
 }
 
-static apt_bool_t aneex_recog_request_recognize(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_request_recognize(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_header_fields_inherit(&message->header,state_machine->properties,message->pool);
 	if(state_machine->state == ANEEX_STATE_RECOGNIZING) {
@@ -161,7 +161,7 @@ static apt_bool_t aneex_recog_request_recognize(aneex_recog_state_machine_t *sta
 	return aneex_recog_request_dispatch(state_machine,message);
 }
 
-static apt_bool_t _recog_response_recognize(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_response_recognize(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	if(message->start_line.request_state == MRCP_REQUEST_STATE_INPROGRESS) {
 		state_machine->recog = state_machine->active_request;
@@ -175,18 +175,18 @@ static apt_bool_t _recog_response_recognize(aneex_recog_state_machine_t *state_m
 	return aneex_recog_response_dispatch(state_machine,message);
 }
 
-static apt_bool_t aneex_recog_request_interpret(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_request_interpret(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_header_fields_inherit(&message->header,state_machine->properties,message->pool);
 	return aneex_recog_request_dispatch(state_machine,message);
 }
 
-static apt_bool_t aneex_recog_response_interpret(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_response_interpret(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	return aneex_recog_response_dispatch(state_machine,message);
 }
 
-static apt_bool_t aneex_recog_request_get_result(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_request_get_result(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_message_t *response_message;
 	if(state_machine->state == ANEEX_STATE_RECOGNIZED) {
@@ -200,12 +200,12 @@ static apt_bool_t aneex_recog_request_get_result(aneex_recog_state_machine_t *st
 	return aneex_recog_response_dispatch(state_machine,response_message);
 }
 
-static apt_bool_t aneex_recog_response_get_result(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_response_get_result(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	return aneex_recog_response_dispatch(state_machine,message);
 }
 
-static apt_bool_t aneex_recog_request_recognition_start_timers(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_request_recognition_start_timers(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_message_t *response_message;
 	if(state_machine->state == ANEEX_STATE_RECOGNIZING) {
@@ -219,7 +219,7 @@ static apt_bool_t aneex_recog_request_recognition_start_timers(aneex_recog_state
 	return aneex_recog_response_dispatch(state_machine,response_message);
 }
 
-static apt_bool_t aneex_recog_response_recognition_start_timers(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_response_recognition_start_timers(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	return aneex_recog_response_dispatch(state_machine,message);
 }
@@ -260,7 +260,7 @@ static apt_bool_t aneex_recog_pending_requests_remove(aneex_recog_state_machine_
 	return TRUE;
 }
 
-static apt_bool_t aneex_recog_request_stop(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_request_stop(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_message_t *response_message;
 	if(state_machine->state == ANEEX_STATE_RECOGNIZING) {
