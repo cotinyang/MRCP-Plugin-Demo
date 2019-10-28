@@ -84,7 +84,7 @@ bool AneexRecogSession::Stop()
 	if(!m_pRecogChannel)
 		return false;
 
-	mrcp_message_t* pStopMessage = CreateMrcpMessage(m_pRecogChannel->m_pMrcpChannel,RECOGNIZER_STOP);
+	mrcp_message_t* pStopMessage = CreateMrcpMessage(m_pRecogChannel->m_pMrcpChannel,ANEEX_STOP);
 	if(!pStopMessage)
 		return false;
 
@@ -192,7 +192,7 @@ AneexRecogChannel* RecogSession::CreateRecogChannel()
 			pRecogChannel);            /* object to associate */
 
 	pChannel = CreateMrcpChannel(
-			MRCP_RECOGNIZER_RESOURCE,  /* MRCP resource identifier */
+			ANEEX_RECOGNIZER_RESOURCE,  /* MRCP resource identifier */
 			pTermination,              /* media termination, used to terminate audio stream */
 			NULL,                      /* RTP descriptor, used to create RTP termination (NULL by default) */
 			pRecogChannel);            /* object to associate */
@@ -240,7 +240,7 @@ bool AneexRecogSession::OnMessageReceive(mrcp_channel_t* pMrcpChannel, mrcp_mess
 	if(pMrcpMessage->start_line.message_type == MRCP_MESSAGE_TYPE_RESPONSE) 
 	{
 		/* received MRCP response */
-		if(pMrcpMessage->start_line.method_id == RECOGNIZER_DEFINE_GRAMMAR) 
+		if(pMrcpMessage->start_line.method_id == ANEEX_DEFINE_GRAMMAR)
 		{
 			/* received the response to DEFINE-GRAMMAR request */
 			if(pMrcpMessage->start_line.request_state == MRCP_REQUEST_STATE_COMPLETE) 
@@ -253,7 +253,7 @@ bool AneexRecogSession::OnMessageReceive(mrcp_channel_t* pMrcpChannel, mrcp_mess
 				Terminate();
 			}
 		}
-		else if(pMrcpMessage->start_line.method_id == RECOGNIZER_RECOGNIZE)
+		else if(pMrcpMessage->start_line.method_id == ANEEX_RECOGNIZE)
 		{
 			/* received the response to RECOGNIZE request */
 			if(pMrcpMessage->start_line.request_state == MRCP_REQUEST_STATE_INPROGRESS)
@@ -276,7 +276,7 @@ bool AneexRecogSession::OnMessageReceive(mrcp_channel_t* pMrcpChannel, mrcp_mess
 	}
 	else if(pMrcpMessage->start_line.message_type == MRCP_MESSAGE_TYPE_EVENT) 
 	{
-		if(pMrcpMessage->start_line.method_id == RECOGNIZER_RECOGNITION_COMPLETE) 
+		if(pMrcpMessage->start_line.method_id == ANEEX_RECOGNITION_COMPLETE)
 		{
 			ParseNLSMLResult(pMrcpMessage);
 
@@ -285,7 +285,7 @@ bool AneexRecogSession::OnMessageReceive(mrcp_channel_t* pMrcpChannel, mrcp_mess
 
 			Terminate();
 		}
-		else if(pMrcpMessage->start_line.method_id == RECOGNIZER_START_OF_INPUT) 
+		else if(pMrcpMessage->start_line.method_id == ANEEX_START_OF_INPUT)
 		{
 			/* received start-of-input, do whatever you need here */
 		}
@@ -331,7 +331,7 @@ bool AneexRecogSession::StartRecognition(mrcp_channel_t* pMrcpChannel)
 
 mrcp_message_t* AneexRecogSession::CreateDefineGrammarRequest(mrcp_channel_t* pMrcpChannel)
 {
-	mrcp_message_t* pMrcpMessage = CreateMrcpMessage(pMrcpChannel,RECOGNIZER_DEFINE_GRAMMAR);
+	mrcp_message_t* pMrcpMessage = CreateMrcpMessage(pMrcpChannel,ANEEX_DEFINE_GRAMMAR);
 	if(!pMrcpMessage)
 		return NULL;
 
@@ -360,7 +360,7 @@ mrcp_message_t* AneexRecogSession::CreateDefineGrammarRequest(mrcp_channel_t* pM
 
 mrcp_message_t* AneexRecogSession::CreateRecognizeRequest(mrcp_channel_t* pMrcpChannel)
 {
-	mrcp_message_t* pMrcpMessage = CreateMrcpMessage(pMrcpChannel,RECOGNIZER_RECOGNIZE);
+	mrcp_message_t* pMrcpMessage = CreateMrcpMessage(pMrcpChannel,ANEEX_RECOGNIZE);
 	if(!pMrcpMessage)
 		return NULL;
 
@@ -401,18 +401,18 @@ mrcp_message_t* AneexRecogSession::CreateRecognizeRequest(mrcp_channel_t* pMrcpC
 		if(pMrcpMessage->start_line.version == MRCP_VERSION_2)
 		{
 			pRecogHeader->cancel_if_queue = FALSE;
-			mrcp_resource_header_property_add(pMrcpMessage,RECOGNIZER_HEADER_CANCEL_IF_QUEUE);
+			mrcp_resource_header_property_add(pMrcpMessage,ANEEX_HEADER_CANCEL_IF_QUEUE);
 		}
 		pRecogHeader->no_input_timeout = 5000;
-		mrcp_resource_header_property_add(pMrcpMessage,RECOGNIZER_HEADER_NO_INPUT_TIMEOUT);
+		mrcp_resource_header_property_add(pMrcpMessage,ANEEX_HEADER_NO_INPUT_TIMEOUT);
 		pRecogHeader->recognition_timeout = 10000;
-		mrcp_resource_header_property_add(pMrcpMessage,RECOGNIZER_HEADER_RECOGNITION_TIMEOUT);
+		mrcp_resource_header_property_add(pMrcpMessage,ANEEX_HEADER_RECOGNITION_TIMEOUT);
 		pRecogHeader->start_input_timers = TRUE;
-		mrcp_resource_header_property_add(pMrcpMessage,RECOGNIZER_HEADER_START_INPUT_TIMERS);
+		mrcp_resource_header_property_add(pMrcpMessage,ANEEX_HEADER_START_INPUT_TIMERS);
 		pRecogHeader->confidence_threshold = 0.87f;
-		mrcp_resource_header_property_add(pMrcpMessage,RECOGNIZER_HEADER_CONFIDENCE_THRESHOLD);
+		mrcp_resource_header_property_add(pMrcpMessage,ANEEX_HEADER_CONFIDENCE_THRESHOLD);
 		pRecogHeader->save_waveform = TRUE;
-		mrcp_resource_header_property_add(pMrcpMessage,RECOGNIZER_HEADER_SAVE_WAVEFORM);
+		mrcp_resource_header_property_add(pMrcpMessage,ANEEX_HEADER_SAVE_WAVEFORM);
 	}
 	return pMrcpMessage;
 }

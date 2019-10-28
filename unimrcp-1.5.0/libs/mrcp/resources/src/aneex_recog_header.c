@@ -167,7 +167,7 @@ static void aneex_recog_header_init(aneex_recog_header_t *recog_header)
 	recog_header->no_input_timeout = 0;
 	recog_header->recognition_timeout = 0;
 	apt_string_reset(&recog_header->waveform_uri);
-	recog_header->completion_cause = RECOGNIZER_COMPLETION_CAUSE_COUNT;
+	recog_header->completion_cause = ANEEX_COMPLETION_CAUSE_COUNT;
 	apt_string_reset(&recog_header->recognizer_context_block);
 	recog_header->start_input_timers = FALSE;
 	recog_header->speech_complete_timeout = 0;
@@ -222,130 +222,130 @@ static apt_bool_t aneex_recog_header_parse(aneex_recog_header_t *recog_header, a
 {
 	apt_bool_t status = TRUE;
 	switch(id) {
-		case RECOGNIZER_HEADER_N_BEST_LIST_LENGTH:
+		case ANEEX_HEADER_N_BEST_LIST_LENGTH:
 			recog_header->n_best_list_length = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_NO_INPUT_TIMEOUT:
+		case ANEEX_HEADER_NO_INPUT_TIMEOUT:
 			recog_header->no_input_timeout = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_RECOGNITION_TIMEOUT:
+		case ANEEX_HEADER_RECOGNITION_TIMEOUT:
 			recog_header->recognition_timeout = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_WAVEFORM_URI:
+		case ANEEX_HEADER_WAVEFORM_URI:
 			recog_header->waveform_uri = *value;
 			break;
-		case RECOGNIZER_HEADER_COMPLETION_CAUSE:
+		case ANEEX_HEADER_COMPLETION_CAUSE:
 			recog_header->completion_cause = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_RECOGNIZER_CONTEXT_BLOCK:
+		case ANEEX_HEADER_RECOGNIZER_CONTEXT_BLOCK:
 			recog_header->recognizer_context_block = *value;
 			break;
-		case RECOGNIZER_HEADER_START_INPUT_TIMERS:
+		case ANEEX_HEADER_START_INPUT_TIMERS:
 			apt_boolean_value_parse(value,&recog_header->start_input_timers);
 			break;
-		case RECOGNIZER_HEADER_SPEECH_COMPLETE_TIMEOUT:
+		case ANEEX_HEADER_SPEECH_COMPLETE_TIMEOUT:
 			recog_header->speech_complete_timeout = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_SPEECH_INCOMPLETE_TIMEOUT:
+		case ANEEX_HEADER_SPEECH_INCOMPLETE_TIMEOUT:
 			recog_header->speech_incomplete_timeout = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_DTMF_INTERDIGIT_TIMEOUT:
+		case ANEEX_HEADER_DTMF_INTERDIGIT_TIMEOUT:
 			recog_header->dtmf_interdigit_timeout = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_DTMF_TERM_TIMEOUT:
+		case ANEEX_HEADER_DTMF_TERM_TIMEOUT:
 			recog_header->dtmf_term_timeout = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_DTMF_TERM_CHAR:
+		case ANEEX_HEADER_DTMF_TERM_CHAR:
 			recog_header->dtmf_term_char = *value->buf;
 			break;
-		case RECOGNIZER_HEADER_FAILED_URI:
+		case ANEEX_HEADER_FAILED_URI:
 			recog_header->failed_uri = *value;
 			break;
-		case RECOGNIZER_HEADER_FAILED_URI_CAUSE:
+		case ANEEX_HEADER_FAILED_URI_CAUSE:
 			recog_header->failed_uri_cause = *value;
 			break;
-		case RECOGNIZER_HEADER_SAVE_WAVEFORM:
+		case ANEEX_HEADER_SAVE_WAVEFORM:
 			apt_boolean_value_parse(value,&recog_header->save_waveform);
 			break;
-		case RECOGNIZER_HEADER_NEW_AUDIO_CHANNEL:
+		case ANEEX_HEADER_NEW_AUDIO_CHANNEL:
 			apt_boolean_value_parse(value,&recog_header->new_audio_channel);
 			break;
-		case RECOGNIZER_HEADER_SPEECH_LANGUAGE:
+		case ANEEX_HEADER_SPEECH_LANGUAGE:
 			recog_header->speech_language = *value;
 			break;
-		case RECOGNIZER_HEADER_INPUT_TYPE:
+		case ANEEX_HEADER_INPUT_TYPE:
 			recog_header->input_type = *value;
 			break;
-		case RECOGNIZER_HEADER_MEDIA_TYPE:
+		case ANEEX_HEADER_MEDIA_TYPE:
 			recog_header->media_type = *value;
 			break;
-		case RECOGNIZER_HEADER_INPUT_WAVEFORM_URI:
+		case ANEEX_HEADER_INPUT_WAVEFORM_URI:
 			recog_header->input_waveform_uri = *value;
 			break;
-		case RECOGNIZER_HEADER_COMPLETION_REASON:
+		case ANEEX_HEADER_COMPLETION_REASON:
 			recog_header->completion_reason = *value;
 			break;
-		case RECOGNIZER_HEADER_VER_BUFFER_UTTERANCE:
+		case ANEEX_HEADER_VER_BUFFER_UTTERANCE:
 			apt_boolean_value_parse(value,&recog_header->ver_buffer_utterance);
 			break;
-		case RECOGNIZER_HEADER_RECOGNITION_MODE:
+		case ANEEX_HEADER_RECOGNITION_MODE:
 			recog_header->recognition_mode = *value;
 			break;
-		case RECOGNIZER_HEADER_CANCEL_IF_QUEUE:
+		case ANEEX_HEADER_CANCEL_IF_QUEUE:
 			apt_boolean_value_parse(value,&recog_header->cancel_if_queue);
 			break;
-		case RECOGNIZER_HEADER_HOTWORD_MAX_DURATION:
+		case ANEEX_HEADER_HOTWORD_MAX_DURATION:
 			recog_header->hotword_max_duration = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_HOTWORD_MIN_DURATION:
+		case ANEEX_HEADER_HOTWORD_MIN_DURATION:
 			recog_header->hotword_min_duration = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_INTERPRET_TEXT:
+		case ANEEX_HEADER_INTERPRET_TEXT:
 			recog_header->interpret_text = *value;
 			break;
-		case RECOGNIZER_HEADER_DTMF_BUFFER_TIME:
+		case ANEEX_HEADER_DTMF_BUFFER_TIME:
 			recog_header->dtmf_buffer_time = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_CLEAR_DTMF_BUFFER:
+		case ANEEX_HEADER_CLEAR_DTMF_BUFFER:
 			apt_boolean_value_parse(value,&recog_header->clear_dtmf_buffer);
 			break;
-		case RECOGNIZER_HEADER_EARLY_NO_MATCH:
+		case ANEEX_HEADER_EARLY_NO_MATCH:
 			apt_boolean_value_parse(value,&recog_header->early_no_match);
 			break;
-		case RECOGNIZER_HEADER_NUM_MIN_CONSISTENT_PRONUNCIATIONS:
+		case ANEEX_HEADER_NUM_MIN_CONSISTENT_PRONUNCIATIONS:
 			recog_header->num_min_consistent_pronunciations = apt_size_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_CONSISTENCY_THRESHOLD:
+		case ANEEX_HEADER_CONSISTENCY_THRESHOLD:
 			recog_header->consistency_threshold = apt_float_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_CLASH_THRESHOLD:
+		case ANEEX_HEADER_CLASH_THRESHOLD:
 			recog_header->clash_threshold = apt_float_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_PERSONAL_GRAMMAR_URI:
+		case ANEEX_HEADER_PERSONAL_GRAMMAR_URI:
 			recog_header->personal_grammar_uri = *value;
 			break;
-		case RECOGNIZER_HEADER_ENROLL_UTTERANCE:
+		case ANEEX_HEADER_ENROLL_UTTERANCE:
 			apt_boolean_value_parse(value,&recog_header->enroll_utterance);
 			break;
-		case RECOGNIZER_HEADER_PHRASE_ID:
+		case ANEEX_HEADER_PHRASE_ID:
 			recog_header->phrase_id = *value;
 			break;
-		case RECOGNIZER_HEADER_PHRASE_NL:
+		case ANEEX_HEADER_PHRASE_NL:
 			recog_header->phrase_nl = *value;
 			break;
-		case RECOGNIZER_HEADER_WEIGHT:
+		case ANEEX_HEADER_WEIGHT:
 			recog_header->weight = apt_float_value_parse(value);
 			break;
-		case RECOGNIZER_HEADER_SAVE_BEST_WAVEFORM:
+		case ANEEX_HEADER_SAVE_BEST_WAVEFORM:
 			apt_boolean_value_parse(value,&recog_header->save_best_waveform);
 			break;
-		case RECOGNIZER_HEADER_NEW_PHRASE_ID:
+		case ANEEX_HEADER_NEW_PHRASE_ID:
 			recog_header->new_phrase_id = *value;
 			break;
-		case RECOGNIZER_HEADER_CONFUSABLE_PHRASES_URI:
+		case ANEEX_HEADER_CONFUSABLE_PHRASES_URI:
 			recog_header->confusable_phrases_uri = *value;
 			break;
-		case RECOGNIZER_HEADER_ABORT_PHRASE_ENROLLMENT:
+		case ANEEX_HEADER_ABORT_PHRASE_ENROLLMENT:
 			apt_boolean_value_parse(value,&recog_header->abort_phrase_enrollment);
 			break;
 		default:

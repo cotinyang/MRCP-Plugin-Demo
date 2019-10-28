@@ -88,8 +88,8 @@ MRCP_DECLARE(mrcp_resource_t*) aneex_recog_resource_create(apr_pool_t *pool)
 {
 	mrcp_resource_t *resource = mrcp_resource_create(pool);
 
-	resource->method_count = RECOGNIZER_METHOD_COUNT;
-	resource->event_count = RECOGNIZER_EVENT_COUNT;
+	resource->method_count = ANEEX_METHOD_COUNT;
+	resource->event_count = ANEEX_EVENT_COUNT;
 	resource->get_method_str_table = aneex_recog_method_string_table_get;
 	resource->get_event_str_table = aneex_recog_event_string_table_get;
 	resource->get_resource_header_vtable = aneex_recog_header_vtable_get;

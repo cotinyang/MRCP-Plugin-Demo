@@ -296,13 +296,13 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 	/* get recognizer header */
 	recog_header = mrcp_resource_header_get(request);
 	if(recog_header) {
-		if(mrcp_resource_header_property_check(request,RECOGNIZER_HEADER_START_INPUT_TIMERS) == TRUE) {
+		if(mrcp_resource_header_property_check(request,ANEEX_HEADER_START_INPUT_TIMERS) == TRUE) {
 			recog_channel->timers_started = recog_header->start_input_timers;
 		}
-		if(mrcp_resource_header_property_check(request,RECOGNIZER_HEADER_NO_INPUT_TIMEOUT) == TRUE) {
+		if(mrcp_resource_header_property_check(request,ANEEX_HEADER_NO_INPUT_TIMEOUT) == TRUE) {
 			mpf_activity_detector_noinput_timeout_set(recog_channel->detector,recog_header->no_input_timeout);
 		}
-		if(mrcp_resource_header_property_check(request,RECOGNIZER_HEADER_SPEECH_COMPLETE_TIMEOUT) == TRUE) {
+		if(mrcp_resource_header_property_check(request,ANEEX_HEADER_SPEECH_COMPLETE_TIMEOUT) == TRUE) {
 			mpf_activity_detector_silence_timeout_set(recog_channel->detector,recog_header->speech_complete_timeout);
 		}
 	}
@@ -364,21 +364,21 @@ static apt_bool_t aneex_recog_channel_request_dispatch(mrcp_engine_channel_t *ch
 	apt_bool_t processed = FALSE;
 	mrcp_message_t *response = mrcp_response_create(request,request->pool);
 	switch(request->start_line.method_id) {
-		case RECOGNIZER_SET_PARAMS:
+		case ANEEX_SET_PARAMS:
 			break;
-		case RECOGNIZER_GET_PARAMS:
+		case ANEEX_GET_PARAMS:
 			break;
-		case RECOGNIZER_DEFINE_GRAMMAR:
+		case ANEEX_DEFINE_GRAMMAR:
 			break;
-		case RECOGNIZER_RECOGNIZE:
+		case ANEEX_RECOGNIZE:
 			processed = aneex_recog_channel_recognize(channel,request,response);
 			break;
-		case RECOGNIZER_GET_RESULT:
+		case ANEEX_GET_RESULT:
 			break;
-		case RECOGNIZER_START_INPUT_TIMERS:
+		case ANEEX_START_INPUT_TIMERS:
 			processed = aneex_recog_channel_timers_start(channel,request,response);
 			break;
-		case RECOGNIZER_STOP:
+		case ANEEX_STOP:
 			processed = aneex_recog_channel_stop(channel,request,response);
 			break;
 		default:
@@ -417,7 +417,7 @@ static apt_bool_t aneex_recog_start_of_input(aneex_recog_channel_t *recog_channe
 	/* create START-OF-INPUT event */
 	mrcp_message_t *message = mrcp_event_create(
 						recog_channel->recog_request,
-						RECOGNIZER_START_OF_INPUT,
+						ANEEX_START_OF_INPUT,
 						recog_channel->recog_request->pool);
 	if(!message) {
 		return FALSE;
@@ -471,7 +471,7 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 	/* create RECOGNITION-COMPLETE event */
 	mrcp_message_t *message = mrcp_event_create(
 						recog_channel->recog_request,
-						RECOGNIZER_RECOGNITION_COMPLETE,
+						ANEEX_RECOGNITION_COMPLETE,
 						recog_channel->recog_request->pool);
 	if(!message) {
 		return FALSE;
@@ -482,12 +482,12 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 	if(recog_header) {
 		/* set completion cause */
 		recog_header->completion_cause = cause;
-		mrcp_resource_header_property_add(message,RECOGNIZER_HEADER_COMPLETION_CAUSE);
+		mrcp_resource_header_property_add(message,ANEEX_HEADER_COMPLETION_CAUSE);
 	}
 	/* set request state */
 	message->start_line.request_state = MRCP_REQUEST_STATE_COMPLETE;
 
-	if(cause == RECOGNIZER_COMPLETION_CAUSE_SUCCESS) {
+	if(cause == ANEEX_COMPLETION_CAUSE_SUCCESS) {
 		aneex_recog_result_load(recog_channel,message);
 	}
 
@@ -536,13 +536,13 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			case MPF_DETECTOR_EVENT_INACTIVITY:
 				apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"Detected Voice Inactivity " APT_SIDRES_FMT,
 					MRCP_MESSAGE_SIDRES(recog_channel->recog_request));
-				aneex_recog_recognition_complete(recog_channel,RECOGNIZER_COMPLETION_CAUSE_SUCCESS);
+				aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 				break;
 			case MPF_DETECTOR_EVENT_NOINPUT:
 				apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"Detected Noinput " APT_SIDRES_FMT,
 					MRCP_MESSAGE_SIDRES(recog_channel->recog_request));
 				if(recog_channel->timers_started == TRUE) {
-					aneex_recog_recognition_complete(recog_channel,RECOGNIZER_COMPLETION_CAUSE_NO_INPUT_TIMEOUT);
+					aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_NO_INPUT_TIMEOUT);
 				}
 				break;
 			default:

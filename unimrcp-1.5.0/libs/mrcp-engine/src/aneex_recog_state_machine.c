@@ -25,14 +25,14 @@
 
 /** MRCP recognizer states */
 typedef enum {
-	RECOGNIZER_STATE_IDLE,
-	RECOGNIZER_STATE_RECOGNIZING,
-	RECOGNIZER_STATE_RECOGNIZED,
+	ANEEX_STATE_IDLE,
+	ANEEX_STATE_RECOGNIZING,
+	ANEEX_STATE_RECOGNIZED,
 
-	RECOGNIZER_STATE_COUNT
+	ANEEX_STATE_COUNT
 } aneex_recog_state_e;
 
-static const char * state_names[RECOGNIZER_STATE_COUNT] = {
+static const char * state_names[ANEEX_STATE_COUNT] = {
 	"IDLE",
 	"RECOGNIZING",
 	"RECOGNIZED"
@@ -90,7 +90,7 @@ static APR_INLINE void aneex_recog_state_change(aneex_recog_state_machine_t *sta
 		state_names[state],
 		MRCP_MESSAGE_SIDRES(message));
 	state_machine->state = state;
-	if(state == RECOGNIZER_STATE_IDLE) {
+	if(state == ANEEX_STATE_IDLE) {
 		state_machine->recog = NULL;
 	}
 }
@@ -120,13 +120,13 @@ static apt_bool_t aneex_recog_response_get_params(aneex_recog_state_machine_t *s
 
 static apt_bool_t aneex_recog_request_define_grammar(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
-	if(state_machine->state == RECOGNIZER_STATE_RECOGNIZING) {
+	if(state_machine->state == ANEEX_STATE_RECOGNIZING) {
 		mrcp_message_t *response_message = mrcp_response_create(message,message->pool);
 		response_message->start_line.status_code = MRCP_STATUS_CODE_METHOD_NOT_VALID;
 		return aneex_recog_response_dispatch(state_machine,response_message);
 	}
-	else if(state_machine->state == RECOGNIZER_STATE_RECOGNIZED) {
-		aneex)recog_state_change(state_machine,RECOGNIZER_STATE_IDLE,message);
+	else if(state_machine->state == ANEEX_STATE_RECOGNIZED) {
+		aneex)recog_state_change(state_machine,ANEEX_STATE_IDLE,message);
 	}
 
 	return aneex_recog_request_dispatch(state_machine,message);
@@ -134,10 +134,10 @@ static apt_bool_t aneex_recog_request_define_grammar(aneex_recog_state_machine_t
 
 static apt_bool_t aneex_recog_response_define_grammar(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
-	if(aneex_resource_header_property_check(message,RECOGNIZER_HEADER_COMPLETION_CAUSE) != TRUE) {
+	if(aneex_resource_header_property_check(message,ANEEX_HEADER_COMPLETION_CAUSE) != TRUE) {
 		aneex_recog_header_t *recog_header = aneex_resource_header_prepare(message);
-		recog_header->completion_cause = RECOGNIZER_COMPLETION_CAUSE_SUCCESS;
-		aneex_resource_header_property_add(message,RECOGNIZER_HEADER_COMPLETION_CAUSE);
+		recog_header->completion_cause = ANEEX_COMPLETION_CAUSE_SUCCESS;
+		aneex_resource_header_property_add(message,ANEEX_HEADER_COMPLETION_CAUSE);
 	}
 	return aneex_recog_response_dispatch(state_machine,message);
 }
@@ -145,7 +145,7 @@ static apt_bool_t aneex_recog_response_define_grammar(aneex_recog_state_machine_
 static apt_bool_t aneex_recog_request_recognize(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_header_fields_inherit(&message->header,state_machine->properties,message->pool);
-	if(state_machine->state == RECOGNIZER_STATE_RECOGNIZING) {
+	if(state_machine->state == ANEEX_STATE_RECOGNIZING) {
 		mrcp_message_t *response;
 		apt_log(APT_LOG_MARK,APT_PRIO_INFO,"Queue Up RECOGNIZE Request " APT_SIDRES_FMT " [%" MRCP_REQUEST_ID_FMT "]",
 			MRCP_MESSAGE_SIDRES(message),
@@ -165,7 +165,7 @@ static apt_bool_t _recog_response_recognize(aneex_recog_state_machine_t *state_m
 {
 	if(message->start_line.request_state == MRCP_REQUEST_STATE_INPROGRESS) {
 		state_machine->recog = state_machine->active_request;
-		aneex_recog_state_change(state_machine,RECOGNIZER_STATE_RECOGNIZING,message);
+		aneex_recog_state_change(state_machine,ANEEX_STATE_RECOGNIZING,message);
 	}
 	if(state_machine->is_pending == TRUE) {
 		state_machine->is_pending = FALSE;
@@ -189,7 +189,7 @@ static apt_bool_t aneex_recog_response_interpret(aneex_recog_state_machine_t *st
 static apt_bool_t aneex_recog_request_get_result(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_message_t *response_message;
-	if(state_machine->state == RECOGNIZER_STATE_RECOGNIZED) {
+	if(state_machine->state == ANEEX_STATE_RECOGNIZED) {
 		/* found recognized request */
 		return aneex_recog_request_dispatch(state_machine,message);
 	}
@@ -208,7 +208,7 @@ static apt_bool_t aneex_recog_response_get_result(aneex_recog_state_machine_t *s
 static apt_bool_t aneex_recog_request_recognition_start_timers(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_message_t *response_message;
-	if(state_machine->state == RECOGNIZER_STATE_RECOGNIZING) {
+	if(state_machine->state == ANEEX_STATE_RECOGNIZING) {
 		/* found in-progress request */
 		return aneex_recog_request_dispatch(state_machine,message);
 	}
@@ -263,7 +263,7 @@ static apt_bool_t aneex_recog_pending_requests_remove(aneex_recog_state_machine_
 static apt_bool_t aneex_recog_request_stop(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	mrcp_message_t *response_message;
-	if(state_machine->state == RECOGNIZER_STATE_RECOGNIZING) {
+	if(state_machine->state == ANEEX_STATE_RECOGNIZING) {
 		mrcp_request_id_list_t *request_id_list = NULL;
 		mrcp_generic_header_t *generic_header = mrcp_generic_header_get(message);
 		if(generic_header && mrcp_generic_header_property_check(message,GENERIC_HEADER_ACTIVE_REQUEST_ID_LIST) == TRUE) {
@@ -273,16 +273,16 @@ static apt_bool_t aneex_recog_request_stop(aneex_recog_state_machine_t *state_ma
 			}
 		}
 
-		if(!request_id_list || active_request_id_list_find(generic_header,state_machine->recog->start_line.request_id) == TRUE) {
+		if(!request_id_list || active_request_id_list_find(generic_header,state_machine->ANEEX->start_line.request_id) == TRUE) {
 			/* found in-progress RECOGNIZE request, stop it */
-			apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Found IN-PROGRESS RECOGNIZE Request " APT_SIDRES_FMT" [%" MRCP_REQUEST_ID_FMT "]",
+			apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Found IN-PROGRESS ANEEX Request " APT_SIDRES_FMT" [%" MRCP_REQUEST_ID_FMT "]",
 				MRCP_MESSAGE_SIDRES(message),
 				message->start_line.request_id);
 			return aneex_recog_request_dispatch(state_machine,message);
 		}
 	}
-	else if(state_machine->state == RECOGNIZER_STATE_RECOGNIZED) {
-		aneex_recog_state_change(state_machine,RECOGNIZER_STATE_IDLE,message);
+	else if(state_machine->state == ANEEX_STATE_RECOGNIZED) {
+		aneex_recog_state_change(state_machine,ANEEX_STATE_IDLE,message);
 	}
 
 	/* found no in-progress RECOGNIZE request, sending immediate response */
@@ -299,7 +299,7 @@ static apt_bool_t aneex_recog_response_stop(aneex_recog_state_machine_t *state_m
 	active_request_id_list_append(generic_header,state_machine->recog->start_line.request_id);
 	mrcp_generic_header_property_add(message,GENERIC_HEADER_ACTIVE_REQUEST_ID_LIST);
 	aneex_recog_pending_requests_remove(state_machine,state_machine->active_request,message);
-	aneex_recog_state_change(state_machine,RECOGNIZER_STATE_IDLE,message);
+	aneex_recog_state_change(state_machine,ANEEX_STATE_IDLE,message);
 	pending_request = apt_list_pop_front(state_machine->queue);
 	aneex_recog_response_dispatch(state_machine,message);
 
@@ -347,19 +347,19 @@ static apt_bool_t aneex_recog_event_recognition_complete(aneex_recog_state_machi
 		return FALSE;
 	}
 
-	if(state_machine->active_request && state_machine->active_request->start_line.method_id == RECOGNIZER_STOP) {
+	if(state_machine->active_request && state_machine->active_request->start_line.method_id == ANEEX_STOP) {
 		apt_log(APT_LOG_MARK,APT_PRIO_INFO,"Ignore RECOGNITION-COMPLETE Event " APT_SIDRES_FMT " [%" MRCP_REQUEST_ID_FMT "]: waiting for STOP response",
 			MRCP_MESSAGE_SIDRES(message),
 			message->start_line.request_id);
 		return FALSE;
 	}
 
-	if(mrcp_resource_header_property_check(message,RECOGNIZER_HEADER_COMPLETION_CAUSE) != TRUE) {
+	if(mrcp_resource_header_property_check(message,ANEEX_HEADER_COMPLETION_CAUSE) != TRUE) {
 		aneex_recog_header_t *recog_header = mrcp_resource_header_prepare(message);
-		recog_header->completion_cause = RECOGNIZER_COMPLETION_CAUSE_SUCCESS;
-		mrcp_resource_header_property_add(message,RECOGNIZER_HEADER_COMPLETION_CAUSE);
+		recog_header->completion_cause = ANEEX_COMPLETION_CAUSE_SUCCESS;
+		mrcp_resource_header_property_add(message,ANEEX_HEADER_COMPLETION_CAUSE);
 	}
-	aneex_recog_state_change(state_machine,RECOGNIZER_STATE_RECOGNIZED,message);
+	aneex_recog_state_change(state_machine,ANEEX_STATE_RECOGNIZED,message);
 	aneex_recog_event_dispatch(state_machine,message);
 
 	/* process pending RECOGNIZE requests */
@@ -376,15 +376,15 @@ static apt_bool_t aneex_recog_event_recognition_complete(aneex_recog_state_machi
 
 static apt_bool_t aneex_recog_event_interpretation_complete(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
-	if(mrcp_resource_header_property_check(message,RECOGNIZER_HEADER_COMPLETION_CAUSE) != TRUE) {
+	if(mrcp_resource_header_property_check(message,ANEEX_HEADER_COMPLETION_CAUSE) != TRUE) {
 		aneex_recog_header_t *recog_header = mrcp_resource_header_prepare(message);
-		recog_header->completion_cause = RECOGNIZER_COMPLETION_CAUSE_SUCCESS;
-		mrcp_resource_header_property_add(message,RECOGNIZER_HEADER_COMPLETION_CAUSE);
+		recog_header->completion_cause = ANEEX_COMPLETION_CAUSE_SUCCESS;
+		mrcp_resource_header_property_add(message,ANEEX_HEADER_COMPLETION_CAUSE);
 	}
 	return aneex_recog_event_dispatch(state_machine,message);
 }
 
-static recog_method_f aneex_recog_request_method_array[RECOGNIZER_METHOD_COUNT] = {
+static recog_method_f aneex_recog_request_method_array[ANEEX_METHOD_COUNT] = {
 	recog_request_set_params,
 	recog_request_get_params,
 	recog_request_define_grammar,
@@ -395,7 +395,7 @@ static recog_method_f aneex_recog_request_method_array[RECOGNIZER_METHOD_COUNT] 
 	recog_request_stop
 };
 
-static recog_method_f aneex_recog_response_method_array[RECOGNIZER_METHOD_COUNT] = {
+static recog_method_f aneex_recog_response_method_array[ANEEX_METHOD_COUNT] = {
 	recog_response_set_params,
 	recog_response_get_params,
 	recog_response_define_grammar,
@@ -406,7 +406,7 @@ static recog_method_f aneex_recog_response_method_array[RECOGNIZER_METHOD_COUNT]
 	recog_response_stop
 };
 
-static recog_method_f aneex_recog_event_method_array[RECOGNIZER_EVENT_COUNT] = {
+static recog_method_f aneex_recog_event_method_array[ANEEX_EVENT_COUNT] = {
 	recog_event_start_of_input,
 	recog_event_recognition_complete,
 	recog_event_interpretation_complete
@@ -416,7 +416,7 @@ static recog_method_f aneex_recog_event_method_array[RECOGNIZER_EVENT_COUNT] = {
 static apt_bool_t aneex_recog_request_state_update(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	recog_method_f method;
-	if(message->start_line.method_id >= RECOGNIZER_METHOD_COUNT) {
+	if(message->start_line.method_id >= ANEEX_METHOD_COUNT) {
 		return FALSE;
 	}
 	
@@ -444,7 +444,7 @@ static apt_bool_t aneex_recog_response_state_update(aneex_recog_state_machine_t 
 		return FALSE;
 	}
 
-	if(message->start_line.method_id >= RECOGNIZER_METHOD_COUNT) {
+	if(message->start_line.method_id >= ANEEX_METHOD_COUNT) {
 		return FALSE;
 	}
 	
@@ -463,7 +463,7 @@ static apt_bool_t aneex_recog_response_state_update(aneex_recog_state_machine_t 
 static apt_bool_t aneex_recog_event_state_update(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	recog_method_f method;
-	if(message->start_line.method_id >= RECOGNIZER_EVENT_COUNT) {
+	if(message->start_line.method_id >= ANEEX_EVENT_COUNT) {
 		return FALSE;
 	}
 	
@@ -506,7 +506,7 @@ static apt_bool_t aneex_recog_state_deactivate(mrcp_state_machine_t *base)
 	aneex_recog_state_machine_t *state_machine = (aneex_recog_state_machine_t*)base;
 	mrcp_message_t *message;
 	mrcp_message_t *source;
-	if(state_machine->state != RECOGNIZER_STATE_RECOGNIZING) {
+	if(state_machine->state != ANEEX_STATE_RECOGNIZING) {
 		/* no in-progress RECOGNIZE request to deactivate */
 		return FALSE;
 	}
@@ -519,7 +519,7 @@ static apt_bool_t aneex_recog_state_deactivate(mrcp_state_machine_t *base)
 	message = mrcp_request_create(
 						source->resource,
 						source->start_line.version,
-						RECOGNIZER_STOP,
+						ANEEX_STOP,
 						source->pool);
 	message->channel_id = source->channel_id;
 	message->start_line.request_id = source->start_line.request_id + 1;
@@ -538,7 +538,7 @@ mrcp_state_machine_t* aneex_recog_state_machine_create(void *obj, mrcp_version_e
 	mrcp_state_machine_init(&state_machine->base,obj);
 	state_machine->base.update = recog_state_update;
 	state_machine->base.deactivate = recog_state_deactivate;
-	state_machine->state = RECOGNIZER_STATE_IDLE;
+	state_machine->state = ANEEX_STATE_IDLE;
 	state_machine->is_pending = FALSE;
 	state_machine->active_request = NULL;
 	state_machine->recog = NULL;
