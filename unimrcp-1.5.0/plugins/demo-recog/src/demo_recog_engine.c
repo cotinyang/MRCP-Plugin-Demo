@@ -264,8 +264,7 @@ static apt_bool_t demo_recog_channel_request_process(mrcp_engine_channel_t *chan
 static apt_bool_t demo_recog_channel_recognize(mrcp_engine_channel_t *channel, mrcp_message_t *request, mrcp_message_t *response)
 {
 	/* process RECOGNIZE request */
-    sprintf("demo_recog_channel_recognize");
-	apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"demo_recog_channel_recognize",file_path);
+    printf("demo_recog_channel_recognize");
 
 	mrcp_recog_header_t *recog_header;
 	demo_recog_channel_t *recog_channel = channel->method_obj;
