@@ -427,6 +427,7 @@ static apt_bool_t mrcp_server_session_offer_process(mrcp_server_session_t *sessi
 				&session->mpf_task_msg) == TRUE) {
 		mrcp_server_session_subrequest_add(session);
 	}
+    printf("DEBUG: Server_session: mpf_engine_message_send\n");
 	mpf_engine_message_send(session->profile->media_engine,&session->mpf_task_msg);
 
 	if(!session->subrequest_count) {

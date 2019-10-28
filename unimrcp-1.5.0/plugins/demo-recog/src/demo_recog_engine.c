@@ -208,7 +208,7 @@ static apt_bool_t demo_recog_engine_close(mrcp_engine_t *engine)
 
 static mrcp_engine_channel_t* demo_recog_engine_channel_create(mrcp_engine_t *engine, apr_pool_t *pool)
 {
-    printf("DEBUG: Plugin: demo_recog_engine_channel_create\n");
+    printf("DEBUG: Plugin: demo_recog_engine_channel_create start\n");
 
 	mpf_stream_capabilities_t *capabilities;
 	mpf_termination_t *termination; 
@@ -242,6 +242,7 @@ static mrcp_engine_channel_t* demo_recog_engine_channel_create(mrcp_engine_t *en
 			termination,          /* associated media termination */
 			pool);                /* pool to allocate memory from */
 
+	printf("DEBUG: Plugin: demo_recog_engine_channel_create end\n");
 	return recog_channel->channel;
 }
 
@@ -274,7 +275,7 @@ static apt_bool_t demo_recog_channel_request_process(mrcp_engine_channel_t *chan
 static apt_bool_t demo_recog_channel_recognize(mrcp_engine_channel_t *channel, mrcp_message_t *request, mrcp_message_t *response)
 {
 	/* process RECOGNIZE request */
-    printf("DEBUG: Plugin: demo_recog_channel_recognize\n");
+    printf("DEBUG: Plugin: demo_recog_channel_recognize start\n");
 
 	mrcp_recog_header_t *recog_header;
 	demo_recog_channel_t *recog_channel = channel->method_obj;
@@ -321,6 +322,9 @@ static apt_bool_t demo_recog_channel_recognize(mrcp_engine_channel_t *channel, m
 	/* send asynchronous response */
 	mrcp_engine_channel_message_send(channel,response);
 	recog_channel->recog_request = request;
+
+    printf("DEBUG: Plugin: demo_recog_channel_recognize end\n");
+
 	return TRUE;
 }
 
@@ -422,7 +426,7 @@ static apt_bool_t demo_recog_start_of_input(demo_recog_channel_t *recog_channel)
 /* Load demo recognition result */
 static apt_bool_t demo_recog_result_load(demo_recog_channel_t *recog_channel, mrcp_message_t *message)
 {
-    printf("DEBUG: Plugin: demo_recog_result_load\n");
+    printf("DEBUG: Plugin: demo_recog_result_load start\n");
 
 	FILE *file;
 	mrcp_engine_channel_t *channel = recog_channel->channel;
@@ -450,13 +454,14 @@ static apt_bool_t demo_recog_result_load(demo_recog_channel_t *recog_channel, mr
 			mrcp_generic_header_property_add(message,GENERIC_HEADER_CONTENT_TYPE);
 		}
 	}
+	printf("DEBUG: Plugin: demo_recog_result_load end\n");
 	return TRUE;
 }
 
 /* Raise demo RECOGNITION-COMPLETE event */
 static apt_bool_t demo_recog_recognition_complete(demo_recog_channel_t *recog_channel, mrcp_recog_completion_cause_e cause)
 {
-    printf("DEBUG: Plugin: demo_recog_recognition_complete\n");
+    printf("DEBUG: Plugin: demo_recog_recognition_complete start\n");
 
 	mrcp_recog_header_t *recog_header;
 	/* create RECOGNITION-COMPLETE event */
@@ -484,13 +489,14 @@ static apt_bool_t demo_recog_recognition_complete(demo_recog_channel_t *recog_ch
 
 	recog_channel->recog_request = NULL;
 	/* send asynch event */
+	printf("DEBUG: Plugin: demo_recog_recognition_complete end\n");
 	return mrcp_engine_channel_message_send(recog_channel->channel,message);
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
 static apt_bool_t demo_recog_stream_write(mpf_audio_stream_t *stream, const mpf_frame_t *frame)
 {
-    printf("DEBUG: Plugin: demo_recog_stream_write\n");
+    //printf("DEBUG: Plugin: demo_recog_stream_write\n");
 
 	demo_recog_channel_t *recog_channel = stream->obj;
 	if(recog_channel->stop_response) {
