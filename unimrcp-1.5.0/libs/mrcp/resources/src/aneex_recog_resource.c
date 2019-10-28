@@ -70,17 +70,17 @@ static const apt_str_table_item_t v2_recog_event_string_table[] = {
 static APR_INLINE const apt_str_table_item_t* aneex_recog_method_string_table_get(mrcp_version_e version)
 {
 	if(version == MRCP_VERSION_1) {
-		return aneex_v1_recog_method_string_table;
+		return v1_recog_method_string_table;
 	}
-	return aneex_v2_recog_method_string_table;
+	return v2_recog_method_string_table;
 }
 
 static APR_INLINE const apt_str_table_item_t* aneex_recog_event_string_table_get(mrcp_version_e version)
 {
 	if(version == MRCP_VERSION_1) {
-		return aneex_v1_recog_event_string_table;
+		return v1_recog_event_string_table;
 	}
-	return aneex_v2_recog_event_string_table;
+	return v2_recog_event_string_table;
 }
 
 /** Create MRCP recognizer resource */
