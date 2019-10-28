@@ -168,7 +168,7 @@ static void aneex_recog_header_init(aneex_recog_header_t *recog_header)
 	recog_header->recognition_timeout = 0;
 	apt_string_reset(&recog_header->waveform_uri);
 	recog_header->completion_cause = ANEEX_COMPLETION_CAUSE_COUNT;
-	apt_string_reset(&recog_header->ANEEX_context_block);
+	apt_string_reset(&recog_header->recognizer_context_block);
 	recog_header->start_input_timers = FALSE;
 	recog_header->speech_complete_timeout = 0;
 	recog_header->speech_incomplete_timeout = 0;
@@ -237,8 +237,8 @@ static apt_bool_t aneex_recog_header_parse(aneex_recog_header_t *recog_header, a
 		case ANEEX_HEADER_COMPLETION_CAUSE:
 			recog_header->completion_cause = apt_size_value_parse(value);
 			break;
-		case ANEEX_HEADER_ANEEX_CONTEXT_BLOCK:
-			recog_header->ANEEX_context_block = *value;
+		case ANEEX_HEADER_RECOGNIZER_CONTEXT_BLOCK:
+			recog_header->recognizer_context_block = *value;
 			break;
 		case ANEEX_HEADER_START_INPUT_TIMERS:
 			apt_boolean_value_parse(value,&recog_header->start_input_timers);
@@ -623,13 +623,13 @@ static apt_bool_t aneex_recog_header_duplicate(mrcp_header_accessor_t *accessor,
 		case ANEEX_HEADER_COMPLETION_CAUSE:
 			recog_header->completion_cause = src_recog_header->completion_cause;
 			break;
-		case ANEEX_HEADER_ANEEX_CONTEXT_BLOCK:
-			recog_header->ANEEX_context_block = *value;
+		case ANEEX_HEADER_RECOGNIZER_CONTEXT_BLOCK:
+			recog_header->recognizer_context_block = *value;
 			break;
 		case ANEEX_HEADER_START_INPUT_TIMERS:
 			recog_header->start_input_timers = src_recog_header->start_input_timers;
 			break;
-		case ANEEXHEADER_SPEECH_COMPLETE_TIMEOUT:
+		case ANEEX_HEADER_SPEECH_COMPLETE_TIMEOUT:
 			recog_header->speech_complete_timeout = src_recog_header->speech_complete_timeout;
 			break;
 		case ANEEX_HEADER_SPEECH_INCOMPLETE_TIMEOUT:
@@ -746,7 +746,7 @@ static const mrcp_header_vtable_t v1_vtable = {
 	aneex_v1_recog_header_parse,
 	aneex_v1_recog_header_generate,
 	aneex_recog_header_duplicate,
-	aneex_v1_recog_header_string_table,
+	v1_recog_header_string_table,
 	ANEEX_HEADER_COUNT
 };
 
@@ -756,7 +756,7 @@ static const mrcp_header_vtable_t v2_vtable = {
 	aneex_v2_recog_header_parse,
 	aneex_v2_recog_header_generate,
 	aneex_recog_header_duplicate,
-	aneex_v2_recog_header_string_table,
+	v2_recog_header_string_table,
 	ANEEX_HEADER_COUNT
 };
 
