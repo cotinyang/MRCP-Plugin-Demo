@@ -118,7 +118,7 @@ static apt_bool_t recog_response_get_params(aneex_recog_state_machine_t *state_m
 	return aneex_recog_response_dispatch(state_machine,message);
 }
 
-static apt_bool_t aneex_recog_request_define_grammar(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static apt_bool_t recog_request_define_grammar(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	if(state_machine->state == ANEEX_STATE_RECOGNIZING) {
 		mrcp_message_t *response_message = mrcp_response_create(message,message->pool);
@@ -126,7 +126,7 @@ static apt_bool_t aneex_recog_request_define_grammar(aneex_recog_state_machine_t
 		return aneex_recog_response_dispatch(state_machine,response_message);
 	}
 	else if(state_machine->state == ANEEX_STATE_RECOGNIZED) {
-		aneex)recog_state_change(state_machine,ANEEX_STATE_IDLE,message);
+		aneex_recog_state_change(state_machine,ANEEX_STATE_IDLE,message);
 	}
 
 	return aneex_recog_request_dispatch(state_machine,message);
@@ -134,10 +134,10 @@ static apt_bool_t aneex_recog_request_define_grammar(aneex_recog_state_machine_t
 
 static apt_bool_t recog_response_define_grammar(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
-	if(aneex_resource_header_property_check(message,ANEEX_HEADER_COMPLETION_CAUSE) != TRUE) {
-		aneex_recog_header_t *recog_header = aneex_resource_header_prepare(message);
+	if(mrcp_resource_header_property_check(message,ANEEX_HEADER_COMPLETION_CAUSE) != TRUE) {
+		aneex_recog_header_t *recog_header = mrcp_resource_header_prepare(message);
 		recog_header->completion_cause = ANEEX_COMPLETION_CAUSE_SUCCESS;
-		aneex_resource_header_property_add(message,ANEEX_HEADER_COMPLETION_CAUSE);
+		mrcp_resource_header_property_add(message,ANEEX_HEADER_COMPLETION_CAUSE);
 	}
 	return aneex_recog_response_dispatch(state_machine,message);
 }
@@ -273,7 +273,7 @@ static apt_bool_t recog_request_stop(aneex_recog_state_machine_t *state_machine,
 			}
 		}
 
-		if(!request_id_list || active_request_id_list_find(generic_header,state_machine->ANEEX->start_line.request_id) == TRUE) {
+		if(!request_id_list || active_request_id_list_find(generic_header,state_machine->recog->start_line.request_id) == TRUE) {
 			/* found in-progress RECOGNIZE request, stop it */
 			apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Found IN-PROGRESS ANEEX Request " APT_SIDRES_FMT" [%" MRCP_REQUEST_ID_FMT "]",
 				MRCP_MESSAGE_SIDRES(message),
@@ -287,7 +287,7 @@ static apt_bool_t recog_request_stop(aneex_recog_state_machine_t *state_machine,
 
 	/* found no in-progress RECOGNIZE request, sending immediate response */
 	response_message = mrcp_response_create(message,message->pool);
-	recog_pending_requests_remove(state_machine,message,response_message);
+	aneex_recog_pending_requests_remove(state_machine,message,response_message);
 	return aneex_recog_response_dispatch(state_machine,response_message);
 }
 
@@ -369,7 +369,7 @@ static apt_bool_t recog_event_recognition_complete(aneex_recog_state_machine_t *
 			MRCP_MESSAGE_SIDRES(pending_request),
 			pending_request->start_line.request_id);
 		state_machine->is_pending = TRUE;
-		recog_request_dispatch(state_machine,pending_request);
+		aneex_recog_request_dispatch(state_machine,pending_request);
 	}
 	return TRUE;
 }
