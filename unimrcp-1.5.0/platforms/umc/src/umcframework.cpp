@@ -18,6 +18,7 @@
 #include "umcframework.h"
 #include "synthscenario.h"
 #include "recogscenario.h"
+#include "aneexscenario.h"
 #include "recorderscenario.h"
 #include "dtmfscenario.h"
 #include "setparamscenario.h"
@@ -173,6 +174,8 @@ UmcScenario* UmcFramework::CreateScenario(const char* pType)
 			return new SynthScenario();
 		else if(strcasecmp(pType,"Recognizer") == 0)
 			return new RecogScenario();
+		else if(strcasecmp(pType,"Aneex_Recognizer") == 0)
+			return new AneexRecogScenario();		
 		else if(strcasecmp(pType,"Recorder") == 0)
 			return new RecorderScenario();
 		else if(strcasecmp(pType,"DtmfRecognizer") == 0)
