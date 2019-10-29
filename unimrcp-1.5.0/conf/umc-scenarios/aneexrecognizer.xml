@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<umcscenario name="aneexrecog" class="Aneex_Recognizer" profile="uni2">
+<umcscenario name="aneexrecog" class="AneexRecognizer" profile="uni2">
   <resource-discovery enable="0"/>
   <!--  <define-grammar enable="1" content-type="application/srgs+xml" content-location="grammar.xml"/>-->
   <!-- <define-grammar enable="1" content-type="application/grammar+xml" content-location="grammar.xml"/> -->
