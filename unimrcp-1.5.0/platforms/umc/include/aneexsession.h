@@ -31,7 +31,7 @@ class AneexRecogSession : public UmcSession
 {
 public:
 /* ============================ CREATORS =================================== */
-	AneexRecogSession(const RecogScenario* pScenario);
+	AneexRecogSession(const AneexRecogScenario* pScenario);
 	virtual ~AneexRecogSession();
 
 protected:
@@ -65,7 +65,7 @@ private:
 
 
 /* ============================ INLINE METHODS ============================= */
-inline const AneexRecogScenario* RecogSession::GetScenario() const
+inline const AneexRecogScenario* AneexRecogSession::GetScenario() const
 {
 	return (AneexRecogScenario*)m_pScenario;
 }
