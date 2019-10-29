@@ -43,7 +43,7 @@ struct aneex_recog_state_machine_t {
 	/** state machine base */
 	mrcp_state_machine_t   base;
 	/** recognizer state */
-	mrcp_recog_state_e     state;
+	aneex_recog_state_e     state;
 	/** indicate whether active_request was processed from pending request queue */
 	apt_bool_t             is_pending;
 	/** request sent to recognition engine and waiting for the response to be received */
@@ -58,7 +58,7 @@ struct aneex_recog_state_machine_t {
 
 typedef apt_bool_t (*recog_method_f)(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message);
 
-static APR_INLINE apt_bool_t aneex_request_dispatch(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
+static APR_INLINE apt_bool_t aneex_recog_request_dispatch(aneex_recog_state_machine_t *state_machine, mrcp_message_t *message)
 {
 	state_machine->active_request = message;
 	return state_machine->base.on_dispatch(&state_machine->base,message);
