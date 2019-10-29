@@ -175,7 +175,7 @@ UmcScenario* UmcFramework::CreateScenario(const char* pType)
 		else if(strcasecmp(pType,"Recognizer") == 0)
 			return new RecogScenario();
 		else if(strcasecmp(pType,"AneexRecognizer") == 0)
-			return new AneexRecogScenario();		
+			return new RecogScenario();
 		else if(strcasecmp(pType,"Recorder") == 0)
 			return new RecorderScenario();
 		else if(strcasecmp(pType,"DtmfRecognizer") == 0)
