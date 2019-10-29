@@ -14,35 +14,39 @@
  * limitations under the License.
  */
 
-#ifndef ANEEXRECORDER_SESSION_H
-#define ANEEXRECORDER_SESSION_H
+#ifndef ANEEXRECOG_SESSION_H
+#define ANEEXRECOG_SESSION_H
 
 /**
- * @file ANEEXsession.h
- * @brief ANEEXRecorder Session
+ * @file aneexsession.h
+ * @brief AneexRecognizer Session
  */ 
 
 #include "umcsession.h"
 
-class AneexRecorderScenario;
-struct AneexRecorderChannel;
+class AneexRecogScenario;
+struct AneexRecogChannel;
 
-class AneexRecorderSession : public UmcSession
+class AneexRecogSession : public UmcSession
 {
 public:
 /* ============================ CREATORS =================================== */
-	AneexRecorderSession(const RecorderScenario* pScenario);
-	virtual ~AneexRecorderSession();
+	AneexRecogSession(const RecogScenario* pScenario);
+	virtual ~AneexRecogSession();
 
 protected:
 /* ============================ MANIPULATORS =============================== */
 	virtual bool Start();
+	virtual bool Stop();
 
-	AneexRecorderChannel* CreateRecorderChannel();
-	bool StartRecorder(mrcp_channel_t* pMrcpChannel);
+	AneexRecogChannel* CreateRecogChannel();
+	bool StartRecognition(mrcp_channel_t* pMrcpChannel);
+	bool OnDefineGrammar(mrcp_channel_t* pMrcpChannel);
 
-	mrcp_message_t* CreateRecordRequest(mrcp_channel_t* pMrcpChannel);
+	mrcp_message_t* CreateDefineGrammarRequest(mrcp_channel_t* pMrcpChannel);
+	mrcp_message_t* CreateRecognizeRequest(mrcp_channel_t* pMrcpChannel);
 
+	static bool ParseNLSMLResult(mrcp_message_t* pMrcpMessage);
 	FILE* GetAudioIn(const mpf_codec_descriptor_t* pDescriptor, apr_pool_t* pool) const;
 
 /* ============================ HANDLERS =================================== */
@@ -51,18 +55,19 @@ protected:
 	virtual bool OnMessageReceive(mrcp_channel_t* pMrcpChannel, mrcp_message_t* pMrcpMessage);
 
 /* ============================ ACCESSORS ================================== */
-	const RecorderScenario* GetScenario() const;
+	const AneexRecogScenario* GetScenario() const;
 
 private:
 /* ============================ DATA ======================================= */
-	RecorderChannel* m_pRecorderChannel;
+	AneexRecogChannel* m_pRecogChannel;
+	const char*   m_ContentId;
 };
 
 
 /* ============================ INLINE METHODS ============================= */
-inline const AneexRecorderScenario* AneexRecorderSession::GetScenario() const
+inline const AneexRecogScenario* RecogSession::GetScenario() const
 {
-	return (AneexRecorderScenario*)m_pScenario;
+	return (AneexRecogScenario*)m_pScenario;
 }
 
-#endif /* RECORDER_SESSION_H */
+#endif /* RECOG_SESSION_H */

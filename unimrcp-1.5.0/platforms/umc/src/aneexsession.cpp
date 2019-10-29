@@ -44,7 +44,7 @@ struct AneexRecogChannel
 		m_TimeToComplete(0) {}
 };
 
-AneexRecogSession::AneexRecogSession(const RecogScenario* pScenario) :
+AneexRecogSession::AneexRecogSession(const AneexRecogScenario* pScenario) :
 	UmcSession(pScenario),
 	m_pRecogChannel(NULL),
 	m_ContentId("request1@form-level")
@@ -57,7 +57,7 @@ AneexRecogSession::~AneexRecogSession()
 
 bool AneexRecogSession::Start()
 {
-	const RecogScenario* pScenario = GetScenario();
+	const AneexRecogScenario* pScenario = GetScenario();
 	if(!pScenario->IsDefineGrammarEnabled() && !pScenario->IsRecognizeEnabled())
 		return false;
 	
