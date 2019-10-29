@@ -126,7 +126,7 @@ bool AneexRecogSession::OnSessionTerminate(mrcp_sig_status_code_e status)
 
 static apt_bool_t ReadStream(mpf_audio_stream_t* pStream, mpf_frame_t* pFrame)
 {
-	AneexRecogChannel* pRecogChannel = (RecogChannel*) pStream->obj;
+	AneexRecogChannel* pRecogChannel = (AneexRecogChannel*) pStream->obj;
 	if(pRecogChannel && pRecogChannel->m_Streaming) 
 	{
 		if(pRecogChannel->m_pAudioIn) 
@@ -168,7 +168,7 @@ AneexRecogChannel* AneexRecogSession::CreateRecogChannel()
 	apr_pool_t* pool = GetSessionPool();
 
 	/* create channel */
-	AneexRecogChannel* pRecogChannel = new RecogChannel;
+	AneexRecogChannel* pRecogChannel = new AneexRecogChannel;
 
 	/* create source stream capabilities */
 	pCapabilities = mpf_source_stream_capabilities_create(pool);
@@ -233,7 +233,7 @@ bool AneexRecogSession::OnMessageReceive(mrcp_channel_t* pMrcpChannel, mrcp_mess
 	if(!UmcSession::OnMessageReceive(pMrcpChannel,pMrcpMessage))
 		return false;
 
-	AneexRecogChannel* pRecogChannel = (RecogChannel*) mrcp_application_channel_object_get(pMrcpChannel);
+	AneexRecogChannel* pRecogChannel = (AneexRecogChannel*) mrcp_application_channel_object_get(pMrcpChannel);
 	if(!pRecogChannel)
 		return false;
 
@@ -312,7 +312,7 @@ bool AneexRecogSession::StartRecognition(mrcp_channel_t* pMrcpChannel)
 		return Terminate();
 	}
 
-	AneexRecogChannel* pRecogChannel = (RecogChannel*) mrcp_application_channel_object_get(pMrcpChannel);
+	AneexRecogChannel* pRecogChannel = (AneexRecogChannel*) mrcp_application_channel_object_get(pMrcpChannel);
 	/* create and send RECOGNIZE request */
 	mrcp_message_t* pMrcpMessage = CreateRecognizeRequest(pMrcpChannel);
 	if(pMrcpMessage)
@@ -335,7 +335,7 @@ mrcp_message_t* AneexRecogSession::CreateDefineGrammarRequest(mrcp_channel_t* pM
 	if(!pMrcpMessage)
 		return NULL;
 
-	const RecogScenario* pScenario = GetScenario();
+	const AneexRecogScenario* pScenario = GetScenario();
 
 	mrcp_generic_header_t* pGenericHeader;
 	/* get/allocate generic header */
@@ -364,7 +364,7 @@ mrcp_message_t* AneexRecogSession::CreateRecognizeRequest(mrcp_channel_t* pMrcpC
 	if(!pMrcpMessage)
 		return NULL;
 
-	const RecogScenario* pScenario = GetScenario();
+	const AneexRecogScenario* pScenario = GetScenario();
 
 	mrcp_generic_header_t* pGenericHeader;
 	mrcp_recog_header_t* pRecogHeader;
