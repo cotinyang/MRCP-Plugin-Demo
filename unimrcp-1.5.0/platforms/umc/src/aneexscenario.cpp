@@ -23,7 +23,7 @@
 #include "aneex_recog_resource.h"
 #include "apt_log.h"
 
-AnnexRecogScenario::AnnexRecogScenario() :
+AneexRecogScenario::AneexRecogScenario() :
 	m_DefineGrammar(true),
 	m_Recognize(true),
 	m_ContentType("application/srgs+xml"),
@@ -33,15 +33,15 @@ AnnexRecogScenario::AnnexRecogScenario() :
 {
 }
 
-AnnexRecogScenario::~AnnexRecogScenario()
+AneexRecogScenario::~AneexRecogScenario()
 {
 }
 
-void AnnexRecogScenario::Destroy()
+void AneexRecogScenario::Destroy()
 {
 }
 
-bool AnnexRecogScenario::LoadElement(const apr_xml_elem* pElem, apr_pool_t* pool)
+bool AneexRecogScenario::LoadElement(const apr_xml_elem* pElem, apr_pool_t* pool)
 {
 	if(UmcScenario::LoadElement(pElem,pool))
 		return true;
@@ -60,7 +60,7 @@ bool AnnexRecogScenario::LoadElement(const apr_xml_elem* pElem, apr_pool_t* pool
 	return false;
 }
 
-bool AnnexRecogScenario::LoadRecognize(const apr_xml_elem* pElem, apr_pool_t* pool)
+bool AneexRecogScenario::LoadRecognize(const apr_xml_elem* pElem, apr_pool_t* pool)
 {
 	const apr_xml_attr* pAttr;
 	for(pAttr = pElem->attr; pAttr; pAttr = pAttr->next) 
@@ -86,7 +86,7 @@ bool AnnexRecogScenario::LoadRecognize(const apr_xml_elem* pElem, apr_pool_t* po
 	return true;
 }
 
-bool AnnexRecogScenario::LoadDefineGrammar(const apr_xml_elem* pElem, apr_pool_t* pool)
+bool AneexRecogScenario::LoadDefineGrammar(const apr_xml_elem* pElem, apr_pool_t* pool)
 {
 	const apr_xml_attr* pAttr;
 	for(pAttr = pElem->attr; pAttr; pAttr = pAttr->next) 
@@ -107,7 +107,7 @@ bool AnnexRecogScenario::LoadDefineGrammar(const apr_xml_elem* pElem, apr_pool_t
 	return true;
 }
 
-UmcSession* AnnexRecogScenario::CreateSession()
+UmcSession* AneexRecogScenario::CreateSession()
 {
-	return new RecogSession(this);
+	return new AneexRecogSession(this);
 }
