@@ -463,7 +463,7 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 }
 
 /* Raise aneex RECOGNITION-COMPLETE event */
-static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_channel, mrcp_recog_completion_cause_e cause)
+static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_channel, aneex_recog_completion_cause_e cause)
 {
 	aneex_recog_stream_recog(recog_channel, NULL, 0);
 
