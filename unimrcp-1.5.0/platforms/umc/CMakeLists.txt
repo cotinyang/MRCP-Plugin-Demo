@@ -7,6 +7,8 @@ set (UMC_HEADERS
 	include/dtmfsession.h
 	include/recogscenario.h
 	include/recogsession.h
+	include/aneexscenario.h
+	include/aneexsession.h	
 	include/recorderscenario.h
 	include/recordersession.h
 	include/setparamscenario.h
@@ -33,6 +35,8 @@ set (UMC_SOURCES
 	src/synthsession.cpp
 	src/recogscenario.cpp
 	src/recogsession.cpp
+	src/aneexscenario.cpp
+	src/aneexsession.cpp	
 	src/recorderscenario.cpp
 	src/recordersession.cpp
 	src/dtmfscenario.cpp
