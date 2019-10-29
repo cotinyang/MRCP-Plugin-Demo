@@ -394,7 +394,7 @@ mrcp_message_t* AneexRecogSession::CreateRecognizeRequest(mrcp_channel_t* pMrcpC
 		mrcp_generic_header_property_add(pMrcpMessage,GENERIC_HEADER_CONTENT_TYPE);
 	}
 	/* get/allocate recognizer header */
-	pRecogHeader = (mrcp_recog_header_t*) mrcp_resource_header_prepare(pMrcpMessage);
+	pRecogHeader = (aneex_recog_header_t*) mrcp_resource_header_prepare(pMrcpMessage);
 	if(pRecogHeader)
 	{
 		/* set recognizer header fields */
