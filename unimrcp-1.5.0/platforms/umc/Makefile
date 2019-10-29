@@ -111,6 +111,7 @@ am_umc_OBJECTS = src/main.$(OBJEXT) src/umcconsole.$(OBJEXT) \
 	src/umcframework.$(OBJEXT) src/umcscenario.$(OBJEXT) \
 	src/umcsession.$(OBJEXT) src/synthscenario.$(OBJEXT) \
 	src/synthsession.$(OBJEXT) src/recogscenario.$(OBJEXT) \
+	src/synthsession.$(OBJEXT) src/aneexscenario.$(OBJEXT) \	
 	src/recogsession.$(OBJEXT) src/recorderscenario.$(OBJEXT) \
 	src/recordersession.$(OBJEXT) src/dtmfscenario.$(OBJEXT) \
 	src/dtmfsession.$(OBJEXT) src/setparamscenario.$(OBJEXT) \
@@ -330,6 +331,8 @@ umc_SOURCES = src/main.cpp \
                          src/synthsession.cpp \
                          src/recogscenario.cpp \
                          src/recogsession.cpp \
+                         src/annexscenario.cpp \
+                         src/aneexsession.cpp \			 
                          src/recorderscenario.cpp \
                          src/recordersession.cpp \
                          src/dtmfscenario.cpp \
@@ -470,6 +473,10 @@ src/recogscenario.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/recogsession.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/aneexscenario.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/aneexsession.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)	
 src/recorderscenario.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/recordersession.$(OBJEXT): src/$(am__dirstamp) \
@@ -503,6 +510,8 @@ include src/$(DEPDIR)/dtmfsession.Po
 include src/$(DEPDIR)/main.Po
 include src/$(DEPDIR)/recogscenario.Po
 include src/$(DEPDIR)/recogsession.Po
+include src/$(DEPDIR)/aneexscenario.Po
+include src/$(DEPDIR)/aneexsession.Po
 include src/$(DEPDIR)/recorderscenario.Po
 include src/$(DEPDIR)/recordersession.Po
 include src/$(DEPDIR)/setparamscenario.Po
