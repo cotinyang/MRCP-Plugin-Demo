@@ -18,8 +18,8 @@
 #include "aneexscenario.h"
 #include "mrcp_message.h"
 #include "mrcp_generic_header.h"
-#include "mrcp_recog_header.h"
-#include "mrcp_recog_resource.h"
+#include "aneex_recog_header.h"
+#include "aneex_recog_resource.h"
 #include "apt_nlsml_doc.h"
 #include "apt_log.h"
 
@@ -160,7 +160,7 @@ static apt_bool_t ReadStream(mpf_audio_stream_t* pStream, mpf_frame_t* pFrame)
 	return TRUE;
 }
 
-AneexRecogChannel* RecogSession::CreateRecogChannel()
+AneexRecogChannel* AneexRecogSession::CreateRecogChannel()
 {
 	mrcp_channel_t* pChannel;
 	mpf_termination_t* pTermination;
