@@ -12,6 +12,8 @@ umc_SOURCES            = src/main.cpp \
                          src/synthsession.cpp \
                          src/recogscenario.cpp \
                          src/recogsession.cpp \
+                         src/aneexscenario.cpp \
+                         src/aneexsession.cpp \                         
                          src/recorderscenario.cpp \
                          src/recordersession.cpp \
                          src/dtmfscenario.cpp \
