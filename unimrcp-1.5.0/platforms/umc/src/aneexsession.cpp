@@ -367,7 +367,7 @@ mrcp_message_t* AneexRecogSession::CreateRecognizeRequest(mrcp_channel_t* pMrcpC
 	const AneexRecogScenario* pScenario = GetScenario();
 
 	mrcp_generic_header_t* pGenericHeader;
-	mrcp_recog_header_t* pRecogHeader;
+	aneex_recog_header_t* pRecogHeader;
 
 	/* get/allocate generic header */
 	pGenericHeader = (mrcp_generic_header_t*) mrcp_generic_header_prepare(pMrcpMessage);
