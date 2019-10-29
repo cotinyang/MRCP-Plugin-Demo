@@ -27,7 +27,7 @@
  * 5. Methods (callbacks) of the MPF engine stream MUST not block.
  */
 #include <stdlib.h>
-#include "mrcp_recog_engine.h"
+#include "aneex_recog_engine.h"
 #include "mpf_activity_detector.h"
 #include "apt_consumer_task.h"
 #include "apt_log.h"
@@ -136,10 +136,10 @@ MRCP_PLUGIN_VERSION_DECLARE
  * Enable/add the corresponding entry in logger.xml to set a cutsom log source priority.
  *    <source name="RECOG-PLUGIN" priority="DEBUG" masking="NONE"/>
  */
-MRCP_PLUGIN_LOG_SOURCE_IMPLEMENT(RECOG_PLUGIN,"RECOG-PLUGIN")
+MRCP_PLUGIN_LOG_SOURCE_IMPLEMENT(ANEEX_PLUGIN,"ANNEX-PLUGIN")
 
 /** Use custom log source mark */
-#define RECOG_LOG_MARK   APT_LOG_MARK_DECLARE(RECOG_PLUGIN)
+#define ANEEX_LOG_MARK   APT_LOG_MARK_DECLARE(ANEEX_PLUGIN)
 
 /** Create aneex recognizer engine */
 MRCP_PLUGIN_DECLARE(mrcp_engine_t*) mrcp_plugin_create(apr_pool_t *pool)
