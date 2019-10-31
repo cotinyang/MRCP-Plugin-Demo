@@ -348,6 +348,7 @@ static apt_bool_t aneex_recog_channel_request_dispatch(mrcp_engine_channel_t *ch
 {
 	apt_bool_t processed = FALSE;
 	mrcp_message_t *response = mrcp_response_create(request,request->pool);
+    printf("DEBUG: Plugin: aneex_recog_channel_request_dispatch",request->start_line.method_id,"\n");
 	switch(request->start_line.method_id) {
 		case ANEEX_SET_PARAMS:
 			break;
