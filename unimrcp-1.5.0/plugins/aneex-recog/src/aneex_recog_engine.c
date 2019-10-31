@@ -566,7 +566,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 {
 	printf("DEBUG: aneex_recog_msg_process\n");
 	aneex_recog_msg_t *aneex_msg = (aneex_recog_msg_t*)msg->data;
-	printf(aneex_msg->type);
+
 	switch(aneex_msg->type) {
 		case ANEEX_RECOG_MSG_OPEN_CHANNEL:
 			/* open channel and send asynch response */
