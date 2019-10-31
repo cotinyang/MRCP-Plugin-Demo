@@ -312,7 +312,6 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 				apt_log(ANEEX_LOG_MARK,APT_PRIO_WARNING,"Failed to Open Utterance Output File [%s] for Writing",file_path);
 			}
 		}
-		printf("DEBUG: Plugin: aneex_recog_channel_recognize dir_layout ",dir_layout);
 	}
 
 	response->start_line.request_state = MRCP_REQUEST_STATE_INPROGRESS;
@@ -425,6 +424,9 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 	if(!file_path) {
 		return FALSE;
 	}
+	//ну или сюда читаем файл из Etalon2 для демо
+	//ищем его в базе
+	//и печатаем результат ниже
 
 	/* read the demo result from file */
 	file = fopen(file_path,"r");
@@ -491,6 +493,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		mrcp_engine_channel_message_send(recog_channel->channel,recog_channel->stop_response);
 		recog_channel->stop_response = NULL;
 		recog_channel->recog_request = NULL;
+		printf("DEBUG: send asynchronous response to STOP request\n");
 		return TRUE;
 	}
 
@@ -516,6 +519,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 				break;
 			default:
 				break;
+		printf("DEBUG: mpf_activity_detector_process\n");
 		}
 
 		if(recog_channel->recog_request) {
@@ -532,12 +536,15 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 						frame->event_frame.duration);
 				}
 			}
+			printf("DEBUG: Detected Event\n");
 		}
 
 		//записали входяший голос сюда что-ли?
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
+			printf("DEBUG: recog_channel->audio_out\n");
 		}
+		//читаем в recog_channel->audio_out файл из Etalon2
 	}
 	return TRUE;
 }
