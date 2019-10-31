@@ -346,9 +346,10 @@ static apt_bool_t aneex_recog_channel_timers_start(mrcp_engine_channel_t *channe
 /** Dispatch MRCP request */
 static apt_bool_t aneex_recog_channel_request_dispatch(mrcp_engine_channel_t *channel, mrcp_message_t *request)
 {
+    printf("DEBUG: Plugin: aneex_recog_channel_request_dispatch\n");
 	apt_bool_t processed = FALSE;
 	mrcp_message_t *response = mrcp_response_create(request,request->pool);
-    printf("DEBUG: Plugin: aneex_recog_channel_request_dispatch",request->start_line.method_id,"\n");
+    printf(request->start_line.method_id);
 	switch(request->start_line.method_id) {
 		case ANEEX_SET_PARAMS:
 			break;
@@ -564,7 +565,9 @@ static apt_bool_t aneex_recog_msg_signal(aneex_recog_msg_type_e type, mrcp_engin
 
 static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 {
+	printf("DEBUG: aneex_recog_msg_process\n");
 	aneex_recog_msg_t *aneex_msg = (aneex_recog_msg_t*)msg->data;
+	printf(aneex_msg->type);
 	switch(aneex_msg->type) {
 		case ANEEX_RECOG_MSG_OPEN_CHANNEL:
 			/* open channel and send asynch response */
