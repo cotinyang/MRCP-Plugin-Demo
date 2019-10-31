@@ -70,10 +70,6 @@ static apt_bool_t aneex_recog_stream_destroy(mpf_audio_stream_t *stream);
 static apt_bool_t aneex_recog_stream_open(mpf_audio_stream_t *stream, mpf_codec_t *codec);
 static apt_bool_t aneex_recog_stream_close(mpf_audio_stream_t *stream);
 static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf_frame_t *frame);
-static apt_bool_t aneex_recog_stream_recog(aneex_recog_channel_t *recog_channel,
-							   const void *voice_data,
-							   unsigned int voice_len 
-							   ); 
 
 static const mpf_audio_stream_vtable_t audio_stream_vtable = {
 	aneex_recog_stream_destroy,
@@ -108,8 +104,6 @@ struct aneex_recog_channel_t {
 	mpf_activity_detector_t *detector;
 	/** File to write utterance to */
 	FILE                    *audio_out;
-	
-	apt_bool_t				recog_started;
 };
 
 typedef enum {
@@ -144,6 +138,8 @@ MRCP_PLUGIN_LOG_SOURCE_IMPLEMENT(ANEEX_PLUGIN,"ANNEX-PLUGIN")
 /** Create aneex recognizer engine */
 MRCP_PLUGIN_DECLARE(mrcp_engine_t*) mrcp_plugin_create(apr_pool_t *pool)
 {
+
+
 	aneex_recog_engine_t *aneex_engine = apr_palloc(pool,sizeof(aneex_recog_engine_t));
 	apt_task_t *task;
 	apt_task_vtable_t *vtable;
@@ -219,7 +215,6 @@ static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *e
 	recog_channel->stop_response = NULL;
 	recog_channel->detector = mpf_activity_detector_create(pool);
 	recog_channel->audio_out = NULL;
-	recog_channel->recog_started = FALSE;
 
 	capabilities = mpf_sink_stream_capabilities_create(pool);
 	mpf_codec_capabilities_add(
@@ -256,8 +251,7 @@ static apt_bool_t aneex_recog_channel_destroy(mrcp_engine_channel_t *channel)
 
 /** Open engine channel (asynchronous response MUST be sent)*/
 static apt_bool_t aneex_recog_channel_open(mrcp_engine_channel_t *channel)
-{	
-	
+{
 	return aneex_recog_msg_signal(ANEEX_RECOG_MSG_OPEN_CHANNEL,channel,NULL);
 }
 
@@ -281,8 +275,8 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 	/* process RECOGNIZE request */
 	aneex_recog_header_t *recog_header;
 	aneex_recog_channel_t *recog_channel = channel->method_obj;
-
 	const mpf_codec_descriptor_t *descriptor = mrcp_engine_sink_stream_codec_get(channel);
+
 	if(!descriptor) {
 		apt_log(ANEEX_LOG_MARK,APT_PRIO_WARNING,"Failed to Get Codec Descriptor " APT_SIDRES_FMT, MRCP_MESSAGE_SIDRES(request));
 		response->start_line.status_code = MRCP_STATUS_CODE_METHOD_FAILED;
@@ -324,8 +318,9 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 	response->start_line.request_state = MRCP_REQUEST_STATE_INPROGRESS;
 	/* send asynchronous response */
 	mrcp_engine_channel_message_send(channel,response);
-	
 	recog_channel->recog_request = request;
+	
+    printf("DEBUG: Plugin: aneex_recog_channel_recognize end\n");
 
 	return TRUE;
 }
@@ -390,20 +385,20 @@ static apt_bool_t aneex_recog_stream_destroy(mpf_audio_stream_t *stream)
 /** Callback is called from MPF engine context to perform any action before open */
 static apt_bool_t aneex_recog_stream_open(mpf_audio_stream_t *stream, mpf_codec_t *codec)
 {
-	aneex_recog_channel_t *recog_channel = stream->obj;
 	return TRUE;
 }
 
 /** Callback is called from MPF engine context to perform any action after close */
 static apt_bool_t aneex_recog_stream_close(mpf_audio_stream_t *stream)
 {
-	aneex_recog_channel_t *recog_channel = stream->obj;
 	return TRUE;
 }
 
 /* Raise aneex START-OF-INPUT event */
 static apt_bool_t aneex_recog_start_of_input(aneex_recog_channel_t *recog_channel)
 {
+    printf("DEBUG: Plugin: demo_recog_start_of_input\n");
+
 	/* create START-OF-INPUT event */
 	mrcp_message_t *message = mrcp_event_create(
 						recog_channel->recog_request,
@@ -455,8 +450,6 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 /* Raise aneex RECOGNITION-COMPLETE event */
 static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_channel, aneex_recog_completion_cause_e cause)
 {
-	aneex_recog_stream_recog(recog_channel, NULL, 0);
-
 	aneex_recog_header_t *recog_header;
 	/* create RECOGNITION-COMPLETE event */
 	mrcp_message_t *message = mrcp_event_create(
@@ -486,27 +479,10 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 	return mrcp_engine_channel_message_send(recog_channel->channel,message);
 }
 
-static apt_bool_t aneex_recog_stream_recog(aneex_recog_channel_t *recog_channel,
-							   const void *voice_data,
-							   unsigned int voice_len 
-							   ) {
-	printf("DEBUG: aneex_recog_stream_recog");
-
-	int ret = 0;
-	if(FALSE == recog_channel->recog_started) {
-		apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"[aneex] start recog");
-		recog_channel->recog_started = TRUE;
-	} else if(0 == voice_len) {
-		apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"[aneex] finish recog");
-	}
-
-	return TRUE;
-}
-
 /** Callback is called from MPF engine context to write/send new frame */
 static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf_frame_t *frame)
 {
-	printf("DEBUG: aneex_recog_stream_write");
+	printf("DEBUG: aneex_recog_stream_write\n");
 
 	aneex_recog_channel_t *recog_channel = stream->obj;
 	if(recog_channel->stop_response) {
@@ -516,9 +492,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		recog_channel->recog_request = NULL;
 		return TRUE;
 	}
-	if(frame->codec_frame.size) {
-		aneex_recog_stream_recog(recog_channel, frame->codec_frame.buffer, frame->codec_frame.size);
-	}
+
 	if(recog_channel->recog_request) {
 		mpf_detector_event_e det_event = mpf_activity_detector_process(recog_channel->detector,frame);
 		switch(det_event) {
