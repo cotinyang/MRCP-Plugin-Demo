@@ -17,6 +17,10 @@ if DEMORECOG_PLUGIN
 DATAFILES           += result.xml
 endif
 
+if ANEEXRECOG_PLUGIN
+DATAFILES           += result.xml
+endif
+
 if DEMOVERIFIER_PLUGIN
 DATAFILES           += result-verification.xml
 endif
