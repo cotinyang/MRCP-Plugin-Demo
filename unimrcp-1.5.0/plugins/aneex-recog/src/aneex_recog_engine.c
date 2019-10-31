@@ -113,9 +113,9 @@ struct aneex_recog_channel_t {
 };
 
 typedef enum {
-	aneex_RECOG_MSG_OPEN_CHANNEL,
-	aneex_RECOG_MSG_CLOSE_CHANNEL,
-	aneex_RECOG_MSG_REQUEST_PROCESS
+	ANEEX_RECOG_MSG_OPEN_CHANNEL,
+	ANEEX_RECOG_MSG_CLOSE_CHANNEL,
+	ANEEX_RECOG_MSG_REQUEST_PROCESS
 } aneex_recog_msg_type_e;
 
 /** Declaration of aneex recognizer task message */
@@ -207,7 +207,7 @@ static apt_bool_t aneex_recog_engine_close(mrcp_engine_t *engine)
 
 static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *engine, apr_pool_t *pool)
 {
-    printf("DEBUG: Plugin: aneex_recog_engine_channel_create start\n");
+    printf("DEBUG: Plugin: aneex_recog_engine_channel_create\n");
 
 	mpf_stream_capabilities_t *capabilities;
 	mpf_termination_t *termination; 
@@ -276,14 +276,12 @@ static apt_bool_t aneex_recog_channel_request_process(mrcp_engine_channel_t *cha
 /** Process RECOGNIZE request */
 static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, mrcp_message_t *request, mrcp_message_t *response)
 {
-    printf("DEBUG: Plugin: aneex_recog_channel_recognize start\n");
+    printf("DEBUG: Plugin: aneex_recog_channel_recognize\n");
 
-	int errcode = APR_SUCCESS;
 	/* process RECOGNIZE request */
 	aneex_recog_header_t *recog_header;
 	aneex_recog_channel_t *recog_channel = channel->method_obj;
 
-	//прочитать аудио для распознавания
 	const mpf_codec_descriptor_t *descriptor = mrcp_engine_sink_stream_codec_get(channel);
 	if(!descriptor) {
 		apt_log(ANEEX_LOG_MARK,APT_PRIO_WARNING,"Failed to Get Codec Descriptor " APT_SIDRES_FMT, MRCP_MESSAGE_SIDRES(request));
@@ -307,7 +305,6 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 		}
 	}
 
-	// само распознавание
 	if(!recog_channel->audio_out) {
 		const apt_dir_layout_t *dir_layout = channel->engine->dir_layout;
 		char *file_name = apr_psprintf(channel->pool,"utter-%dkHz-%s.pcm",
@@ -322,18 +319,11 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 			}
 		}
 	}
+	printf("DEBUG: Plugin: aneex_recog_channel_recognize dir_layout "+dir_layout);
 
 	response->start_line.request_state = MRCP_REQUEST_STATE_INPROGRESS;
 	/* send asynchronous response */
 	mrcp_engine_channel_message_send(channel,response);
-
-	/* reset */
-	/*if (errcode!=APR_SUCCESS)
-	{
-		apt_log(RECOG_LOG_MARK,APT_PRIO_WARNING,"[aneex] Failed! error code:%d\n", errcode);
-		return FALSE;
-	}
-	apt_log(RECOG_LOG_MARK,APT_PRIO_INFO,"[aneex] Suceess!");*/
 	
 	recog_channel->recog_request = request;
 
@@ -500,6 +490,8 @@ static apt_bool_t aneex_recog_stream_recog(aneex_recog_channel_t *recog_channel,
 							   const void *voice_data,
 							   unsigned int voice_len 
 							   ) {
+	printf("DEBUG: aneex_recog_stream_recog");
+
 	int ret = 0;
 	if(FALSE == recog_channel->recog_started) {
 		apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"[aneex] start recog");
@@ -514,6 +506,8 @@ static apt_bool_t aneex_recog_stream_recog(aneex_recog_channel_t *recog_channel,
 /** Callback is called from MPF engine context to write/send new frame */
 static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf_frame_t *frame)
 {
+	printf("DEBUG: aneex_recog_stream_write");
+
 	aneex_recog_channel_t *recog_channel = stream->obj;
 	if(recog_channel->stop_response) {
 		/* send asynchronous response to STOP request */
@@ -565,6 +559,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			}
 		}
 
+		//записали входяший голос сюда что-ли?
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 		}
@@ -600,7 +595,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 			/* open channel and send asynch response */
 			mrcp_engine_channel_open_respond(aneex_msg->channel,TRUE);
 			break;
-		case aneex_RECOG_MSG_CLOSE_CHANNEL:
+		case ANEEX_RECOG_MSG_CLOSE_CHANNEL:
 		{
 			/* close channel, make sure there is no activity and send asynch response */
 			aneex_recog_channel_t *recog_channel = aneex_msg->channel->method_obj;
