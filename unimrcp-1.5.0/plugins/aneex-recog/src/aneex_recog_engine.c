@@ -318,7 +318,7 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 				apt_log(ANEEX_LOG_MARK,APT_PRIO_WARNING,"Failed to Open Utterance Output File [%s] for Writing",file_path);
 			}
 		}
-		printf("DEBUG: Plugin: aneex_recog_channel_recognize dir_layout "+dir_layout);
+		printf("DEBUG: Plugin: aneex_recog_channel_recognize dir_layout ",dir_layout);
 	}
 
 	response->start_line.request_state = MRCP_REQUEST_STATE_INPROGRESS;
