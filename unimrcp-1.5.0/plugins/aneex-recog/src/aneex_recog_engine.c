@@ -258,19 +258,19 @@ static apt_bool_t aneex_recog_channel_destroy(mrcp_engine_channel_t *channel)
 static apt_bool_t aneex_recog_channel_open(mrcp_engine_channel_t *channel)
 {	
 	
-	return aneex_recog_msg_signal(aneex_RECOG_MSG_OPEN_CHANNEL,channel,NULL);
+	return aneex_recog_msg_signal(ANEEX_RECOG_MSG_OPEN_CHANNEL,channel,NULL);
 }
 
 /** Close engine channel (asynchronous response MUST be sent)*/
 static apt_bool_t aneex_recog_channel_close(mrcp_engine_channel_t *channel)
 {
-	return aneex_recog_msg_signal(aneex_RECOG_MSG_CLOSE_CHANNEL,channel,NULL);
+	return aneex_recog_msg_signal(ANEEX_RECOG_MSG_CLOSE_CHANNEL,channel,NULL);
 }
 
 /** Process MRCP channel request (asynchronous response MUST be sent)*/
 static apt_bool_t aneex_recog_channel_request_process(mrcp_engine_channel_t *channel, mrcp_message_t *request)
 {
-	return aneex_recog_msg_signal(aneex_RECOG_MSG_REQUEST_PROCESS,channel,request);
+	return aneex_recog_msg_signal(ANEEX_RECOG_MSG_REQUEST_PROCESS,channel,request);
 }
 
 /** Process RECOGNIZE request */
@@ -318,8 +318,8 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 				apt_log(ANEEX_LOG_MARK,APT_PRIO_WARNING,"Failed to Open Utterance Output File [%s] for Writing",file_path);
 			}
 		}
+		printf("DEBUG: Plugin: aneex_recog_channel_recognize dir_layout "+dir_layout);
 	}
-	printf("DEBUG: Plugin: aneex_recog_channel_recognize dir_layout "+dir_layout);
 
 	response->start_line.request_state = MRCP_REQUEST_STATE_INPROGRESS;
 	/* send asynchronous response */
@@ -591,7 +591,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 {
 	aneex_recog_msg_t *aneex_msg = (aneex_recog_msg_t*)msg->data;
 	switch(aneex_msg->type) {
-		case aneex_RECOG_MSG_OPEN_CHANNEL:
+		case ANEEX_RECOG_MSG_OPEN_CHANNEL:
 			/* open channel and send asynch response */
 			mrcp_engine_channel_open_respond(aneex_msg->channel,TRUE);
 			break;
@@ -607,7 +607,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 			mrcp_engine_channel_close_respond(aneex_msg->channel);
 			break;
 		}
-		case aneex_RECOG_MSG_REQUEST_PROCESS:
+		case ANEEX_RECOG_MSG_REQUEST_PROCESS:
 			aneex_recog_channel_request_dispatch(aneex_msg->channel,aneex_msg->request);
 			break;
 		default:
