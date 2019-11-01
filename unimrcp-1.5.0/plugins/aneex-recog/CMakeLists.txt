@@ -1,12 +1,7 @@
-set(CMAKE_CXX_COMPILER "g++")
 cmake_minimum_required (VERSION 2.8)
 project (aneexrecog)
 
 # Set source files
-set(AX_SRC_ROOT /usr/src/audioneex/build)
-set(DATASTORE_T "TCDataStore")
-set(DATASTORE_LIB_NAME tokyocabinet)
-
 set (ANEEX_RECOG_SOURCES
 	src/aneex_recog_engine.c
 )
@@ -19,15 +14,10 @@ add_library (${PROJECT_NAME} MODULE ${ANEEX_RECOG_SOURCES}
 	$<TARGET_OBJECTS:mrcp>
 	$<TARGET_OBJECTS:mpf>
 	$<TARGET_OBJECTS:aprtoolkit>
-	${AX_SRC_ROOT}/DAO/${DATASTORE_T}.cpp 
-	${AX_SRC_ROOT}/audio/AudioSource.cpp	
 )
 set_target_properties (${PROJECT_NAME} PROPERTIES FOLDER "plugins")
 
-find_library(DATASTORE_LIB
-             NAMES tokyocabinet libtokyocabinet
-             PATHS "/usr/local/lib")	
-                             
+                            
 # Input libraries
 target_link_libraries(${PROJECT_NAME}
 	${APU_LIBRARIES}
@@ -62,12 +52,7 @@ include_directories (
 	${MPF_INCLUDE_DIRS}
 	${APR_TOOLKIT_INCLUDE_DIRS}
 	${APR_INCLUDE_DIRS}
-	${APU_INCLUDE_DIRS}
-	
-	${AX_SRC_ROOT}/src
-    ${AX_SRC_ROOT}/audio 
-    ${AX_SRC_ROOT}/DAO
-    ${AX_SRC_ROOT}/tools	
+	${APU_INCLUDE_DIRS}	
 )
 
 # Installation directives
