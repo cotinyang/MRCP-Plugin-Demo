@@ -1,4 +1,4 @@
-set(CMAKE_C_COMPILER "g++")
+set(CMAKE_CXX_COMPILER "g++")
 cmake_minimum_required (VERSION 2.8)
 project (aneexrecog)
 
