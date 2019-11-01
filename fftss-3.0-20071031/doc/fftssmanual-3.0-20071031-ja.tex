@@ -1,0 +1,566 @@
+\documentclass{article}
+\usepackage[dvipdfm]{color}
+\usepackage[dvipdfm,a4paper,bookmarks=true,bookmarksopen=true,bookmarksnumbered=true,bookmarkstype=toc,colorlinks=false,linkcolor=white,linkbordercolor=0 0 0,pdftitle={FFTSS Library Version 3.0 User's Guide},pdfauthor={Akira NUKADA},baseurl={http://www.ssisc.org/fftss/fftssmanual-3.0-20071031-ja.pdf},]{hyperref}
+\linespread{1.2}
+\oddsidemargin -1cm
+\evensidemargin -1cm
+\textwidth 7in
+\topmargin -1.5cm
+\textheight 9in
+\begin{document}
+\pagestyle{plain}
+\hfill{\large 最終更新日: 平成19年10月31日}
+\vspace{9cm}
+\begin{center}
+{\Huge \bf FFTSS ライブラリ 3.0 版\\利用の手引き}
+\end{center}
+\vspace{8cm}
+{\large Copyright (C) 2002-2007 The Scalable Software Infrastructure Project,\\
+科学技術振興機構 戦略的創造研究推進事業 (CREST),
+研究領域「シミュレーション技術の革新と実用化基盤の構築」,
+「大規模シミュレーション向け基盤ソフトウェアの開発」プロジェクト.
+\href{http://www.ssisc.org/}{http://www.ssisc.org/}}
+
+\pagestyle{empty}
+\newpage
+\tableofcontents
+\newpage
+\section{はじめに}
+FFTSS ライブラリはオープンソースソフトウェアとして配布される
+高速フーリエ変換 (FFT) ライブラリです. 本ソフトウェアは
+科学技術振興機構 (JST) 戦略的創造研究推進事業 (CREST) の「大規模シミュレーション向け基盤ソフトウェアの開発」プロジェクトの成果の一つです.
+
+本ライブラリの目標は, 多様な計算環境において高い性能を達成することに
+あります. 本ライブラリのパッケージ内には多種の FFT カーネル用サブルーチンを
+同梱しています. それらのうち実行可能なものを全て実行し, それぞれの
+計算環境で最も高速に計算を完了したものを選択するという自動チューニング機能を
+備えています.
+
+また, 本ライブラリでは FFTW ライブラリのバージョン3と類似した
+関数インターフェイスを採用しています. このため FFTW をお使いの
+ユーザ様が非常に容易に本ライブラリをお使いいただくことができます.
+FFTW 用に作成されたアプリケーションをお持ちであれば,
+ごく僅かな修正だけで本ライブラリを使用できます.
+
+
+\section{離散フーリエ変換 (DFT)}
+FFTSS ライブラリは長さ$n$ の1次元DFTで以下の計算を行います.\\
+順変換\\
+\[Y_k = \sum_{j=0}^n X_j\cdot e^{-2\pi jk\sqrt{-1}/n}\]
+逆変換\\
+\[Y_k = \sum_{j=0}^n X_j\cdot e^{2\pi jk\sqrt{-1}/n}.\]
+
+$X$ は入力となる倍精度複素数データの配列で, $Y$ は出力です.
+FFTSS ライブラリの計算結果は FFTW ライブラリ等と同様であり,
+\underline{$1/N$ 等でスケーリングされません}.
+
+多次元DFTでは多次元の入力データの各次元方向に対して1次元DFTの
+計算を行います.
+
+\section{インストール方法}
+本ライブラリは基本的にソースコードの形態で配布されています.
+このためアプリケーションで利用する前に,
+利用者またはシステム管理者がコンパイル及びインストール作業を
+行う必要があります.
+
+
+\subsection{UNIX 及び互換システム}
+UNIX 及び互換システムでインストールを行う場合以下の3つの作業が
+必要になります.
+1. configure スクリプトを実行します.\\
+2. make コマンドを実行します.\\
+3. make install コマンドを実行します. (任意)\\
+
+本ライブラリの configure スクリプトでは一般的なフラグに加えて
+以下のフラグを指定することができます.
+
+\begin{tabular}{ll}
+{\tt --without-simd}&SIMD 命令の利用を禁止します.\\
+{\tt --without-asm}&アセンブリ言語の利用を禁止します.\\
+{\tt --with-bg}&IBM Blue Gene 用のライブラリを構築します. (クロスコンパイル)\\
+{\tt --with-bg-compat}&一部の Blue Gene 用の FFT カーネルを他の環境でも有効にします.\\
+{\tt --with-recommended}&開発者が推奨する環境変数 CC 及び CFLAGS を使用します.\\
+{\tt --enable-openmp}&OpenMP 並列化を有効にします.\\
+{\tt --enable-mpi}&MPI 版のライブラリも構築します.\\
+\end{tabular}\\
+
+環境変数 CC 及び CFLAGS 等を設定したい場合には以下のようなオプションを
+指定してください.\\
+\$ ./configure CC=gcc CFLAGS='-O3 -msse2'\\
+
+
+\subsection{Microsoft Windows}
+Microsoft Windows システムではライブラリの構築方法が3種類あります.
+
+\subsubsection{Visual Studio}
+パッケージの win32 フォルダ内に fftss.sln というファイルがあります.
+このファイルは Visual Studio .NET 2003 用のソリューションファイルです.
+Visual Studio 2005 以降で利用する場合にはこのソリューションファイルを
+変換して使用してください. Visual Studio の 2003 より古いバージョンは
+サポートされません. 適宜各プロジェクトのプロパティページにて
+最適化レベル等を調整してください. Microsoft SDK (または Platform SDK) が
+インストールされている必要があります.
+
+同じく win32 フォルダ内にある pfftss.sln ファイルは MPI 用の
+ライブラリを含んでいます. これを利用するためには 
+Microsoft Compute Cluster Pack SDK 等の MPI 開発環境が必要です.
+
+\subsubsection{インテル C/C++ コンパイラ}
+win32 フォルダ内にはインテル C/C++ コンパイラ用のバッチスクリプトファイルが
+用意されています. コマンドプロンプト等から実行してください.
+実行する際には必ず win32 フォルダ内で実行してください.
+コンパイルオプション等を変更したい場合にはバッチスクリプトファイルを
+編集してください.
+
+\begin{tabular}{ll}
+icl-x86.bat&インテル IA-32 アーキテクチャ用. (32ビット)\\
+icl-amd64&インテル EM64T (Intel 64) または AMD64 アーキテクチャ用. (64ビット)\\
+icl-ia64&インテル IA-64 アーキテクチャ用. (64bit)\\
+\end{tabular}
+
+Visual Studio と組み合わせて利用する場合には, ソリューションファイルを
+開き, 各プロジェクトをインテルコンパイラ用のプロジェクトに変換してください.
+
+\subsubsection{MinGW 環境}
+MinGW 環境では UNIX 及び互換環境と同様に configure スクリプトを
+利用してください.
+
+\section{アプリケーションの作成}
+
+\subsection{UNIX 及び互換環境}
+一般的には以下の設定が必要になります.
+\begin{itemize}
+\item{CFLAGS に "-I/path/to/header/file" を追加してください}
+\item{LDFLAGS に "-L/path/to/library/file -lfftss" を追加してください}
+\item{LDFLAGS に "-lpfftss" を追加してください (MPI の場合のみ)}
+\end{itemize}
+/path/to/header/file, /path/to/library/file はそれぞれ fftss.h, libfftss.a 
+ファイルがあるディレクトリを指します. 標準的な場所にインストールした
+場合には指定する必要がない可能性があります.
+
+\subsection{Visual Studio}
+Visual Studio を使用してライブラリを構築した場合, 
+win32/Release (または win32/Debug) フォルダ内に fftss.lib ファイルが
+生成されます. MPI 版を構築した場合には pfftss.lib ファイルも同じフォルダ内に
+あります. fftss.h や pfftss.h 等のヘッダファイルは include フォルダ内に
+あります. アプリケーションから FFTSS ライブラリを利用する場合にはこれらの
+ファイルを適切な場所にコピーしてください.
+
+\section{制限事項}
+現在のバージョンでは FFTSS ライブラリは倍精度浮動小数点の複素数−複素数
+変換のみに対応しています. また入力データの各次元方向の長さは
+2 のべき乗でなければなりません.
+
+本ライブラリの FFT カーネルでは Stockham の自動ソートアルゴリズムを
+利用しているため out-of-place transform となります.
+in-place transform のフラグを指定した場合でもライブラリ内で
+out-of-place transform 用に作業領域が確保されます.
+
+
+\section{ライブラリ関数の一覧}
+\subsection{記憶領域の確保}
+\subsubsection{fftss\_malloc}
+Syntax:\\
+{\bf void *fftss\_malloc(long }\underline{size}{\bf );}\\
+
+{\bf fftss\_malloc()} 関数は \underline{size} バイトの記憶領域を確保し,
+その先頭アドレスへのポインタを返します. この関数が返すアドレスは
+常に 16 バイト境界にアラインメントされます.
+
+
+\subsubsection{fftss\_free}
+Syntax:\\
+{\bf void fftss\_free(void *}\underline{ptr}{\bf );}\\
+
+{\bf fftss\_free()} 関数は \underline{ptr} で指定された記憶領域を
+開放します. {\bf fftss\_malloc()} で確保された領域にのみ用いてください.
+
+\subsection{プラン作成}
+
+\subsubsection{fftss\_plan\_dft\_1d}
+Syntax:\\
+{\bf fftss\_plan fftss\_plan\_dft\_1d(long }\underline{n}
+{\bf , double *}\underline{in}{\bf , double *}\underline{out}
+{\bf , long }\underline{sign}{\bf , long }\underline{flags}
+{\bf );}\\
+
+{\bf fftss\_plan\_dft\_1d()} 関数は
+
+長さ \underline{n} の倍精度複素数1次元FFT用のプランを作成します. 
+入力データの $i$ 番目の要素の実部は \underline{in}[i*2] に,
+虚部は \underline{in}[i*2+1] にそれぞれ格納してください. 
+
+\subsubsection{fftss\_plan\_dft\_2d}
+Syntax:\\
+{\bf fftss\_plan fftss\_plan\_dft\_2d(long }\underline{nx}
+{\bf , long }\underline{ny}{\bf , long }\underline{py}
+{\bf , double *}\underline{in}{\bf , double *}\underline{out}
+{\bf , long }\underline{sign}{\bf , long }\underline{flags}
+{\bf );}\\
+
+{\bf fftss\_plan\_dft\_2d()} 関数はサイズ \underline{nx} × \underline{ny} の
+倍精度複素数2次元FFT用のプランを作成します.
+(x,y)要素の実部は \underline{in}[x*2+y*py*2] に,
+虚部は \underline{in}[x*2+y*py*2+1] にそれぞれ格納してください. 
+
+\subsubsection{fftss\_plan\_dft\_3d}
+Syntax:\\
+{\bf fftss\_plan fftss\_plan\_dft\_3d(long }\underline{nx}
+{\bf , long }\underline{ny}{\bf , long }\underline{nz}
+{\bf , long }\underline{py}{\bf , long }\underline{pz}
+{\bf , double *}\underline{in}{\bf , double *}\underline{out}
+{\bf , long }\underline{sign}{\bf , long }\underline{flags}
+{\bf );}\\
+
+{\bf fftss\_plan\_dft\_3d()} 関数はサイズ
+ \underline{nx} × \underline{ny} × \underline{nz} の
+倍精度複素数 3 次元FFT用のプランを作成します.
+(x,y,z) 要素の実部は \underline{in}[x*2+y*py*2+z*pz*2] に,
+虚部は \underline{in}[x*2+y*py*2+z*pz*2+1] にそれぞれ格納してください. 
+
+\subsubsection{利用可能なフラグの一覧}
+以下は1次元, 2次元, 3次元FFTのプラン作成時に指定可能なフラグの一覧です.
+
+\begin{itemize}
+\item{FFTSS\_VERBOSE}
+このフラグは幾つかの情報の出力を有効にします.
+通常アプリケーションユーザがこのフラグを使用する必要はありません.
+各環境でどの FFT カーネルが選択されたか等の情報を得ることができます.
+
+
+\item{FFTSS\_MEASURE}
+
+プラン作成時に利用可能な FFT カーネルを全て実行し, その中から最も
+高速なものを選択するモードを指定します. (標準)
+
+
+\item{FFTSS\_ESTIMATE}
+
+プラン作成時に最適な FFT カーネルを\underline{推測}します.
+実際に各 FFT カーネルは実行されないため, 最適でないカーネルが
+選択される可能性があります.
+
+
+\item{FFTSS\_PATIENT}
+
+現在は FFTSS\_MEASURE と同値です.
+
+\item{FFTSS\_EXHAUSTIVE}
+
+現在は FFTSS\_MEASURE と同値です.
+
+\item{FFTSS\_NO\_SIMD}
+
+このフラグは SIMD (及び SIMOMD) 命令の使用を禁止します.
+最速の FFT カーネルを選択する際に
+これらが使用されているカーネルが選択肢から除外されます.
+
+
+\item{FFTSS\_UNALIGNED}
+
+このフラグは入力データが 16 バイト境界にアラインメントされていない場合に
+指定してください. これにより一部のアラインメントを要求するカーネルが
+候補から除外されます. 通常プラン作成時に指定された入力バッファと
+出力バッファに関してはアラインメントのチェックを行い, アラインメントされて
+いない場合には自動的にこのフラグが追加されます.
+しかし {\bf fftss\_execute\_dft()} 関数によってプラン作成時とは
+異なる, アラインメントされていない可能性のある入出力バッファを
+用いる場合にはこのフラグを明示的に指定する必要があります.
+
+一般的にはアラインメントされている場合により高い性能を実現できるため,
+{\bf fftss\_malloc()} 関数によって確保されたアラインメントされた領域を
+用いることを推奨します.
+
+
+\item{FFTSS\_DESTROY\_INPUT}
+
+このフラグは入力バッファのデータを破壊してもよい場合に指定してください. (標準で破壊します)
+
+\item{FFTSS\_PRESERVE\_INPUT}
+
+このフラグは入力バッファのデータを破壊したくない場合に指定してください.
+作業用のバッファが別途確保されます.
+
+
+\item{FFTSS\_INOUT}
+
+このフラグが指定された場合には, 出力データは入力バッファ \underline{in} に
+出力されます. \underline{out} は作業用のバッファとして利用されます.
+
+
+\end{itemize}
+
+\subsection{プランの実行}
+
+\subsubsection{fftss\_execute}
+Syntax:\\
+{\bf void fftss\_execute(fftss\_plan }\underline{p}
+{\bf );}\\
+
+{\bf fftss\_execute()} 関数はプラン \underline{p} を実行します.
+
+\subsubsection{fftss\_execute\_dft}
+Syntax:\\
+{\bf void fftss\_execute\_dft(fftss\_plan }\underline{p}
+{\bf , double *}\underline{in}{\bf , double *}\underline{out}{\bf );}\\
+
+{\bf fftss\_execute()} 関数はプラン \underline{p} を実行します.
+入力バッファ \underline{in} と出力バッファ \underline{out} が
+プラン \underline{p} の作成時に指定されたものの代わりに使用されます.
+
+\subsection{プランの破壊}
+
+\subsubsection{fftss\_destroy\_plan}
+Syntax:\\
+{\bf void fftss\_destroy\_plan(fftss\_plan }\underline{p}
+{\bf );}\\
+
+{\bf fftss\_destroy\_plan()} 関数はプラン \underline{p} と,
+このプランのために確保された領域を開放します.
+
+\subsection{タイマー}
+
+\subsubsection{fftss\_get\_wtime}
+Syntax:\\
+{\bf double fftss\_get\_wtime(void);}\\
+
+{\bf fftss\_get\_wtime()} 関数は現在のタイムスタンプを秒単位で返します.
+
+\subsection{マルチスレッド}
+
+\subsubsection{fftss\_init\_threads}
+Syntax:\\
+{\bf int fftss\_init\_threads(void);}\\
+
+{\bf fftss\_init\_threads()} 関数はなにもしません.
+この関数は FFTW ライブラリとの互換性のためにのみ存在します.
+
+\subsubsection{fftss\_plan\_with\_nthreads}
+Syntax:\\
+{\bf void fftss\_plan\_with\_nthreads(int }\underline{nthreads}{\bf );}\\
+
+{\bf fftss\_plan\_with\_nthreads()} 関数は計算に利用するスレッド数を
+指定します. FFTSS ライブラリは OpenMP を用いたマルチスレッド並列化のみを
+サポートしており, この関数は単純に {\bf omp\_set\_num\_threads()} 関数を
+用いて OpenMP のスレッド数を指定しています.
+
+
+\subsubsection{fftss\_cleanup\_threads}
+Syntax:\\
+{\bf  void fftss\_cleanup\_threads(void);}\\
+
+{\bf fftss\_cleanup\_threads()} 関数は何もしません. FFTW ライブラリとの
+互換性のためだけに存在します.
+
+\subsection{MPI}
+FFTSS ライブラリバージョン3では pfftss\_ から始まる MPI 用の関数を
+用意しています.
+
+\subsubsection{pfftss\_plan\_dft\_2d}
+Syntax:\\
+{\bf pfftss\_plan pfftss\_plan\_dft\_2d(long }\underline{nx}{\bf, long }\underline{ny}{\bf, long }\underline{py}{\bf, long }\underline{oy}{\bf, long }\underline{ly}{\bf, double *}\underline{inout}{\bf, long }\underline{sign}{\bf, long }\underline{flags}{\bf, MPI\_Comm }\underline{comm}{\bf );}\\
+
+{\bf pfftss\_plan\_dft\_2d()} 関数は MPI 環境において
+サイズ \underline{nx} × \underline{ny} の倍精度複素数2次元FFT用のプランを
+作成します.
+指定されたバッファ \underline{inout} は入力及び出力に用いられるため,
+入力データは必ず失われます.
+各ノードは \underline{oy} 行から始まる \underline{ly} 行分のデータを持ち,
+\underline{py} × \underline{ly}の2次元配列に格納してください.
+ (言語的には 1次元配列
+double \underline{inout}[2*\underline{py}*\underline{ly}]).
+データはノード間で, \underline{comm} 内のランク順に
+行ブロック分割されていなければなりません.
+
+
+\underline{nx} は少なくともノード数以上である必要があります.
+\underline{ly} は全てのノードで 0 でない必要があります.
+この関数では内部で入出力データに相当するサイズの
+領域を二つ確保します.
+
+
+
+\subsubsection{pfftss\_execute}
+Syntax:\\
+{\bf void pfftss\_execute(pfftss\_plan }\underline{p}{\bf);}\\
+
+{\bf pfftss\_execute()} 関数はプラン \underline{p} を実行します.
+
+
+\subsubsection{pfftss\_execute\_dft}
+Syntax:\\
+{\bf void pfftss\_execute\_dft(pfftss\_plan }\underline{p}{\bf, double *}\underline{inout}{\bf);}\\
+
+{\bf pfftss\_execute\_dft()} 関数はプラン \underline{p} を実行します.
+入出力バッファとしてプラン作成時に指定したものの代わりに
+ \underline{inout} を使用します.
+
+\subsubsection{pfftss\_destroy\_plan}
+Syntax:\\
+{\bf void pfftss\_destroy\_plan(pfftss\_plan }\underline{p}{\bf);}\\
+
+{\bf pfftss\_destroy\_plan()} 関数はプラン \underline{p} 及び
+このプランに必要であった記憶領域を開放します.
+
+\section{マルチスレッド}
+現バージョンの FFTSS ライブラリは OpenMP を用いたマルチスレッドに
+対応しています. マルチスレッド用のライブラリを構築するためには,
+OpenMP に対応したコンパイラを用い, OpenMP を有効にするための
+コンパイラオプションを指定する必要があります.
+
+例えばインテル C/C++ コンパイラで構築する場合は以下のとおりです.
+コンパイラオプションとして -openmp を追加し, -xP オプションで 
+SSE3 命令のサポートを有効にしています.
+\$ ./configure CC=icc CFLAGS='-O3 -openmp -xP'
+
+スレッド数の指定は通常環境変数 'OMP\_NUM\_THREADS' で行います.
+指定しない場合のスレッド数は環境に依存しますが, 最大 CPU コア数または
+1 となる場合が多いでしょう.
+また {\bf omp\_set\_num\_threads()}関数等を用いてプログラム実行中に
+設定することもできます.
+`fftss\_plan\_with\_nthreads()' という関数を FFTW ライブラリとの
+互換性のために用意していますが, この関数は単純に
+{\bf omp\_set\_num\_threads()} 関数を呼び出しているだけです.
+
+プラン作成時にスレッド数に応じた作業領域が確保されます.
+このため使用するスレッド数はプラン作成より前に指定されている
+必要があります. ベンチマーク目的等においてスレッド数を変えて
+同じプランを実行するような場合, プラン作成時には
+スレッド数の最大値を指定してください.
+
+\begin{verbatim}
+   max_threads = omp_get_num_procs();
+   fftss_plan_with_nthreads(max_threads);
+   plan = fftss_plan_dft_2d(nx, ny, py, vin, vout, 
+      FFTSS_FORWARD, FFTSS_MEASURE);
+
+   {  /*  配列の初期化.  */  }
+
+   for (nthreads = 1; nthreads <= max_threads; nthreads ++) {
+      fftss_plan_with_nthreads(nthreads);
+      t = fftss_get_wtime();
+      fftss_execute(plan);
+      t = fftss_get_wtime() - t;
+      printf("%d スレッドで実行した場合 %lf 秒.\n", nthreads, t);
+   }
+\end{verbatim}
+
+MPI 版でもさらに各ノード内の計算を OpenMP 並列化することができます.
+--enable-mpi と --enable-openmp の両方のオプションを指定することで
+ MPI と OpenMP のハイブリッド並列化されたライブラリを構築することが
+できます.
+
+\section{FFTW ライブラリとの互換性}
+本ライブラリの関数インターフェイスは FFTW ライブラリと類似しています.
+FFTW ライブラリの利用者は FFTSS ライブラリを互換モードで利用することが
+できます. 通常 FFTW ライブラリ用のアプリケーションプログラムは
+fftw3.h というヘッダファイルをインクルードしていますが,
+これを fftw3compat.h と書き換えることによって FFTSS ライブラリを
+使うことができます.
+
+fftw3compat.h ファイルには FFTW ライブラリ用のソースコードを
+ FFTSS ライブラリ用のソースコードに変換するためにマクロ等が
+定義されており, fftss.h もこのファイルからインクルードされています.
+
+現バージョンでは FFTW ライブラリの機能の中で fftw3compat.h に定義されている
+部分のみサポートされています. MPI 版に関しては一切互換性はありません.
+
+
+\subsection{互換性のある関数の一覧}
+\begin{itemize}
+\item{\bf fftw\_malloc()}
+\item{\bf fftw\_free()}
+\item{\bf fftw\_plan\_dft\_1d()}
+\item{\bf fftw\_plan\_dft\_2d()}
+\item{\bf fftw\_plan\_dft\_3d()}
+\item{\bf fftw\_execute()}
+\item{\bf fftw\_execute\_dft()}
+\item{\bf fftw\_destroy\_plan()}
+\item{\bf fftw\_init\_threads()}
+\item{\bf fftw\_plan\_with\_nthreads()}
+\item{\bf fftw\_cleanup\_threads()}
+\end{itemize}
+
+\subsection{互換性のあるフラグの一覧}
+\begin{itemize}
+\item{\bf FFTW\_MEASURE}
+\item{\bf FFTW\_ESTIMATE}
+\item{\bf FFTW\_PATIENT}
+\item{\bf FFTW\_EXHAUSTIVE}
+\item{\bf FFTW\_NO\_SIMD}
+\item{\bf FFTW\_PRESERVE\_INPUT}
+\item{\bf FFTW\_DESTROY\_INPUT}
+\item{\bf FFTW\_FORWARD}
+\item{\bf FFTW\_BACKWARD}
+\end{itemize}
+
+\section{List of FFT カーネルの一覧}
+以下は本ライブラリに含まれる FFT カーネルの一覧です.
+プラン作成時に選択されたカーネルの名前は,
+{\bf FFTSS\_VERBOSE} フラグを指定した場合に表示されます.
+
+\begin{itemize}
+\item{normal}\\
+標準的な実装.
+\item{FMA}\\
+積和演算命令に適した FFT カーネルを用いた実装.
+\item{SSE2 (1)}\\
+Intel SSE2 拡張命令を用いた実装.
+\item{SSE2 (2)}\\
+Intel SSE2 拡張命令を用いた実装 (UNPCKHPD/UNPCKLPD).
+\item{SSE3}\\
+Intel SSE2 拡張命令を用いた実装 (ADDSUBPD).
+\item{SSE3 (H)}\\
+Intel SSE2 拡張命令を用いた実装 (HADDPD/HSUBPD).
+\item{C99 Complex}\\
+C99 規格の複素数型を用いた実装.
+\item{Blue Gene}\\
+IBM Blue Gene 用の実装.
+\item{Blue Gene (PL)}\\
+IBM Blue Gene 用の実装 (ソフトウェアパイプライン化).
+\item{Blue Gene asm}\\
+IBM Blue Gene 用の実装 (アセンブリ言語で記述).
+\item{IA-64 asm}\\
+Intel IA-64 アーキテクチャ用の実装 (アセンブリ言語で記述).
+\end{itemize}
+
+\section{動作確認を行った環境}
+FFTSS ライブラリは以下のプラットフォームで動作確認を行っています.\\
+\vspace{1cm}
+\begin{tabular}{|l|l|l|}
+\hline
+プロセッサ&オペレーティングシステム&コンパイラ\\
+\hline
+UltraSPARC III&Sun Solaris 9&Sun ONE Studio 11\\
+\hline
+Itanium 2&Linux&Intel C/C++ Compiler 9.1, gcc 4.0.1\\
+\hline
+PowerPC G5&Mac OS X 10.4&IBM XL C Compiler 6.0, gcc 4.0\\
+\hline
+POWER5&Linux&IBM XL C Compiler 7.0, gcc 4.0.1\\
+\hline
+POWER4&AIX&IBM XL C Compiler 6.0\\
+\hline
+PA-RISC&HP-UX 11&Bundled C Compiler\\
+\hline
+PPC440FP2&Blue Gene CNK&IBM XL C Compiler 7.0/8.0\\
+\hline
+Opteron&Linux&gcc 3.3.3, gcc 4.0.1\\
+\hline
+Pentium 4&Solaris 9 (IA-32)&Sun ONE Studio 11, gcc 4.0.1\\
+\hline
+Xeon&Linux&Intel C/C++ Compiler 8.1/9.0/9.1, gcc\\
+\hline
+IA-32&Windows XP SP2&Visual Studio .NET 2003\\
+\hline
+IA-32&Windows XP SP2&Visual Studio 2005\\
+\hline
+IA-32&Windows XP SP2&Intel C/C++ Compiler 9.1\\
+\hline
+x64&Windows XP, 2003&Visual Studio .NET 2003\\
+\hline
+x64&Windows XP, 2003&Intel C/C++ Compiler for EM64T 9.1\\
+\hline
+\end{tabular}
+
+\end{document}

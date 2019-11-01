@@ -1,0 +1,57 @@
+
+                FFTSS Library Version 3.0 (2007/10/31)
+
+
+[Introduction]
+
+This software is a part of the result of the project 'Scalable
+Software Infrastructure(SSI)' supported by "Development of Software 
+Infrastructure for Large Scale Scientific Simulation", 
+ Core Research for Evolutional Science and Technology(CREST) at Japan
+Science and Technology Agency(JST).
+
+FFTSS is an open source library for computing the Fast Fourier
+Transform.  Since FFTW is already de facto standard FFT library, we
+made the interfaces of this library almost compatible with those of
+FFTW.  This makes it easy to run your applications coded for FFTW.
+
+FFTSS library includes many various FFT kernel routines.  In each
+computing envirionment, the best set of the kernels is selected by
+trial runs of them.  This is because it is difficult to detemine which
+source program generates the fastest code.
+
+
+[Limitations]
+
+Although the interfaces of this library are compatible with those of
+FFTW3, not all functions are implemented. Currently, input data must
+be an array of double precision complex numbers, which length is
+powers of two.  
+
+
+[Header files]
+
+fftss.h
+
+    You have to include this header file to use FFTSS library calls.
+
+pfftss.h
+
+    You have to include this header file to use functions for MPI.
+
+fftw3compat.h
+
+    If you have an application program written for FFTW3, 
+    you can simply change the name of header file to use FFTSS library.
+    
+[Library files]
+
+libfftss.a          Static link library.
+libpfftss.a         Static link library.
+
+
+[Links]
+
+SSI Project  http://www.ssisc.org/
+FFTSS        http://www.ssisc.org/fftss/
+

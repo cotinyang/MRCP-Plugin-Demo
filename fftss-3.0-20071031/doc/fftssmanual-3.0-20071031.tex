@@ -1,0 +1,540 @@
+\documentclass{article}
+\usepackage[dvipdfm]{color}
+\usepackage[dvipdfm,a4paper,bookmarks=true,bookmarksopen=true,bookmarksnumbered=true,bookmarkstype=toc,colorlinks=false,linkcolor=white,linkbordercolor=0 0 0,pdftitle={FFTSS Library Version 3.0 User's Guide},pdfauthor={Akira NUKADA},baseurl={http://www.ssisc.org/fftss/fftssmanual-3.0-20071031.pdf},]{hyperref}
+\linespread{1.2}
+\oddsidemargin -1cm
+\evensidemargin -1cm
+\textwidth 7in
+\topmargin -1.5cm
+\textheight 9in
+\begin{document}
+\pagestyle{plain}
+\hfill{\large Last Modified: 31/10/07}
+\vspace{9cm}
+\begin{center}
+{\Huge \bf FFTSS Library Version 3.0\\User's Guide}
+\end{center}
+\vspace{8cm}
+{\large Copyright (C) 2002-2007 The Scalable Software Infrastructure Project,\\
+is supported by the ``Development of Software Infrastructure for Large Scale Scientific Simulation'' Team, CREST, JST. \href{http://www.ssisc.org/}{http://www.ssisc.org/}}
+
+\pagestyle{empty}
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}
+The FFTSS library is a Fast Fourier Transform (FFT) library that is distributed as
+an open source software. The FFTSS library is one of the products of the
+% the Scalable Software Infrastructure (SSI) project,
+``Development of Software Infrastructure for Large Scale Scientific Simulation''
+project, which is supported by
+Core Research for Evolutional Science and Technology (CREST) of
+the Japan Science and Technology Agency (JST).
+
+The target of this library is to achieve high performance (high speed) in
+various computing environments. The software package of this library contains
+several types of FFT kernel subroutine. The library executes all of them 
+ and selects the fastest subroutine for the target computing environment.
+
+The interfaces of the library are
+similar to those of the FFTW library version 3.x. This makes it easy
+for FFTW users to use the FFTSS library. 
+Porting to the FFTSS library requires a very slight modification
+ of the source code.
+
+\section{DFT}
+
+The one-dimensional DFT of length $n$ in the FFTSS library 
+actually computes\\
+% the operations described below.
+the forward transform\\
+\[Y_k = \sum_{j=0}^n X_j\cdot e^{-2\pi jk\sqrt{-1}/n}\]
+and the backward transform\\
+\[Y_k = \sum_{j=0}^n X_j\cdot e^{2\pi jk\sqrt{-1}/n}.\]
+
+$X$ is the array of input complex data in double precision,
+and $Y$ is the output.
+The results computed by the FFTSS library are {\bf not scaled} and
+are compatible with the FFTW library.
+
+The multi-dimensional transforms simply compute the 1-D transform along
+each dimension of the array. 
+
+\section{Installation}
+The package of this library is distributed as source code.
+Users need to build the library before using from application programs.
+
+\subsection{UNIX and Compatible Systems}
+To build the library software from the source package on UNIX or
+compatible systems,
+the following three steps are required:\\ 
+1. Run `configure' script.\\
+2. Run `make'.\\
+3. Run `make install' (optional).\\
+
+The configure script of this library accepts all generic flags.
+ In addition, the flags listed below are also available.\\
+
+\begin{tabular}{ll}
+{\tt --without-simd}&Do not use SIMD instructions.\\
+{\tt --without-asm}&Do not use assembly codes.\\
+{\tt --with-bg}&Build for IBM Blue Gene system. (cross build)\\
+{\tt --with-bg-compat}&Enable FFT kernels for Blue Gene in compatible mode.\\
+{\tt --with-recommended}&Set recommended CC and CFLAGS variables.\\
+{\tt --enable-openmp}&Enable OpenMP.\\
+{\tt --enable-mpi}&Enable MPI.\\
+\end{tabular}\\
+
+You can also set CC and CFLAGS manually as follows.\\
+\$ ./configure CC=gcc CFLAGS='-O3 -msse2'\\
+
+
+\subsection{Microsoft Windows}
+On Microsoft Windows systems, three methods are available 
+for building the software.
+
+\subsubsection{Visual Studio}
+In the 'win32' folder of the package, a solution file `fftss.sln' 
+is provided for Visual Studio 2003.NET. Open this file, and edit the 
+compiler setting as you like.
+If you have Visual Studio 2005 series, convert the solution file first.
+Older versions of Visual Studio are not supported.
+
+\subsubsection{Intel C/C++ Compiler}
+In the `win32' folder of the package, batch scripts for Intel C/C++ Compiler
+ are included. Run one of these scripts on the `Command Prompt' or 
+corresponding `Build Environment' of the Intel C/C++ Compiler.
+The working directory must be the `win32' folder.
+If you want to change compiler options, edit the batch files directly.
+%Microsoft Platform SDK must be installed on the system.
+\\
+
+\begin{tabular}{ll}
+icl-x86.bat&For Intel IA-32 Architecture. (32bit)\\
+icl-amd64&For Intel EM64T or AMD64 Architecture. (64bit)\\
+icl-ia64&For Intel IA-64 Architecture. (64bit)\\
+\end{tabular}
+
+\subsubsection{MinGW environment}
+In the MinGW environment, the configure script, as well as 
+UNIX or compatible systems, is usable.
+
+\section{Building Applications}
+
+\subsection{UNIX and compatible systems}
+In general, you need to
+\begin{itemize}
+\item{add ''-I/path/to/header/file" to CFLAGS}
+\item{add ''-L/path/to/library/file -lfftss" to LDFLAGS}
+\item{add ''-lpfftss" to LDFLAGS (for MPI only)}
+\end{itemize}
+to build your application with the FFTSS library.
+
+\subsection{Visual Studio}
+After building the entire binary of the FFTSS library using Visual Studio,
+ a library file `{\bf fftss.lib}' is found in 
+`./libfftss/Release'
+ (or `./libfftss/Debug').
+% A dll file `{\bf fftss.dll}' may also be found
+%if the library is built as a dynamic library.
+ The header file `fftss.h' is found in the `include' folder.
+To use the FFTSS library with your application,
+you should use these files by editing the properties of 
+Visual Studio project files.
+
+\section{Limitations}
+
+In the current version, the FFTSS library only includes complex-to-complex,
+ double precision (of floating-point numbers) routines.
+The length of 1-D transforms must be a power of two.
+In case of the multi-dimensional transform,
+ the size of each dimension must be a power of two.
+
+Since this library uses Stockham's auto-sort algorithm,
+all of the FFT kernels included in this library perform
+out-of-place transforms. Even if you request in-place transform
+in FFTW style, the library allocates the buffer for out-of-place 
+transform internally. 
+
+
+\section{List of library functions}
+\subsection{Memory Allocation}
+\subsubsection{fftss\_malloc}
+Syntax:\\
+{\bf void *fftss\_malloc(long }\underline{size}{\bf );}\\
+
+{\bf fftss\_malloc()} allocates \underline{size} bytes and returns a pointer to
+the allocated memory. The address returned by the function is always 
+aligned to a 16-byte boundary.
+
+\subsubsection{fftss\_free}
+Syntax:\\
+{\bf void fftss\_free(void *}\underline{ptr}{\bf );}\\
+
+{\bf fftss\_free()} frees the memory space pointed by \underline{ptr},
+ which must have been returned by a previous call to {\bf fftss\_malloc()}.
+
+\subsection{Creating Plans}
+
+\subsubsection{fftss\_plan\_dft\_1d}
+Syntax:\\
+{\bf fftss\_plan fftss\_plan\_dft\_1d(long }\underline{n}
+{\bf , double *}\underline{in}{\bf , double *}\underline{out}
+{\bf , long }\underline{sign}{\bf , long }\underline{flags}
+{\bf );}\\
+
+{\bf fftss\_plan\_dft\_1d()} creates a plan for computing complex-to-complex double precision one-dimensional transforms of length 
+\underline{n}. The real part of the $i$-th element of the input sequence must be stored in \underline{in}[i*2],
+and the imaginary part must be stored in \underline{in}[i*2+1]. 
+
+\subsubsection{fftss\_plan\_dft\_2d}
+Syntax:\\
+{\bf fftss\_plan fftss\_plan\_dft\_2d(long }\underline{nx}
+{\bf , long }\underline{ny}{\bf , long }\underline{py}
+{\bf , double *}\underline{in}{\bf , double *}\underline{out}
+{\bf , long }\underline{sign}{\bf , long }\underline{flags}
+{\bf );}\\
+
+{\bf fftss\_plan\_dft\_2d()} creates a plan for computing complex-to-complex
+double precision \underline{nx} by \underline{ny} two-dimensional transforms.
+The real part of element(x,y) must be stored in 
+\underline{in}[x*2+y*py*2],
+and the imaginary part must be stored in \underline{in}[x*2+y*py*2+1]. 
+
+\subsubsection{fftss\_plan\_dft\_3d}
+Syntax:\\
+{\bf fftss\_plan fftss\_plan\_dft\_3d(long }\underline{nx}
+{\bf , long }\underline{ny}{\bf , long }\underline{nz}
+{\bf , long }\underline{py}{\bf , long }\underline{pz}
+{\bf , double *}\underline{in}{\bf , double *}\underline{out}
+{\bf , long }\underline{sign}{\bf , long }\underline{flags}
+{\bf );}\\
+
+{\bf fftss\_plan\_dft\_3d()} creates a plan for computing complex-to-complex
+double precision \underline{nx} by \underline{ny} by \underline{nz} three-dimensional transforms.
+The real part of element(x,y,z) must be stored in 
+\underline{in}[x*2+y*py*2+z*pz*2],
+and the imaginary part must be stored in \underline{in}[x*2+y*py*2+z*pz*2+1]. 
+
+\subsubsection{List of Flags}
+ The following lists the available flags for creating plans
+ for 1-D, 2-D, and 3-D transforms.
+
+\begin{itemize}
+\item{FFTSS\_VERBOSE}
+
+This flag enables verbose mode.
+In general, however, application users do not require verbose mode.
+Using this flag, the name of the selected FFT kernel is shown in standard output.
+
+\item{FFTSS\_MEASURE}
+
+This is the default setting. In creating plans, the library executes all FFT kernels
+ available in the computing environment and select the best kernel.
+
+\item{FFTSS\_ESTIMATE}
+
+The library estimates the best FFT kernel for the computing environment
+ without any executions.
+
+\item{FFTSS\_PATIENT}
+
+Same as FFTSS\_MEASURE.
+
+\item{FFTSS\_EXHAUSTIVE}
+
+Same as FFTSS\_MEASURE.
+
+\item{FFTSS\_NO\_SIMD}
+
+This flag disables the use of SIMD (or SIMOMD) instructions.
+Try this flag if you have some trouble with the FFT kernels 
+using SIMD instructions.
+
+\item{FFTSS\_UNALIGNED}
+
+Specify whether the input array is not aligned to a 16-byte boundary.
+The alignments of the input and the output buffers are checked
+when creating plans. If they are not aligned, this flag is added automatically.
+Therefore, this flag is usually not necessary.
+This flag must be specified only if all of the conditions listed below are
+satisfied.
+\begin{enumerate}
+\item{Aligned buffers are given when creating plans.}
+\item{Unaligned buffers are used with {\bf fftss\_execute\_dft()}.}
+\item{The selected FFT kernel requires alignment.}
+\end{enumerate}
+
+Since the input and output buffers should be aligned
+ from the aspect of performance, the use of {\bf fftss\_malloc()} is strongly 
+recommended for memory allocation.
+
+\item{FFTSS\_DESTROY\_INPUT}
+
+This flag allows destruction of data in the input buffer. (default)
+
+\item{FFTSS\_PRESERVE\_INPUT}
+
+The data in the input buffer is preserved, and working space
+will be allocated by the library function for out-of-place transforms.
+
+\item{FFTSS\_INOUT}
+
+When this flag is specified, the results of the transforms are returned to the input buffer \underline{in}. The output buffer \underline{out} must also be specified
+because it will be used for working space.
+
+
+\end{itemize}
+
+\subsection{Executing Plans}
+
+\subsubsection{fftss\_execute}
+Syntax:\\
+{\bf void fftss\_execute(fftss\_plan }\underline{p}
+{\bf );}\\
+
+{\bf fftss\_execute()} executes a plan \underline{p}.
+
+\subsubsection{fftss\_execute\_dft}
+Syntax:\\
+{\bf void fftss\_execute\_dft(fftss\_plan }\underline{p}
+{\bf , double *}\underline{in}{\bf , double *}\underline{out}{\bf );}\\
+
+{\bf fftss\_execute()} executes a plan \underline{p}.
+The input buffer \underline{in} and output buffer \underline{out} are
+used than the value specified when creating the plan \underline{p}.
+
+\subsection{Destroying Plans}
+
+\subsubsection{fftss\_destroy\_plan}
+Syntax:\\
+{\bf void fftss\_destroy\_plan(fftss\_plan }\underline{p}
+{\bf );}\\
+
+{\bf fftss\_destroy\_plan()} deallocates the plan \underline{p}.
+
+\subsection{Timer}
+
+\subsubsection{fftss\_get\_wtime}
+Syntax:\\
+{\bf double fftss\_get\_wtime(void);}\\
+
+{\bf fftss\_get\_wtime()} returns the current timestamp in seconds.
+
+\subsection{Multi-Threading}
+
+\subsubsection{fftss\_init\_threads}
+Syntax:\\
+{\bf int fftss\_init\_threads(void);}\\
+
+The {\bf fftss\_init\_threads()} function does nothing and exists only 
+for reasons of compatibility with FFTW3.
+
+\subsubsection{fftss\_plan\_with\_nthreads}
+Syntax:\\
+{\bf void fftss\_plan\_with\_nthreads(int }\underline{nthreads}{\bf );}\\
+
+{\bf fftss\_plan\_with\_nthreads()} sets the number of threads 
+ used for computation. Since the FFTSS library supports only
+ parallelization with OpenMP, this function simply 
+sets the number of OpenMP threads using {\bf omp\_set\_num\_threads()}.
+
+\subsubsection{fftss\_cleanup\_threads}
+Syntax:\\
+{\bf  void fftss\_cleanup\_threads(void);}\\
+
+The {\bf fftss\_cleanup\_threads()} function does nothing and exists only for reasons of compatibility with FFTW3.
+
+\subsection{MPI}
+The FFTSS library version 3 includes MPI interfaces with
+prefix 'pfftss\_'.
+\subsubsection{pfftss\_plan\_dft\_2d}
+Syntax:\\
+{\bf pfftss\_plan pfftss\_plan\_dft\_2d(long }\underline{nx}{\bf, long }\underline{ny}{\bf, long }\underline{py}{\bf, long }\underline{oy}{\bf, long }\underline{ly}{\bf, double *}\underline{inout}{\bf, long }\underline{sign}{\bf, long }\underline{flags}{\bf, MPI\_Comm }\underline{comm}{\bf );}\\
+
+{\bf pfftss\_plan\_dft\_2d()} creates a plan for computing complex-to-complex
+double precision \underline{nx} by \underline{ny} two-dimensional transforms
+for distributed parallel computers with MPI library.
+The two-dimensional array is used for both input and output, and therefore
+the input array \underline{inout} is always overwritten. Each node has 
+\underline{ly} rows from the \underline{oy}-th row of 
+the \underline{nx} by \underline{ny} array, and the nodes are stored in a
+\underline{py} by \underline{ly} array (double \underline{inout}[2*\underline{py}*\underline{ly}]). The data must be block-row distributed between nodes in the order of their MPI rank in \underline{comm}.
+
+\underline{nx} must be not less than the number of nodes, and
+\underline{ly} must be non-zero on all nodes.
+This function internally allocates memory for two arrays 
+of approximately the same size as the input array.
+
+
+\subsubsection{pfftss\_execute}
+Syntax:\\
+{\bf void pfftss\_execute(pfftss\_plan }\underline{p}{\bf);}\\
+
+{\bf pfftss\_execute()} executes a plan \underline{p} using MPI library.
+
+
+\subsubsection{pfftss\_execute\_dft}
+Syntax:\\
+{\bf void pfftss\_execute\_dft(pfftss\_plan }\underline{p}{\bf, double *}\underline{inout}{\bf);}\\
+
+{\bf pfftss\_execute\_dft()} executes a plan \underline{p} using MPI library.
+\underline{inout} is used for the input and output array rather than the
+value specified when creating the plan.
+
+\subsubsection{pfftss\_destroy\_plan}
+Syntax:\\
+{\bf void pfftss\_destroy\_plan(pfftss\_plan }\underline{p}{\bf);}\\
+
+{\bf pfftss\_destroy\_plan()} destroys a plan \underline{p}, and
+deallocates all memory areas allocated for the plan.
+
+\section{Multi-Threading}
+The current version of the FFTSS library supports multi-threading with OpenMP.
+To build a library for multi-threading, an OpenMP compiler is required,
+and the compiler options required for OpenMP support must be added.
+
+For example, a build with Intel C/C++ Compiler is described below.
+The option '-openmp' enables support for OpenMP, and
+'-xP' enables support for Intel SSE3 instructions.\\
+\$ ./configure CC=icc CFLAGS='-O3 -openmp -xP'
+
+To specify the number of threads, the environment variable 
+'OMP\_NUM\_THREADS' is used, as well as other OpenMP applications.
+If this variable is not set, the number of threads depends on the
+computing environment and typically is equal to one or the 
+number of processors. In addition, you can set the number of threads with the 
+{\bf omp\_set\_num\_threads()} function. We provide a library function `fftss\_plan\_with\_nthreads()' for compatibility with the FFTW library. This library function simply calls the {\bf omp\_set\_num\_threads()} function.
+
+The number of threads must be set before creating plans
+because the work space for each thread is allocated. If you need to use a variable number of threads, the maximum number of threads must be set when creating plans.
+
+\begin{verbatim}
+   max_threads = omp_get_num_procs();
+   fftss_plan_with_nthreads(max_threads);
+   plan = fftss_plan_dft_2d(nx, ny, py, vin, vout, 
+      FFTSS_FORWARD, FFTSS_MEASURE);
+
+   {  /*  Initialize arrays.  */  }
+
+   for (nthreads = 1; nthreads <= max_threads; nthreads ++) {
+      fftss_plan_with_nthreads(nthreads);
+      t = fftss_get_wtime();
+      fftss_execute(plan);
+      t = fftss_get_wtime() - t;
+      printf("%lf sec with %d thread(s).\n", t, nthreads);
+   }
+\end{verbatim}
+
+You can use OpenMP multi-threading with the MPI library
+if you specified both '--enable-mpi' and '--enable-openmp' options.
+The library is then built for MPI+OpenMP hybrid parallelization.
+
+\section{Compatibility with the FFTW library}
+The interfaces of this library are similar to those of the FFTW library version 3.
+
+The FFTW users can use the FFTSS library in compatible mode. Application programs written for the FFTW library include header file `fftw3.h'. To use the FFTSS library, users need only change the name of the header file to `fftw3compat.h'.
+
+In the header file `fftw3compat.h', a number of macros are defined in order to convert the source code for the FFTW library, and the header file `fftss.h' is also included in this file. 
+
+In the current version, only a subset of the FFTW3 library is available, which is defined or declared in the header file `fftw3compat.h'. The MPI version has no compatibility.
+
+\subsection{Compatible Functions}
+\begin{itemize}
+\item{\bf fftw\_malloc()}
+\item{\bf fftw\_free()}
+\item{\bf fftw\_plan\_dft\_1d()}
+\item{\bf fftw\_plan\_dft\_2d()}
+\item{\bf fftw\_plan\_dft\_3d()}
+\item{\bf fftw\_execute()}
+\item{\bf fftw\_execute\_dft()}
+\item{\bf fftw\_destroy\_plan()}
+\item{\bf fftw\_init\_threads()}
+\item{\bf fftw\_plan\_with\_nthreads()}
+\item{\bf fftw\_cleanup\_threads()}
+\end{itemize}
+
+\subsection{Compatible Flags}
+\begin{itemize}
+\item{\bf FFTW\_MEASURE}
+\item{\bf FFTW\_ESTIMATE}
+\item{\bf FFTW\_PATIENT}
+\item{\bf FFTW\_EXHAUSTIVE}
+\item{\bf FFTW\_NO\_SIMD}
+\item{\bf FFTW\_PRESERVE\_INPUT}
+\item{\bf FFTW\_DESTROY\_INPUT}
+\item{\bf FFTW\_FORWARD}
+\item{\bf FFTW\_BACKWARD}
+\end{itemize}
+
+\section{List of FFT Kernels}
+In this section, the available FFT kernels are listed.
+The name of the selected kernel 
+can be displayed by using the {\bf FFTSS\_VERBOSE} flag.
+\begin{itemize}
+\item{normal}\\
+Normal implementation.
+\item{FMA}\\
+An implementation of FFT kernels optimized for Fused Multiply-Add (FMA)
+ instructions.
+\item{SSE2 (1)}\\
+An implementation with Intel SSE2 instructions.
+\item{SSE2 (2)}\\
+An implementation with Intel SSE2 instructions. (UNPCKHPD/UNPCKLPD)
+\item{SSE3}\\
+An implementation with Intel SSE3 instructions. (ADDSUBPD)
+\item{SSE3 (H)}\\
+An implementation with Intel SSE3 instructions. (HADDPD/HSUBPD)
+\item{C99 Complex}\\
+An implementation using the C99 Complex data type.
+\item{Blue Gene}\\
+An implementation for IBM Blue Gene.
+\item{Blue Gene (PL)}\\
+An implementation for IBM Blue Gene (Software pipelined).
+\item{Blue Gene asm}\\
+An implementation in assembly language for IBM Blue Gene.
+\item{IA-64 asm}\\
+An implementation in assembly language for the Intel IA-64 architecture.
+\end{itemize}
+
+\section{Tested Platforms}
+The FFTSS library has been tested on the following platforms.\\
+\vspace{1cm}
+\begin{tabular}{|l|l|l|}
+\hline
+Processor&OS&Compiler\\
+\hline
+UltraSPARC III&Sun Solaris 9&Sun ONE Studio 11\\
+\hline
+Itanium 2&Linux&Intel C/C++ Compiler 9.1, gcc 4.0.1\\
+\hline
+PowerPC G5&Mac OS X 10.4&IBM XL C Compiler 6.0, gcc 4.0\\
+\hline
+POWER5&Linux&IBM XL C Compiler 7.0, gcc 4.0.1\\
+\hline
+POWER4&AIX&IBM XL C Compiler 6.0\\
+\hline
+PA-RISC&HP-UX 11&Bundled C Compiler\\
+\hline
+PPC440FP2&Blue Gene CNK&IBM XL C Compiler 7.0/8.0\\
+\hline
+Opteron&Linux&gcc 3.3.3, gcc 4.0.1\\
+\hline
+Pentium 4&Solaris 9 (IA-32)&Sun ONE Studio 11, gcc 4.0.1\\
+\hline
+Xeon&Linux&Intel C/C++ Compiler 8.1/9.0/9.1, gcc\\
+\hline
+IA-32&Windows XP SP2&Visual Studio.NET 2003\\
+\hline
+IA-32&Windows XP SP2&Visual Studio 2005\\
+\hline
+IA-32&Windows XP SP2&Intel C/C++ Compiler 9.1\\
+\hline
+x64&Windows XP, 2003&Visual Studio.NET 2003\\
+\hline
+x64&Windows XP, 2003&Intel C/C++ Compiler for EM64T 9.1\\
+\hline
+\end{tabular}
+
+\end{document}
+
