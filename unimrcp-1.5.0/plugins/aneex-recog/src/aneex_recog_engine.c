@@ -421,14 +421,14 @@ static apt_bool_t aneex_recog_start_of_input(aneex_recog_channel_t *recog_channe
 //-m MSCALE -i BINARY -b 0.9
 static apt_bool_t aneex_recog_from_db()
 {
-	string apath;
-	string db_url;
+	const char *apath;
+	const char *string db_url;
 	int id_type=1, id_mode=1;
 	int b_thresh=0.8;
 
-	try
+	/*try
 	    {
-	        /*IdentificationTask rtask (apath);
+	        IdentificationTask rtask (apath);
 	        // Create the identification results parser
 	        FileIdentificationResultsParser idparser;
 
@@ -453,7 +453,7 @@ static apt_bool_t aneex_recog_from_db()
 	        rtask.SetRecognizer( recognizer );
 	        rtask.Connect( &idparser );
 	        rtask.GetAudioSource()->SetPosition( opts.offset );
-	        rtask.Run();*/
+	        rtask.Run();
 
 	        printf("Done");
 	    }
@@ -461,7 +461,7 @@ static apt_bool_t aneex_recog_from_db()
 	    {
 	    	printf( "ERROR: ",ex.what());
 	        return FALSE;
-	    }
+	    }*/
 
 
 	return TRUE;
