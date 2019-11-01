@@ -464,11 +464,6 @@ static apt_bool_t aneex_recog_from_db()
 
 	        printf("Done");
 	    }
-	    catch(const bad_cmd_line_exception &ex)
-	    {
-	    	printf( "ERROR: ",ex.what());
-	        return FALSE;
-	    }
 	    catch(const std::exception &ex)
 	    {
 	    	printf( "ERROR: ",ex.what());

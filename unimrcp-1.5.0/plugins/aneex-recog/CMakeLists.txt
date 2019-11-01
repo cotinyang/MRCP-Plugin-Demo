@@ -2,9 +2,16 @@ cmake_minimum_required (VERSION 2.8)
 project (aneexrecog)
 
 # Set source files
-set (DEMO_RECOG_SOURCES
+set(AX_SRC_ROOT /usr/src/audioneex/build)
+set(DATASTORE_T "TCDataStore")
+set(DATASTORE_LIB_NAME tokyocabinet)
+
+set (ANEEX_RECOG_SOURCES
 	src/aneex_recog_engine.c
+	${AX_SRC_ROOT}/DAO/${DATASTORE_T}.cpp 
+	${AX_SRC_ROOT}/audio/AudioSource.cpp
 )
+
 source_group ("src" FILES ${ANEEX_RECOG_SOURCES})
 
 # Plug-in declaration
@@ -16,11 +23,17 @@ add_library (${PROJECT_NAME} MODULE ${ANEEX_RECOG_SOURCES}
 )
 set_target_properties (${PROJECT_NAME} PROPERTIES FOLDER "plugins")
 
+                             
 # Input libraries
 target_link_libraries(${PROJECT_NAME}
 	${APU_LIBRARIES}
 	${APR_LIBRARIES}
 )
+
+find_library(DATASTORE_LIB
+             NAMES tokyocabinet libtokyocabinet
+             PATHS "/usr/local/lib")			 
+
 # Input system libraries
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} ws2_32 winmm)
@@ -34,7 +47,8 @@ add_definitions (
 	${MPF_DEFINES}
 	${APR_TOOLKIT_DEFINES}
 	${APR_DEFINES}
-	${APU_DEFINES}
+	${APU_DEFINES}	
+	${DATASTORE_T}
 )
 
 # Include directories
@@ -46,7 +60,16 @@ include_directories (
 	${APR_TOOLKIT_INCLUDE_DIRS}
 	${APR_INCLUDE_DIRS}
 	${APU_INCLUDE_DIRS}
+	
+	${AX_SRC_ROOT}/src
+    ${AX_SRC_ROOT}/audio 
+    ${AX_SRC_ROOT}/DAO
+    ${AX_SRC_ROOT}/tools	
 )
+
+target_link_libraries(aneex_recog_engine audioneex
+                      ${Boost_LIBRARIES} ${THREAD_LIB}
+                      ${DATASTORE_LIB})
 
 # Installation directives
 install (TARGETS ${PROJECT_NAME} LIBRARY DESTINATION plugin)
