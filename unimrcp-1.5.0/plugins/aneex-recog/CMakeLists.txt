@@ -9,8 +9,6 @@ set(DATASTORE_LIB_NAME tokyocabinet)
 
 set (ANEEX_RECOG_SOURCES
 	src/aneex_recog_engine.c
-	${AX_SRC_ROOT}/DAO/${DATASTORE_T}.cpp 
-	${AX_SRC_ROOT}/audio/AudioSource.cpp
 )
 
 source_group ("src" FILES ${ANEEX_RECOG_SOURCES})
@@ -21,6 +19,8 @@ add_library (${PROJECT_NAME} MODULE ${ANEEX_RECOG_SOURCES}
 	$<TARGET_OBJECTS:mrcp>
 	$<TARGET_OBJECTS:mpf>
 	$<TARGET_OBJECTS:aprtoolkit>
+	${AX_SRC_ROOT}/DAO/${DATASTORE_T}.cpp 
+	${AX_SRC_ROOT}/audio/AudioSource.cpp	
 )
 set_target_properties (${PROJECT_NAME} PROPERTIES FOLDER "plugins")
 
