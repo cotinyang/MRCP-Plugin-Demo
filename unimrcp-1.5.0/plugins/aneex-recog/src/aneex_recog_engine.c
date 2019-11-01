@@ -32,6 +32,13 @@
 #include "apt_consumer_task.h"
 #include "apt_log.h"
 
+#include <vector>
+#include <algorithm>
+#include <memory>
+#include "ex_common.h"
+#include "example1.h"
+#include "example3.h"
+
 #define ANEEX_ENGINE_TASK_NAME "Aneex Recog Engine"
 
 typedef struct aneex_recog_engine_t aneex_recog_engine_t;
@@ -121,6 +128,8 @@ struct aneex_recog_msg_t {
 
 static apt_bool_t aneex_recog_msg_signal(aneex_recog_msg_type_e type, mrcp_engine_channel_t *channel, mrcp_message_t *request);
 static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg);
+
+static apt_bool_t aneex_recog_from_db();
 
 /** Declare this macro to set plugin version */
 MRCP_PLUGIN_VERSION_DECLARE
@@ -414,6 +423,62 @@ static apt_bool_t aneex_recog_start_of_input(aneex_recog_channel_t *recog_channe
 	return mrcp_engine_channel_message_send(recog_channel->channel,message);
 }
 
+//читаем файл из Etalon2 для демо
+//ищем его в базе TC
+//-m MSCALE -i BINARY -b 0.9
+static apt_bool_t aneex_recog_from_db()
+{
+	string apath;
+	string db_url;
+	int id_type=1, id_mode=1;
+	int b_thresh=0.8;
+
+	try
+	    {
+	        IdentificationTask rtask (apath);
+
+	        std::shared_ptr<KVDataStore>
+	        dstore ( new DATASTORE_T (db_url) );
+
+	        dstore->Open( opts.db_op, true, true );
+
+	        // Create the identification results parser
+	        FileIdentificationResultsParser idparser;
+	        // Create and set up the recognizer
+	        std::shared_ptr<Recognizer> recognizer ( Recognizer::Create() );
+	        recognizer->SetDataStore( dstore.get() );
+	        recognizer->SetMatchType( opts.mtype );
+	        recognizer->SetMMS( opts.mms );
+	        recognizer->SetIdentificationType( id_type );
+	        recognizer->SetIdentificationMode( id_mode );
+	        recognizer->SetBinaryIdThreshold( b_thresh );
+
+	        idparser.SetDatastore( dstore );
+	        idparser.SetRecognizer( recognizer );
+
+	        rtask.SetDataStore( dstore );
+	        rtask.SetRecognizer( recognizer );
+	        rtask.Connect( &idparser );
+	        rtask.GetAudioSource()->SetPosition( opts.offset );
+	        rtask.Run();
+
+	        printf("Done");
+	    }
+	    catch(const bad_cmd_line_exception &ex)
+	    {
+	    	printf( "ERROR: ",ex.what());
+	        return FALSE;
+	    }
+	    catch(const std::exception &ex)
+	    {
+	    	printf( "ERROR: ",ex.what());
+	        return FALSE;
+	    }
+
+
+	return TRUE;
+}
+
 /* Load aneex recognition result */
 static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, mrcp_message_t *message)
 {
@@ -424,9 +489,8 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 	if(!file_path) {
 		return FALSE;
 	}
-	//ну или сюда читаем файл из Etalon2 для демо
-	//ищем его в базе
-	//и печатаем результат ниже
+
+	aneex_recog_from_db();
 
 	/* read the demo result from file */
 	file = fopen(file_path,"r");
