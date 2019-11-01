@@ -422,7 +422,7 @@ static apt_bool_t aneex_recog_start_of_input(aneex_recog_channel_t *recog_channe
 static apt_bool_t aneex_recog_from_db()
 {
 	const char *apath;
-	const char *string db_url;
+	const char *db_url;
 	int id_type=1, id_mode=1;
 	int b_thresh=0.8;
 
