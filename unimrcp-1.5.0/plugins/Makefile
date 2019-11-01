@@ -195,7 +195,7 @@ AUTOCONF = autoconf
 AUTOHEADER = autoheader
 AUTOMAKE = automake-1.13
 AWK = gawk
-CC = gcc
+CC = g++
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2 -pthread
 CPP = gcc -E
