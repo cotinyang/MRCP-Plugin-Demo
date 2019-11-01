@@ -32,7 +32,7 @@
 #include "apt_consumer_task.h"
 #include "apt_log.h"
 
-#include <vector>
+//#include <vector>
 #include <algorithm>
 #include <memory>
 #include "ex_common.h"
@@ -443,7 +443,7 @@ static apt_bool_t aneex_recog_from_db()
 	        dstore->Open( opts.db_op, true, true );
 
 	        // Create the identification results parser
-	        FileIdentificationResultsParser idparser;
+	        /*FileIdentificationResultsParser idparser;
 	        // Create and set up the recognizer
 	        std::shared_ptr<Recognizer> recognizer ( Recognizer::Create() );
 	        recognizer->SetDataStore( dstore.get() );
@@ -460,7 +460,7 @@ static apt_bool_t aneex_recog_from_db()
 	        rtask.SetRecognizer( recognizer );
 	        rtask.Connect( &idparser );
 	        rtask.GetAudioSource()->SetPosition( opts.offset );
-	        rtask.Run();
+	        rtask.Run();*/
 
 	        printf("Done");
 	    }
