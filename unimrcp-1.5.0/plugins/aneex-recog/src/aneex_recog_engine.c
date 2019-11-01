@@ -33,8 +33,8 @@
 #include "apt_log.h"
 
 //#include <vector>
-#include <algorithm>
-#include <memory>
+#include <algorithm.h>
+#include <memory.h>
 #include "ex_common.h"
 #include "example1.h"
 #include "example3.h"
