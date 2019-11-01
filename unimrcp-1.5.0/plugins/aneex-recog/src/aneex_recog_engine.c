@@ -36,7 +36,6 @@
 #include <algorithm>
 #include <memory>*/
 #include "ex_common.h"
-#include "example1.h"
 #include "example3.h"
 
 #define ANEEX_ENGINE_TASK_NAME "Aneex Recog Engine"
@@ -436,14 +435,14 @@ static apt_bool_t aneex_recog_from_db()
 	try
 	    {
 	        IdentificationTask rtask (apath);
+	        // Create the identification results parser
+	        FileIdentificationResultsParser idparser;
 
-	        std::shared_ptr<KVDataStore>
+	        /*std::shared_ptr<KVDataStore>
 	        dstore ( new DATASTORE_T (db_url) );
 
 	        dstore->Open( opts.db_op, true, true );
 
-	        // Create the identification results parser
-	        /*FileIdentificationResultsParser idparser;
 	        // Create and set up the recognizer
 	        std::shared_ptr<Recognizer> recognizer ( Recognizer::Create() );
 	        recognizer->SetDataStore( dstore.get() );

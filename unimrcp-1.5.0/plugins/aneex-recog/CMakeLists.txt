@@ -24,16 +24,20 @@ add_library (${PROJECT_NAME} MODULE ${ANEEX_RECOG_SOURCES}
 )
 set_target_properties (${PROJECT_NAME} PROPERTIES FOLDER "plugins")
 
+find_library(DATASTORE_LIB
+             NAMES tokyocabinet libtokyocabinet
+             PATHS "/usr/local/lib")	
                              
 # Input libraries
 target_link_libraries(${PROJECT_NAME}
 	${APU_LIBRARIES}
 	${APR_LIBRARIES}
+	
+	${Boost_LIBRARIES} 
+	${DATASTORE_LIB}
 )
 
-find_library(DATASTORE_LIB
-             NAMES tokyocabinet libtokyocabinet
-             PATHS "/usr/local/lib")			 
+target_compile_options(aneex_recog_engine PRIVATE -std=c++11) 
 
 # Input system libraries
 if (WIN32)
@@ -67,9 +71,6 @@ include_directories (
     ${AX_SRC_ROOT}/DAO
     ${AX_SRC_ROOT}/tools	
 )
-
-target_link_libraries(aneex_recog_engine ${Boost_LIBRARIES} ${DATASTORE_LIB})                  
-target_compile_options(aneex_recog_engine PRIVATE -std=c++11)
 
 # Installation directives
 install (TARGETS ${PROJECT_NAME} LIBRARY DESTINATION plugin)
