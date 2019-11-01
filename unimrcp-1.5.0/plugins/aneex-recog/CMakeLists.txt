@@ -22,9 +22,6 @@ set_target_properties (${PROJECT_NAME} PROPERTIES FOLDER "plugins")
 target_link_libraries(${PROJECT_NAME}
 	${APU_LIBRARIES}
 	${APR_LIBRARIES}
-	
-	${Boost_LIBRARIES} 
-	${DATASTORE_LIB}
 )
 
 # Input system libraries
@@ -41,7 +38,6 @@ add_definitions (
 	${APR_TOOLKIT_DEFINES}
 	${APR_DEFINES}
 	${APU_DEFINES}	
-	${DATASTORE_T}
 )
 
 # Include directories
