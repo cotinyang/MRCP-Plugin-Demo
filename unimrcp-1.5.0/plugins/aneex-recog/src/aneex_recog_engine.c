@@ -32,9 +32,9 @@
 #include "apt_consumer_task.h"
 #include "apt_log.h"
 
-#include <vector>
+/*#include <vector>
 #include <algorithm>
-#include <memory>
+#include <memory>*/
 #include "ex_common.h"
 #include "example1.h"
 #include "example3.h"
