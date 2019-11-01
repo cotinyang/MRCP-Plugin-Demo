@@ -68,8 +68,7 @@ include_directories (
     ${AX_SRC_ROOT}/tools	
 )
 
-target_link_libraries(aneex_recog_engine audioneex
-                      ${Boost_LIBRARIES} ${DATASTORE_LIB})                  
+target_link_libraries(aneex_recog_engine ${Boost_LIBRARIES} ${DATASTORE_LIB})                  
 target_compile_options(aneex_recog_engine PRIVATE -std=c++11)
 
 # Installation directives
