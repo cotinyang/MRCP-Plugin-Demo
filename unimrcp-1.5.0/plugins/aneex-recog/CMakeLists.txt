@@ -37,8 +37,6 @@ target_link_libraries(${PROJECT_NAME}
 	${DATASTORE_LIB}
 )
 
-target_compile_options(aneex_recog_engine PRIVATE -std=c++11) 
-
 # Input system libraries
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} ws2_32 winmm)
