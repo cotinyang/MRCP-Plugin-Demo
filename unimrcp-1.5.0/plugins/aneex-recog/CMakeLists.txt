@@ -1,3 +1,4 @@
+set(CMAKE_C_COMPILER "g++")
 cmake_minimum_required (VERSION 2.8)
 project (aneexrecog)
 
@@ -68,8 +69,8 @@ include_directories (
 )
 
 target_link_libraries(aneex_recog_engine audioneex
-                      ${Boost_LIBRARIES} ${THREAD_LIB}
-                      ${DATASTORE_LIB})
+                      ${Boost_LIBRARIES} ${DATASTORE_LIB})                  
+target_compile_options(aneex_recog_engine PRIVATE -std=c++11)
 
 # Installation directives
 install (TARGETS ${PROJECT_NAME} LIBRARY DESTINATION plugin)
