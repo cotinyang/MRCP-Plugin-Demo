@@ -31,7 +31,10 @@
 #include "mpf_activity_detector.h"
 #include "apt_consumer_task.h"
 #include "apt_log.h"
-#include "IndexFingerprints.h"
+
+#include "KVDataStore.h"
+#include "AudioSource.h"
+#include "audioneex.h"
 
 #define ANEEX_ENGINE_TASK_NAME "Aneex Recog Engine"
 

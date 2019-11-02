@@ -11,7 +11,7 @@ aneexrecog_la_DATA 			= /usr/local/lib/libaudioneex.so /usr/local/lib/tcabinet.s
 
 include $(top_srcdir)/build/rules/uniplugin.am
 
-UNIMRCP_PLUGIN_INCLUDES += -I$(top_srcdir)/plugins/aneex-recog/aneex
+UNIMRCP_PLUGIN_INCLUDES += -I/usr/src/audioneex
 
 
 
