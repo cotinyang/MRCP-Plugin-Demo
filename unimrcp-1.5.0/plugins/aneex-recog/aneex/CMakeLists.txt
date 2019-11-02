@@ -1,0 +1,85 @@
+
+cmake_minimum_required(VERSION 3.5.0 FATAL_ERROR)
+
+# ---------------------------------------------------------
+#                     Examples Module
+# ---------------------------------------------------------
+
+message(STATUS "Building aneex")
+
+set(MY_BOOST_INCLUDE_DIR
+
+    "/use/local/share/boost_1_66_0"
+)
+set(MY_BOOST_LIBRARY_x64_DIR
+
+    "/usr/local/share/boost_1_66_0/stage/lib/7"
+)
+
+set(Boost_USE_STATIC_LIBS        ON)
+set(Boost_USE_MULTITHREADED      ON)
+set(Boost_USE_STATIC_RUNTIME    OFF)
+
+set(AX_SRC_ROOT /usr/src/audioneex)
+set(DATASTORE_T "TCDataStore")
+add_definitions(-DDATASTORE_T_ID=1)
+add_definitions(-DDATASTORE_T=${DATASTORE_T})
+
+include_directories("${AX_SRC_ROOT}/src"
+                    "${AX_SRC_ROOT}/audio" 
+                    "${AX_SRC_ROOT}/DAO"
+                    "${AX_SRC_ROOT}/tools")
+
+# --- Platform-specific module compilation settings ---
+
+set(APP_CXX_FLAGS "")
+set(THREAD_LIB pthread) 
+
+# --- Modules definitions ---
+
+set(INDEX_SRCS IndexFingerprints.cpp 
+                  ${AX_SRC_ROOT}/DAO/${DATASTORE_T}.cpp 
+                  ${AX_SRC_ROOT}/audio/AudioSource.cpp)
+
+# --- Check for required libraries ---
+
+find_library(DATASTORE_LIB
+             NAMES tokyocabinet libtokyocabinet
+             PATHS "/usr/local/lib")                    
+			 
+if(WITH_ID3)
+find_library(ID3TAG_LIB
+             NAMES ${ID3TAG_LIB_NAME}
+             PATHS ${MY_LIBRARY_${ARCH}_${CMAKE_BUILD_TYPE}_DIRS})
+endif()
+
+find_package(Boost 1.55 COMPONENTS filesystem system thread regex)
+
+# Try the user settings if Boost is not found in BOOST_ROOT.
+if(NOT Boost_FOUND)
+   message(STATUS 
+       "[!] Boost not found in BOOST_ROOT. Trying user's paths ..."
+   )
+   set(BOOST_INCLUDEDIR ${MY_BOOST_INCLUDE_DIR})
+   set(BOOST_LIBRARYDIR ${MY_BOOST_LIBRARY_x64_DIR})
+   find_package(Boost 1.55 REQUIRED COMPONENTS filesystem system thread regex)
+endif()
+
+if(Boost_FOUND)
+   include_directories(${Boost_INCLUDE_DIRS})
+endif()
+
+# --- Build the modules ---
+
+add_executable(IndexFingerprints ${INDEX_SRCS})
+target_compile_options(IndexFingerprints PRIVATE "${APP_CXX_FLAGS}")
+target_link_libraries(IndexFingerprints audioneex
+                      ${Boost_LIBRARIES} ${THREAD_LIB}
+                      ${DATASTORE_LIB})
+
+foreach(EXAMPLE IndexFingerprints)
+    set_target_properties(${EXAMPLE} 
+        PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${AX_SRC_ROOT}/aneex/build"
+    )
+endforeach()
+  
