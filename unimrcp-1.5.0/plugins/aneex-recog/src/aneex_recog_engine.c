@@ -31,7 +31,7 @@
 #include "mpf_activity_detector.h"
 #include "apt_consumer_task.h"
 #include "apt_log.h"
-#include "aneex/IndexFingerprints.h"
+#include "IndexFingerprints.h"
 
 #define ANEEX_ENGINE_TASK_NAME "Aneex Recog Engine"
 

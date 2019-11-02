@@ -22,13 +22,7 @@ set(Boost_USE_STATIC_RUNTIME    OFF)
 
 set(AX_SRC_ROOT /usr/src/audioneex)
 set(DATASTORE_T "TCDataStore")
-add_definitions(-DDATASTORE_T_ID=1)
-add_definitions(-DDATASTORE_T=${DATASTORE_T})
-
-include_directories("${AX_SRC_ROOT}/src"
-                    "${AX_SRC_ROOT}/audio" 
-                    "${AX_SRC_ROOT}/DAO"
-                    "${AX_SRC_ROOT}/tools")
+set(THREAD_LIB pthread) 
                     
 # ---------------------------------------------------------                     
 
@@ -48,11 +42,17 @@ add_library (${PROJECT_NAME} MODULE ${ANEEX_RECOG_SOURCES}
 )
 set_target_properties (${PROJECT_NAME} PROPERTIES FOLDER "plugins")
 
+find_library(DATASTORE_LIB
+             NAMES tokyocabinet libtokyocabinet
+             PATHS "/usr/local/lib")  
                             
 # Input libraries
 target_link_libraries(${PROJECT_NAME}
 	${APU_LIBRARIES}
 	${APR_LIBRARIES}
+	${DATASTORE_LIB}
+	${Boost_LIBRARIES} 
+	${THREAD_LIB}
 )
 
 # Input system libraries
@@ -69,6 +69,8 @@ add_definitions (
 	${APR_TOOLKIT_DEFINES}
 	${APR_DEFINES}
 	${APU_DEFINES}	
+	-DDATASTORE_T_ID=1
+	-DDATASTORE_T=${DATASTORE_T}
 )
 
 # Include directories
@@ -80,6 +82,11 @@ include_directories (
 	${APR_TOOLKIT_INCLUDE_DIRS}
 	${APR_INCLUDE_DIRS}
 	${APU_INCLUDE_DIRS}	
+	${AX_SRC_ROOT}/src
+    ${AX_SRC_ROOT}/audio 
+    ${AX_SRC_ROOT}/DAO
+    ${AX_SRC_ROOT}/tools
+    ${${PROJECT_NAME}}/plugins/aneex
 )
 
 # Installation directives
