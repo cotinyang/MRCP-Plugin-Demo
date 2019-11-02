@@ -1,9 +1,18 @@
-AM_CPPFLAGS                = $(UNIMRCP_PLUGIN_INCLUDES)
+AM_CPPFLAGS                	= $(UNIMRCP_PLUGIN_INCLUDES)
 
-plugin_LTLIBRARIES         = aneexrecog.la
+plugin_LTLIBRARIES         	= aneexrecog.la
 
 aneexrecog_la_SOURCES       = src/aneex_recog_engine.c
-aneexrecog_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS)
+aneexrecog_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS) \
+								-L/usr/local/lib \ 
+								-lmsc -ldl -lpthread -lrt
+aneexrecog_ladir 			= $(libdir)
+aneexrecog_la_DATA 			= /usr/local/lib/libaudioneex.so /usr/local/lib/tcabinet.so  
 
 include $(top_srcdir)/build/rules/uniplugin.am
+
+UNIMRCP_PLUGIN_INCLUDES += -I$(top_srcdir)/plugins/aneex-recog/aneex
+
+
+
  

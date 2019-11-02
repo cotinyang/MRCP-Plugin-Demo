@@ -221,7 +221,6 @@ AC_CONFIG_FILES([
     plugins/mrcp-recorder/Makefile
     plugins/demo-synth/Makefile
     plugins/demo-recog/Makefile
-    plugins/aneex-recog/aneex/build/Makefile
     plugins/aneex-recog/Makefile
     plugins/demo-verifier/Makefile
     platforms/Makefile
