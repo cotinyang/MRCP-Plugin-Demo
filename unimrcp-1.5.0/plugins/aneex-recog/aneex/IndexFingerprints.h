@@ -10,7 +10,7 @@
 #ifndef AUDIOINDEXINGTASK_H
 #define AUDIOINDEXINGTASK_H
 
-#include <cstdint>
+#include <stdlib.h>
 #include <string>
 #include <memory>
 #include <boost/filesystem.hpp>
