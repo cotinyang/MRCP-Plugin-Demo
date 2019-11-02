@@ -11,8 +11,8 @@
 #define AUDIOINDEXINGTASK_H
 
 #include <stdlib.h>
-#include <string>
-#include <memory>
+#include <string.h>
+#include <memory.h>
 #include <boost/filesystem.hpp>
 
 #include "IdTask.h"
