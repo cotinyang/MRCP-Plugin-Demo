@@ -274,6 +274,10 @@ UNIMRCP_APR_INCLUDES =  -I/usr/local/apr/include/apr-1
 UNIMRCP_APR_LIBS =  -L/usr/local/apr/lib -lapr-1 -laprutil-1
 UNIMRCP_SOFIA_INCLUDES = -I/usr/local/include/sofia-sip-1.12  
 UNIMRCP_SOFIA_LIBS = -L/usr/local/lib -lsofia-sip-ua  
+AX_SRC_ROOT = -L/usr/src/audioneex -laudioneex
+MY_BOOST_INCLUDE_DIR = /use/local/share/boost_1_66_0
+MY_BOOST_LIBRARY_x64_DIR = /usr/local/share/boost_1_66_0/stage/lib/7
+DATASTORE_T = TCDataStore
 UNI_DOTTED_VERSION = 1.5.0
 UNI_LT_VERSION = -version-info 5:0:5
 VERSION = 1.5.0
@@ -337,7 +341,7 @@ top_srcdir = ../..
 vardir = ${exec_prefix}/var
 AM_CPPFLAGS = $(UNIMRCP_PLUGIN_INCLUDES)
 plugin_LTLIBRARIES = aneexrecog.la
-aneexrecog_la_SOURCES = src/aneex_recog_engine.c
+aneexrecog_la_SOURCES = src/aneex_recog_engine.c ${AX_SRC_ROOT}/DAO/TCDataStore.cpp ${AX_SRC_ROOT}/audio/AudioSource.cpp
 aneexrecog_la_LDFLAGS = $(UNIMRCP_PLUGIN_OPTS)
 MAINTAINERCLEANFILES = Makefile.in
 
@@ -349,6 +353,11 @@ UNIMRCP_PLUGIN_INCLUDES = -I$(top_srcdir)/libs/mrcp-engine/include \
                              -I$(top_srcdir)/libs/mrcp/resources/include \
                              -I$(top_srcdir)/libs/mpf/include \
                              -I$(top_srcdir)/libs/apr-toolkit/include \
+                             -I${AX_SRC_ROOT}/src \
+                    		 -I${AX_SRC_ROOT}/audio \ 
+                    		 -I${AX_SRC_ROOT}/DAO \
+                             -I${AX_SRC_ROOT}/tools \
+                             -I/use/local/share/boost_1_66_0 \
                              $(UNIMRCP_APR_INCLUDES)
 
 
