@@ -1,6 +1,37 @@
 cmake_minimum_required (VERSION 2.8)
 project (aneexrecog)
 
+# ---------------------------------------------------------
+#                     Aneex sources
+# --------------------------------------------------------- 
+
+message(STATUS "Building aneex")
+
+set(MY_BOOST_INCLUDE_DIR
+
+    "/use/local/share/boost_1_66_0"
+)
+set(MY_BOOST_LIBRARY_x64_DIR
+
+    "/usr/local/share/boost_1_66_0/stage/lib/7"
+)
+
+set(Boost_USE_STATIC_LIBS        ON)
+set(Boost_USE_MULTITHREADED      ON)
+set(Boost_USE_STATIC_RUNTIME    OFF)
+
+set(AX_SRC_ROOT /usr/src/audioneex)
+set(DATASTORE_T "TCDataStore")
+add_definitions(-DDATASTORE_T_ID=1)
+add_definitions(-DDATASTORE_T=${DATASTORE_T})
+
+include_directories("${AX_SRC_ROOT}/src"
+                    "${AX_SRC_ROOT}/audio" 
+                    "${AX_SRC_ROOT}/DAO"
+                    "${AX_SRC_ROOT}/tools")
+                    
+# ---------------------------------------------------------                     
+
 # Set source files
 set (ANEEX_RECOG_SOURCES
 	src/aneex_recog_engine.c
