@@ -803,6 +803,7 @@ do
     "plugins/mrcp-recorder/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/mrcp-recorder/Makefile" ;;
     "plugins/demo-synth/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/demo-synth/Makefile" ;;
     "plugins/demo-recog/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/demo-recog/Makefile" ;;
+    "plugins/aneex-recog/aneex/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/aneex-recog/aneex/Makefile" ;;    
     "plugins/aneex-recog/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/aneex-recog/Makefile" ;;
     "plugins/demo-verifier/Makefile") CONFIG_FILES="$CONFIG_FILES plugins/demo-verifier/Makefile" ;;
     "platforms/Makefile") CONFIG_FILES="$CONFIG_FILES platforms/Makefile" ;;
