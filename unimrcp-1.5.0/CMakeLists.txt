@@ -9,12 +9,6 @@ set (APR_SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/apr CACHE PATH "Path to APR source 
 set (APU_SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/apr-util CACHE PATH "Path to APR-util source directory")
 set (SOFIA_SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/sofia-sip CACHE PATH "Path to SofiaSIP source directory")
 
-set (AX_SRC_ROOT /usr/src/audioneex/build)
-set (DATASTORE_T "TCDataStore")
-find_library(DATASTORE_LIB
-             NAMES tokyocabinet libtokyocabinet
-             PATHS "/usr/local/lib")
-
 # Set CMake module path
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/build/cmake)
 
