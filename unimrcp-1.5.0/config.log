@@ -618,7 +618,7 @@ config.status:1148: creating plugins/Makefile
 config.status:1148: creating plugins/mrcp-recorder/Makefile
 config.status:1148: creating plugins/demo-synth/Makefile
 config.status:1148: creating plugins/demo-recog/Makefile
-config.status:1148: creating plugins/aneex-recog/aneex/Makefile
+config.status:1148: creating plugins/aneex-recog/aneex/build/Makefile
 config.status:1148: creating plugins/aneex-recog/Makefile
 config.status:1148: creating plugins/demo-verifier/Makefile
 config.status:1148: creating platforms/Makefile
