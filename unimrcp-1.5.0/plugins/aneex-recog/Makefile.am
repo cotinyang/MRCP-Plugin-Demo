@@ -11,7 +11,7 @@ aneexrecog_la_DATA 			= /usr/local/lib/libaudioneex.so
 
 include $(top_srcdir)/build/rules/uniplugin.am
 
-UNIMRCP_PLUGIN_INCLUDES += -I/usr/src/audioneex/DAO -I/usr/src/audioneex/src
+UNIMRCP_PLUGIN_INCLUDES += -I/usr/src/audioneex/src -I/usr/src/audioneex/src/index
 
 
 
