@@ -32,6 +32,8 @@
 #include "apt_consumer_task.h"
 #include "apt_log.h"
 
+#include "AudioIndexingTask.h"
+
 #define ANEEX_ENGINE_TASK_NAME "Aneex Recog Engine"
 
 typedef struct aneex_recog_engine_t aneex_recog_engine_t;
