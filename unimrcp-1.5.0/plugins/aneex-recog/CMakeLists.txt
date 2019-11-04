@@ -7,18 +7,11 @@ project (aneexrecog)
 
 message(STATUS "Building aneex")
 
-set(MY_BOOST_INCLUDE_DIR
-
-    "/use/local/share/boost_1_66_0"
-)
-set(MY_BOOST_LIBRARY_x64_DIR
-
-    "/usr/local/share/boost_1_66_0/stage/lib/7"
-)
-
-set(Boost_USE_STATIC_LIBS        ON)
-set(Boost_USE_MULTITHREADED      ON)
-set(Boost_USE_STATIC_RUNTIME    OFF)
+#set(MY_BOOST_INCLUDE_DIR "/use/local/share/boost_1_66_0")
+#set(MY_BOOST_LIBRARY_x64_DIR "/usr/local/share/boost_1_66_0/stage/lib/7")
+#set(Boost_USE_STATIC_LIBS        ON)
+#set(Boost_USE_MULTITHREADED      ON)
+#set(Boost_USE_STATIC_RUNTIME    OFF)
 
 set(AX_SRC_ROOT /usr/src/audioneex)
 set(DATASTORE_T "TCDataStore")
@@ -45,6 +38,10 @@ set_target_properties (${PROJECT_NAME} PROPERTIES FOLDER "plugins")
 find_library(DATASTORE_LIB
              NAMES tokyocabinet libtokyocabinet
              PATHS "/usr/local/lib")  
+             
+find_library(AUDIONEEX_LIB
+             NAMES audioneex libaudioneex
+             PATHS "/usr/local/lib")              
                             
 # Input libraries
 target_link_libraries(${PROJECT_NAME}
@@ -86,7 +83,7 @@ include_directories (
     ${AX_SRC_ROOT}/audio 
     ${AX_SRC_ROOT}/DAO
     ${AX_SRC_ROOT}/tools
-    ${${PROJECT_NAME}}/plugins/aneex
+    ${AX_SRC_ROOT}/src/index
 )
 
 # Installation directives

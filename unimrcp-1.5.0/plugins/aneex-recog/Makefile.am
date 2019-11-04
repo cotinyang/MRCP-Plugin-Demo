@@ -7,11 +7,11 @@ aneexrecog_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS) \
 								-L/usr/local/lib \ 
 								-lmsc -ldl -lpthread -lrt
 aneexrecog_ladir 			= $(libdir)
-aneexrecog_la_DATA 			= /usr/local/lib/libaudioneex.so /usr/local/lib/tcabinet.so  
+aneexrecog_la_DATA 			= /usr/local/lib/libaudioneex.so
 
 include $(top_srcdir)/build/rules/uniplugin.am
 
-UNIMRCP_PLUGIN_INCLUDES += -I/usr/src/audioneex/DAO
+UNIMRCP_PLUGIN_INCLUDES += -I/usr/src/audioneex/DAO -I/usr/src/audioneex/src
 
 
 
