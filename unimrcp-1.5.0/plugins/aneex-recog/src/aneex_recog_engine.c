@@ -428,7 +428,7 @@ static apt_bool_t aneex_recog_from_db()
 	int id_type=1, id_mode=1;
 	int b_thresh=0.8;
 
-	printf(AneexInt);
+	//printf(AneexInt);
 	//TestAneex();
 
 	return TRUE;
@@ -555,13 +555,11 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 						frame->event_frame.duration);
 				}
 			}
-			printf("DEBUG: Detected Event\n");
 		}
 
 		//записали входяший голос сюда что-ли?
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
-			printf("DEBUG: recog_channel->audio_out\n");
 		}
 		//читаем в recog_channel->audio_out файл из Etalon2
 	}
