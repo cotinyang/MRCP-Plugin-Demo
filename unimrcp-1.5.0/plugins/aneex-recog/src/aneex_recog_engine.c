@@ -32,8 +32,6 @@
 #include "apt_consumer_task.h"
 #include "apt_log.h"
 
-#include "AneexDefine.h"
-
 #define ANEEX_ENGINE_TASK_NAME "Aneex Recog Engine"
 
 typedef struct aneex_recog_engine_t aneex_recog_engine_t;
@@ -428,7 +426,6 @@ static apt_bool_t aneex_recog_from_db()
 	int id_type=1, id_mode=1;
 	int b_thresh=0.8;
 
-	fun(id_type);
 	Audioneex::DataStore myD;
 
 	/*try
