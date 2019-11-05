@@ -32,13 +32,13 @@
 #include "apt_consumer_task.h"
 #include "apt_log.h"
 
+#include "AneexDefine.h"
+
 #define ANEEX_ENGINE_TASK_NAME "Aneex Recog Engine"
 
 typedef struct aneex_recog_engine_t aneex_recog_engine_t;
 typedef struct aneex_recog_channel_t aneex_recog_channel_t;
 typedef struct aneex_recog_msg_t aneex_recog_msg_t;
-
-Audioneex::eMatchType mtype {Audioneex::MSCALE_MATCH};
 
 /** Declaration of recognizer engine methods */
 static apt_bool_t aneex_recog_engine_destroy(mrcp_engine_t *engine);
