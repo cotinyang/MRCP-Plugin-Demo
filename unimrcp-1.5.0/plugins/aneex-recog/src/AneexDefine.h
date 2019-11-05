@@ -26,7 +26,7 @@
   #endif
 #endif
 
-extern "C" ANEEXDEFINE_PUBLIC void function(int a);
+extern "C" ANEEXDEFINE_PUBLIC void fun(int a);
 class ANEEXDEFINE_PUBLIC AudioIndexingTask
 {
    int c;
