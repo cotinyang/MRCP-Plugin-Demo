@@ -428,45 +428,8 @@ static apt_bool_t aneex_recog_from_db()
 	int id_type=1, id_mode=1;
 	int b_thresh=0.8;
 
-	TestAneex();
-
-	/*try
-	    {
-	        IdentificationTask rtask (apath);
-	        // Create the identification results parser
-	        FileIdentificationResultsParser idparser;
-
-	        std::shared_ptr<KVDataStore>
-	        dstore ( new DATASTORE_T (db_url) );
-
-	        dstore->Open( opts.db_op, true, true );
-
-	        // Create and set up the recognizer
-	        std::shared_ptr<Recognizer> recognizer ( Recognizer::Create() );
-	        recognizer->SetDataStore( dstore.get() );
-	        recognizer->SetMatchType( opts.mtype );
-	        recognizer->SetMMS( opts.mms );
-	        recognizer->SetIdentificationType( id_type );
-	        recognizer->SetIdentificationMode( id_mode );
-	        recognizer->SetBinaryIdThreshold( b_thresh );
-
-	        idparser.SetDatastore( dstore );
-	        idparser.SetRecognizer( recognizer );
-
-	        rtask.SetDataStore( dstore );
-	        rtask.SetRecognizer( recognizer );
-	        rtask.Connect( &idparser );
-	        rtask.GetAudioSource()->SetPosition( opts.offset );
-	        rtask.Run();
-
-	        printf("Done");
-	    }
-	    catch(const std::exception &ex)
-	    {
-	    	printf( "ERROR: ",ex.what());
-	        return FALSE;
-	    }*/
-
+	printf(AneexInt);
+	//TestAneex();
 
 	return TRUE;
 }
