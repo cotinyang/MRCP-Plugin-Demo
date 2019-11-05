@@ -428,8 +428,8 @@ static apt_bool_t aneex_recog_from_db()
 	int id_type=1, id_mode=1;
 	int b_thresh=0.8;
 
-	printf(AneexStr);
-	//TestAneex();
+	printf(AneexStr,"\n");
+	TestAneex();
 
 	return TRUE;
 }
