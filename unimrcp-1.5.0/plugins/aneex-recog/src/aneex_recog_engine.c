@@ -38,6 +38,8 @@ typedef struct aneex_recog_engine_t aneex_recog_engine_t;
 typedef struct aneex_recog_channel_t aneex_recog_channel_t;
 typedef struct aneex_recog_msg_t aneex_recog_msg_t;
 
+Audioneex::eMatchType mtype {Audioneex::MSCALE_MATCH};
+
 /** Declaration of recognizer engine methods */
 static apt_bool_t aneex_recog_engine_destroy(mrcp_engine_t *engine);
 static apt_bool_t aneex_recog_engine_open(mrcp_engine_t *engine);
@@ -425,8 +427,6 @@ static apt_bool_t aneex_recog_from_db()
 	const char *db_url;
 	int id_type=1, id_mode=1;
 	int b_thresh=0.8;
-
-	Audioneex::DataStore myD;
 
 	/*try
 	    {
