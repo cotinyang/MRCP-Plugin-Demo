@@ -512,7 +512,6 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		mrcp_engine_channel_message_send(recog_channel->channel,recog_channel->stop_response);
 		recog_channel->stop_response = NULL;
 		recog_channel->recog_request = NULL;
-		printf("DEBUG: send asynchronous response to STOP request\n");
 		return TRUE;
 	}
 
@@ -538,7 +537,6 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 				break;
 			default:
 				break;
-		printf("DEBUG: mpf_activity_detector_process\n");
 		}
 
 		if(recog_channel->recog_request) {
@@ -557,11 +555,10 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			}
 		}
 
-		//записали входяший голос сюда что-ли?
+		//записали входяший голос сюда что-ли? весь или по частям?
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 		}
-		//читаем в recog_channel->audio_out файл из Etalon2
 	}
 	return TRUE;
 }
