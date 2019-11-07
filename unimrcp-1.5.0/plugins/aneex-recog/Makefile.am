@@ -5,11 +5,8 @@ AM_CPPFLAGS          = -I/usr/src/audioneex/src \
 plugin_LTLIBRARIES         	= aneexrecog.la
 
 aneexrecog_la_SOURCES       = src/aneex_recog_engine.c
-#aneexrecog_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS)
-aneexrecog_la_LDFLAGS       =-L/usr/src/audioneex/lib -laudioneex 
+aneexrecog_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS) -L/usr/src/audioneex/lib -laudioneex 
 
 include $(top_srcdir)/build/rules/uniplugin.am
-
-#UNIMRCP_PLUGIN_INCLUDES += -I/usr/src/audioneex/src -I/usr/src/audioneex/src/index
 
  
