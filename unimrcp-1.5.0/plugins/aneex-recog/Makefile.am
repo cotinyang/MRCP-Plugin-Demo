@@ -6,7 +6,7 @@ plugin_LTLIBRARIES         	= aneexrecog.la
 
 aneexrecog_la_SOURCES       = src/aneex_recog_engine.c
 aneexrecog_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS)
-apttest_LDADD        		= /usr/src/audioneex/lib/libaudioneex.so \
+aneexrecog_la_LDADD        	= /usr/src/audioneex/lib/libaudioneex.so \
                        		  $(UNIMRCP_PLUGIN_LIBS)
 
 include $(top_srcdir)/build/rules/uniplugin.am
