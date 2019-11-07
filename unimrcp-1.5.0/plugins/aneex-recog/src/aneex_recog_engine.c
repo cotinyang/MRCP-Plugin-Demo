@@ -446,6 +446,7 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 	}
 
 	aneex_recog_from_db();
+	printf("DEBUG: after call aneex_recog_from_db()\n");
 
 	/* read the demo result from file */
 	file = fopen(file_path,"r");
