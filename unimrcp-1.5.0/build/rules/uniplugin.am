@@ -7,8 +7,8 @@ UNIMRCP_PLUGIN_INCLUDES    = -I$(top_srcdir)/libs/mrcp-engine/include \
                              -I$(top_srcdir)/libs/mrcp/control/include \
                              -I$(top_srcdir)/libs/mrcp/resources/include \
                              -I$(top_srcdir)/libs/mpf/include \
-                             -I$(top_srcdir)/libs/apr-toolkit/include \                            
-                             $(UNIMRCP_APR_INCLUDES)
+                             -I$(top_srcdir)/libs/apr-toolkit/include \                                 
+							 $(UNIMRCP_APR_INCLUDES)
 
 # Linker options (LDFLAGS)
 UNIMRCP_PLUGIN_OPTS        = -module $(PLUGIN_LT_VERSION)
