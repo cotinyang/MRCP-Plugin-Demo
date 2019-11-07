@@ -416,21 +416,6 @@ static apt_bool_t aneex_recog_start_of_input(aneex_recog_channel_t *recog_channe
 	return mrcp_engine_channel_message_send(recog_channel->channel,message);
 }
 
-//читаем файл из Etalon2 для демо
-//ищем его в базе TC
-//-m MSCALE -i BINARY -b 0.9
-static apt_bool_t aneex_recog_from_db()
-{
-	const char *apath;
-	const char *db_url;
-	int id_type=1, id_mode=1;
-	int b_thresh=0.8;
-
-	TestAneex();
-
-	return TRUE;
-}
-
 /* Load aneex recognition result */
 static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, mrcp_message_t *message)
 {
@@ -497,10 +482,26 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 	return mrcp_engine_channel_message_send(recog_channel->channel,message);
 }
 
+//читаем файл из Etalon2 для демо
+//ищем его в базе TC
+//-m MSCALE -i BINARY -b 0.9
+static apt_bool_t aneex_recog_from_db()
+{
+	const char *apath;
+	const char *db_url;
+	int id_type=1, id_mode=1;
+	int b_thresh=0.8;
+	int a;
+
+	a=TestAneex();
+
+	return TRUE;
+}
+
 /** Callback is called from MPF engine context to write/send new frame */
 static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf_frame_t *frame)
 {
-	//printf("DEBUG: aneex_recog_stream_write\n");
+	printf("DEBUG: aneex_recog_stream_write\n");
 
 	aneex_recog_channel_t *recog_channel = stream->obj;
 	if(recog_channel->stop_response) {
