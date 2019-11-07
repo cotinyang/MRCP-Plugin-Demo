@@ -4,8 +4,8 @@ plugin_LTLIBRARIES         	= aneexrecog.la
 
 aneexrecog_la_SOURCES       = src/aneex_recog_engine.c
 aneexrecog_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS)
-aneexrecog_ladir 			= $(libdir)
-aneexrecog_la_DATA 			= /usr/local/lib/libaudioneex.so
+aneexrecog_la_LDLIBS        = -laudioneex
+aneexrecog_la_DATA 			= -laudioneex
 
 include $(top_srcdir)/build/rules/uniplugin.am
 
