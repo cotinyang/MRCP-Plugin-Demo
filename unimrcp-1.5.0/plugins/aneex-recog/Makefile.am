@@ -6,7 +6,7 @@ aneexrecog_la_SOURCES       = src/aneex_recog_engine.c
 aneexrecog_la_LDFLAGS       = $(UNIMRCP_PLUGIN_OPTS)
 aneexrecog_la_LDLIBS        = -laudioneex
 aneexrecog_ladir			= /usr/src/audioneex/lib
-aneexrecog_la_DATA 			= -laudioneex
+aneexrecog_la_DATA 			= libaudioneex.so
 
 include $(top_srcdir)/build/rules/uniplugin.am
 
