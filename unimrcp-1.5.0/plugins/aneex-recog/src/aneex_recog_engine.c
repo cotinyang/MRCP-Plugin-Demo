@@ -323,8 +323,6 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 	mrcp_engine_channel_message_send(channel,response);
 	recog_channel->recog_request = request;
 	
-    printf("DEBUG: Plugin: aneex_recog_channel_recognize end\n");
-
 	return TRUE;
 }
 
@@ -436,7 +434,7 @@ static apt_bool_t aneex_recog_from_db()
 /* Load aneex recognition result */
 static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, mrcp_message_t *message)
 {
-	printf("DEBUG: aneex_recog_result_load\n");
+	printf("DEBUG: aneex_recog_result_load result\n");
 	FILE *file;
 	mrcp_engine_channel_t *channel = recog_channel->channel;
 	const apt_dir_layout_t *dir_layout = channel->engine->dir_layout;
@@ -444,9 +442,6 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 	if(!file_path) {
 		return FALSE;
 	}
-
-	aneex_recog_from_db();
-	printf("DEBUG: after call aneex_recog_from_db()\n");
 
 	/* read the demo result from file */
 	file = fopen(file_path,"r");
@@ -560,6 +555,9 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 		}
+
+		aneex_recog_from_db();
+		printf("DEBUG: after call aneex_recog_from_db()\n");
 	}
 	return TRUE;
 }
