@@ -560,7 +560,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		}
 
 		//aneex_recog_from_db();
-		a=TestAneex(audio_file_name);
+		TestAneex(audio_file_name);
 		printf("DEBUG: after call aneex_recog_from_db()\n");
 	}
 	return TRUE;
