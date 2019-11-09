@@ -127,6 +127,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 static apt_bool_t aneex_recog_from_db();
 
 char *audio_file_name;
+char *audio_file_path;
 
 /** Declare this macro to set plugin version */
 MRCP_PLUGIN_VERSION_DECLARE
@@ -310,12 +311,12 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 		audio_file_name = apr_psprintf(channel->pool,"utter-%dkHz-%s.pcm",
 							descriptor->sampling_rate/1000,
 							request->channel_id.session_id.buf);
-		char *file_path = apt_vardir_filepath_get(dir_layout,audio_file_name,channel->pool);
-		if(file_path) {
-			apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"Open Utterance Output File [%s] for Writing",file_path);
-			recog_channel->audio_out = fopen(file_path,"wb");
+		audio_file_path = apt_vardir_filepath_get(dir_layout,audio_file_name,channel->pool);
+		if(audio_file_path) {
+			apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"Open Utterance Output File [%s] for Writing",audio_file_path);
+			recog_channel->audio_out = fopen(audio_file_path,"wb");
 			if(!recog_channel->audio_out) {
-				apt_log(ANEEX_LOG_MARK,APT_PRIO_WARNING,"Failed to Open Utterance Output File [%s] for Writing",file_path);
+				apt_log(ANEEX_LOG_MARK,APT_PRIO_WARNING,"Failed to Open Utterance Output File [%s] for Writing",audio_file_path);
 			}
 		}
 	}
@@ -495,7 +496,7 @@ static apt_bool_t aneex_recog_from_db()
 	int b_thresh=0.8;
 	int a;
 
-	a=TestAneex(audio_file_name);
+	a=TestAneex(audio_file_path);
 
 	return TRUE;
 }
@@ -560,7 +561,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		}
 
 		//aneex_recog_from_db();
-		TestAneex(audio_file_name);
+		TestAneex(audio_file_path);
 		printf("DEBUG: after call aneex_recog_from_db()\n");
 	}
 	return TRUE;
