@@ -561,7 +561,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		}
 
 		//aneex_recog_from_db();
-		TestAneex("/usr/local/unimrcp/data/test_voice.m4a");
+		TestAneex("/usr/local/unimrcp/data/Etalons2/test_voice.m4a");
 		printf("DEBUG: after call aneex_recog_from_db()\n");
 	}
 	return TRUE;
