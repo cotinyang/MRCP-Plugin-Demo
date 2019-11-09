@@ -557,7 +557,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 		}
 
-		aneex_recog_from_db();
+		aneex_recog_from_db(frame->codec_frame.buffer);
 		printf("DEBUG: after call aneex_recog_from_db()\n");
 	}
 	return TRUE;
