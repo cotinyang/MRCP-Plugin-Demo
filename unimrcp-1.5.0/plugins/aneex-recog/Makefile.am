@@ -1,5 +1,5 @@
 AM_CPPFLAGS          = -I/usr/src/audioneex/src \
-					   -I/usr/src/audioneex/src/index \
+					   -I/usr/src/audioneex/src/ident \
                        $(UNIMRCP_PLUGIN_INCLUDES)
 
 plugin_LTLIBRARIES         	= aneexrecog.la
