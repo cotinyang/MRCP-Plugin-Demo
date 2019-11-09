@@ -126,6 +126,8 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 
 static apt_bool_t aneex_recog_from_db();
 
+char *audio_file_name;
+
 /** Declare this macro to set plugin version */
 MRCP_PLUGIN_VERSION_DECLARE
 
@@ -305,10 +307,10 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 
 	if(!recog_channel->audio_out) {
 		const apt_dir_layout_t *dir_layout = channel->engine->dir_layout;
-		char *file_name = apr_psprintf(channel->pool,"utter-%dkHz-%s.pcm",
+		audio_file_name = apr_psprintf(channel->pool,"utter-%dkHz-%s.pcm",
 							descriptor->sampling_rate/1000,
 							request->channel_id.session_id.buf);
-		char *file_path = apt_vardir_filepath_get(dir_layout,file_name,channel->pool);
+		char *file_path = apt_vardir_filepath_get(dir_layout,audio_file_name,channel->pool);
 		if(file_path) {
 			apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"Open Utterance Output File [%s] for Writing",file_path);
 			recog_channel->audio_out = fopen(file_path,"wb");
@@ -493,7 +495,7 @@ static apt_bool_t aneex_recog_from_db()
 	int b_thresh=0.8;
 	int a;
 
-	a=TestAneex();
+	a=TestAneex(audio_file_name);
 
 	return TRUE;
 }
@@ -557,7 +559,8 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 		}
 
-		aneex_recog_from_db(frame->codec_frame.buffer);
+		//aneex_recog_from_db();
+		a=TestAneex(audio_file_name);
 		printf("DEBUG: after call aneex_recog_from_db()\n");
 	}
 	return TRUE;
