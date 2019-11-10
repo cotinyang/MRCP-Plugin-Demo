@@ -125,8 +125,7 @@ struct aneex_recog_msg_t {
 static apt_bool_t aneex_recog_msg_signal(aneex_recog_msg_type_e type, mrcp_engine_channel_t *channel, mrcp_message_t *request);
 static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg);
 
-static apt_bool_t aneex_recog_from_db();
-
+void aneex_recog_from_db();
 char *audio_file_name;
 char *audio_file_path="/usr/local/unimrcp/data/Etalon2/avto01.wav";
 char *db_file_path="/usr/local/unimrcp/data/DB";
@@ -426,9 +425,6 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 {
 	printf("DEBUG: aneex_recog_result_load result\n");
 
-	//aneex_recog_from_db(audio_file_path, db_file_path);
-	aneex_recog_from_db("/usr/local/unimrcp/data/Etalon2/avto01.wav", db_file_path);
-
 	FILE *file;
 	mrcp_engine_channel_t *channel = recog_channel->channel;
 	const apt_dir_layout_t *dir_layout = channel->engine->dir_layout;
@@ -494,7 +490,7 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 //читаем файл из Etalon2 для демо
 //ищем его в базе TC
 //-m MSCALE -i BINARY -b 0.9
-static apt_bool_t aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
+void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
 	const char *apath;
 	const char *db_url;
