@@ -499,9 +499,11 @@ static apt_bool_t aneex_recog_from_db(char *audio_path, char* db_path)
 	int id_type=1, id_mode=1;
 	int b_thresh=0.8;
 	int res;
+	char ch[17];
 
 	res=TestAneex(audio_path, db_path);
-	printf(itoa(res),"\n");
+	itoa (res, ch);
+	printf(ch,"\n");
 
 	return TRUE;
 }
