@@ -134,6 +134,7 @@ typedef struct{
 	char *db_path;
 	int Match;
 } pthrData;
+void* threadFunc(void* thread_data);
 //процедура, запускающая поток
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel);
 //для проверки итогов распознавания
@@ -496,49 +497,28 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 	return mrcp_engine_channel_message_send(recog_channel->channel,message);
 }
 
-/*
-//выделяем память под массив идентификаторов потоков
-pthread_t* thread = (pthread_t*) malloc(sizeof(pthread_t));
-//сколько потоков - столько и структур с потоковых данных
-pthrData* threadData = (pthrData*) malloc(sizeof(pthrData));
+void* threadFunc(void* thread_data){
+	//получаем структуру с данными
+	pthrData *data = (pthrData*) thread_data;
 
-//инициализируем структуры потоков
-threadData.audio_path = audio_path;
-threadData.db_path = db_path;
-threadData.Match = 0;
+ 	data->Match=TestAneex(data->audio_path, data->db_path);
+ 	result=data->Match;
 
-//запускаем поток
-pthread_create(&(thread), NULL, threadFunc, &threadData);
-
-//освобождаем память
-free(thread);
-free(threadData);
-*/
+	return NULL;
+}
 
 //читаем файл из Etalon2 для демо
 //ищем его в базе TC
 //-m MSCALE -i BINARY -b 0.9
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
-	void* threadFunc(void* thread_data){
-		//получаем структуру с данными
-		pthrData *data = (pthrData*) thread_data;
-
-	 	data->Match=TestAneex(data->audio_path, data->db_path);
-	 	result=data->Match;
-
-		return NULL;
-	}
-
 	if (result>0)
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 
-	//выделяем память под массив идентификаторов потоков
-	pthread_t* thread = (pthread_t*) malloc(sizeof(pthread_t));
-	//сколько потоков - столько и структур с потоковых данных
-	pthrData* threadData = (pthrData*) malloc(sizeof(pthrData));
-
-	//инициализируем структуры потоков
+	//поток
+	pthread_t thread;
+	//структура
+	pthrData threadData;
 	threadData.audio_path = audio_path;
 	threadData.db_path = db_path;
 	threadData.Match = 0;
