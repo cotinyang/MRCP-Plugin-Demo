@@ -498,7 +498,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	int b_thresh=0.8;
 	int res;
 
-	res=TestAneex(audio_path, db_path);
+	res=TestAneex("/usr/local/unimrcp/data/Etalon2/avto01.wav", db_path);
 	if (res==0)
 		printf("0\n");
 	else if (res==1)
@@ -506,7 +506,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	else
 		printf("-1\n");
 
-	if (res!=0)
+	if (res>0)
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 
 	return TRUE;
