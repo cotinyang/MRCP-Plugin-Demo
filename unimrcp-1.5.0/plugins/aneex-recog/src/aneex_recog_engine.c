@@ -27,6 +27,7 @@
  * 5. Methods (callbacks) of the MPF engine stream MUST not block.
  */
 #include <stdlib.h>
+#include <pthread.h>
 #include "aneex_recog_engine.h"
 #include "mpf_activity_detector.h"
 #include "apt_consumer_task.h"
