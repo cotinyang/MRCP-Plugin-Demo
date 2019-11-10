@@ -509,6 +509,9 @@ static apt_bool_t aneex_recog_from_db(char *audio_path, char* db_path)
 	else
 		printf("-1\n");
 
+	if (res>0)
+		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
+
 	return TRUE;
 }
 
