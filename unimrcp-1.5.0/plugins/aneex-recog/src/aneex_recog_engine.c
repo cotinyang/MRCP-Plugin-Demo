@@ -425,7 +425,8 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 {
 	printf("DEBUG: aneex_recog_result_load result\n");
 
-	aneex_recog_from_db(audio_file_path, db_file_path);
+	//aneex_recog_from_db(audio_file_path, db_file_path);
+	aneex_recog_from_db("/usr/local/unimrcp/data/Etalon2/avto01.wav", db_file_path);
 
 	FILE *file;
 	mrcp_engine_channel_t *channel = recog_channel->channel;
@@ -571,6 +572,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		}
 
 		aneex_recog_from_db(audio_file_path, db_file_path);
+
 	}
 	return TRUE;
 }
