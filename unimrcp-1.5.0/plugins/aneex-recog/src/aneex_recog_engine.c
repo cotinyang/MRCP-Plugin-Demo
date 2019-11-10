@@ -423,6 +423,9 @@ static apt_bool_t aneex_recog_start_of_input(aneex_recog_channel_t *recog_channe
 static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, mrcp_message_t *message)
 {
 	printf("DEBUG: aneex_recog_result_load result\n");
+
+	TestAneex("/usr/local/unimrcp/data/Etalons2/avto01.wav", "/usr/local/unimrcp/data/DB");
+
 	FILE *file;
 	mrcp_engine_channel_t *channel = recog_channel->channel;
 	const apt_dir_layout_t *dir_layout = channel->engine->dir_layout;
@@ -561,8 +564,8 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		}
 
 		//aneex_recog_from_db();
-		TestAneex("/usr/local/unimrcp/data/Etalons2/avto01.wav");
-		printf("DEBUG: after call aneex_recog_from_db()\n");
+		//TestAneex("/usr/local/unimrcp/data/Etalons2/avto01.wav", "/usr/local/unimrcp/data/DB");
+		//TestAneex(audio_file_path);
 	}
 	return TRUE;
 }
