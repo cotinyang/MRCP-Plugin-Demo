@@ -127,7 +127,8 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 static apt_bool_t aneex_recog_from_db();
 
 char *audio_file_name;
-char *audio_file_path;
+char *audio_file_path="/usr/local/unimrcp/data/Etalon2/avto01.wav";
+char *db_file_path="/usr/local/unimrcp/data/DB";
 
 /** Declare this macro to set plugin version */
 MRCP_PLUGIN_VERSION_DECLARE
@@ -424,7 +425,7 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 {
 	printf("DEBUG: aneex_recog_result_load result\n");
 
-	TestAneex("/usr/local/unimrcp/data/Etalons2/avto01.wav", "/usr/local/unimrcp/data/DB");
+	aneex_recog_from_db(audio_file_path, db_file_path);
 
 	FILE *file;
 	mrcp_engine_channel_t *channel = recog_channel->channel;
@@ -491,7 +492,7 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 //читаем файл из Etalon2 для демо
 //ищем его в базе TC
 //-m MSCALE -i BINARY -b 0.9
-static apt_bool_t aneex_recog_from_db()
+static apt_bool_t aneex_recog_from_db(char *audio_path, char* db_path)
 {
 	const char *apath;
 	const char *db_url;
@@ -499,7 +500,7 @@ static apt_bool_t aneex_recog_from_db()
 	int b_thresh=0.8;
 	int res;
 
-	res=TestAneex("/usr/local/unimrcp/data/Etalons2/avto01.wav", "/usr/local/unimrcp/data/DB");
+	res=TestAneex(audio_path, db_path);
 
 	return TRUE;
 }
@@ -563,9 +564,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 		}
 
-		//aneex_recog_from_db();
-		//TestAneex("/usr/local/unimrcp/data/Etalons2/avto01.wav", "/usr/local/unimrcp/data/DB");
-		//TestAneex(audio_file_path);
+		aneex_recog_from_db(audio_file_path, db_file_path);
 	}
 	return TRUE;
 }
