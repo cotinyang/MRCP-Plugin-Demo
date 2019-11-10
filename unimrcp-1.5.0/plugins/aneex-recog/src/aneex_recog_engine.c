@@ -497,9 +497,9 @@ static apt_bool_t aneex_recog_from_db()
 	const char *db_url;
 	int id_type=1, id_mode=1;
 	int b_thresh=0.8;
-	int a;
+	int res;
 
-	a=TestAneex(audio_file_path);
+	res=TestAneex("/usr/local/unimrcp/data/Etalons2/avto01.wav", "/usr/local/unimrcp/data/DB");
 
 	return TRUE;
 }
