@@ -519,7 +519,7 @@ void* threadFunc(void* thread_data){
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
 	if (result>0) {
-		pthread_exit();
+		pthread_exit(NULL);
 		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 	}
