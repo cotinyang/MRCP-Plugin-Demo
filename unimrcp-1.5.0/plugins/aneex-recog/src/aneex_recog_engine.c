@@ -127,7 +127,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 
 void aneex_recog_from_db();
 char *audio_file_name;
-char *audio_file_path="/usr/local/unimrcp/data/Etalon2/avto01.wav";
+char *audio_file_path="/usr/local/unimrcp/data/Etalons2/avto01.wav";
 char *db_file_path="/usr/local/unimrcp/data/DB";
 
 /** Declare this macro to set plugin version */
@@ -492,13 +492,9 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 //-m MSCALE -i BINARY -b 0.9
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
-	const char *apath;
-	const char *db_url;
-	int id_type=1, id_mode=1;
-	int b_thresh=0.8;
 	int res=0;
 
-	res=TestAneex("/usr/local/unimrcp/data/Etalon2/avto01.wav", db_path);
+	res=TestAneex("/usr/local/unimrcp/data/Etalons2/avto01.wav", db_path);
 	if (res==0)
 		printf("0\n");
 	else if (res==1)
