@@ -129,6 +129,12 @@ void aneex_recog_from_db();
 char *audio_file_name;
 char *audio_file_path="/usr/local/unimrcp/data/Etalons2/avto01.wav";
 char *db_file_path="/usr/local/unimrcp/data/DB";
+//специальная структура для данных потока
+typedef struct{
+	char *audio_path;
+	char *db_path;
+	int Match;
+} pthrData;
 
 /** Declare this macro to set plugin version */
 MRCP_PLUGIN_VERSION_DECLARE
@@ -487,6 +493,39 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 	return mrcp_engine_channel_message_send(recog_channel->channel,message);
 }
 
+/*
+void* threadFunc(void* thread_data){
+	//получаем структуру с данными
+	pthrData *data = (pthrData*) thread_data;
+
+ 	do {
+ 		data->Match=TestAneex(data->audio_path, data->db_path);
+ 	while(data->Match<=0);
+
+	return NULL;
+}
+
+//выделяем память под массив идентификаторов потоков
+pthread_t* thread = (pthread_t*) malloc(sizeof(pthread_t));
+//сколько потоков - столько и структур с потоковых данных
+pthrData* threadData = (pthrData*) malloc(sizeof(pthrData));
+
+//инициализируем структуры потоков
+threadData.audio_path = audio_path;
+threadData.db_path = db_path;
+threadData.Match = 0;
+
+//запускаем поток
+pthread_create(&(thread), NULL, threadFunc, &threadData);
+
+//ожидаем выполнение всех потоков
+pthread_join(thread, NULL);
+
+//освобождаем память
+free(thread);
+free(threadData);
+*/
+
 //читаем файл из Etalon2 для демо
 //ищем его в базе TC
 //-m MSCALE -i BINARY -b 0.9
@@ -504,8 +543,6 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 
 	if (res>0)
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
-
-	return TRUE;
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
