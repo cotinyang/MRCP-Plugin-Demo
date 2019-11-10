@@ -510,9 +510,6 @@ threadData.Match = 0;
 //запускаем поток
 pthread_create(&(thread), NULL, threadFunc, &threadData);
 
-//ожидаем выполнение всех потоков
-pthread_join(thread, NULL);
-
 //освобождаем память
 free(thread);
 free(threadData);
@@ -527,12 +524,27 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		//получаем структуру с данными
 		pthrData *data = (pthrData*) thread_data;
 
-	 	do {
-	 		data->Match=TestAneex(data->audio_path, data->db_path);
-	 	while(data->Match<=0);
+	 	data->Match=TestAneex(data->audio_path, data->db_path);
+	 	result=data->Match;
 
 		return NULL;
 	}
+
+	if (result>0)
+		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
+
+	//выделяем память под массив идентификаторов потоков
+	pthread_t* thread = (pthread_t*) malloc(sizeof(pthread_t));
+	//сколько потоков - столько и структур с потоковых данных
+	pthrData* threadData = (pthrData*) malloc(sizeof(pthrData));
+
+	//инициализируем структуры потоков
+	threadData.audio_path = audio_path;
+	threadData.db_path = db_path;
+	threadData.Match = 0;
+
+	//запускаем поток
+	pthread_create(&(thread), NULL, threadFunc, &threadData);
 
 	if (result==0)
 		printf("0\n");
@@ -540,9 +552,6 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		printf("1\n");
 	else
 		printf("-1\n");
-
-	if (result>0)
-		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
