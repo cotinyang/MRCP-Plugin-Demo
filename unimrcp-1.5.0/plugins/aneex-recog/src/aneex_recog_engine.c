@@ -125,20 +125,26 @@ struct aneex_recog_msg_t {
 static apt_bool_t aneex_recog_msg_signal(aneex_recog_msg_type_e type, mrcp_engine_channel_t *channel, mrcp_message_t *request);
 static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg);
 
+// ---------структуры данных для потока---------
 char *audio_file_name;
 char *audio_file_path="/usr/local/unimrcp/data/Etalons2/avto01.wav";
 char *db_file_path="/usr/local/unimrcp/data/DB";
-//специальная структура для данных потока
+
 typedef struct{
 	char *audio_path;
 	char *db_path;
 	int Match;
 } pthrData;
+
+pthread_mutex_t lock; //Исключающая блокировка
+
 void* threadFunc(void* thread_data);
-//процедура, запускающая поток
+
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel);
+
 //для проверки итогов распознавания
 int result=0;
+// ---------структуры данных для потока---------
 
 /** Declare this macro to set plugin version */
 MRCP_PLUGIN_VERSION_DECLARE
@@ -414,6 +420,7 @@ static apt_bool_t aneex_recog_stream_close(mpf_audio_stream_t *stream)
 static apt_bool_t aneex_recog_start_of_input(aneex_recog_channel_t *recog_channel)
 {
     printf("DEBUG: Plugin: demo_recog_start_of_input\n");
+    pthread_mutex_init(&lock, NULL);
 
 	/* create START-OF-INPUT event */
 	mrcp_message_t *message = mrcp_event_create(
@@ -501,16 +508,21 @@ void* threadFunc(void* thread_data){
 	//получаем структуру с данными
 	pthrData* data = (pthrData*) thread_data;
 
+	pthread_mutex_lock(&lock);
  	//result=TestAneex(data->audio_path, data->db_path);
- 	//result++;
+ 	result++;
+ 	pthread_mutex_unlock(&lock);
 
 	return NULL;
 }
 
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
-	if (result>0)
+	if (result>0) {
+		pthread_exit();
+		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
+	}
 
 	//поток
 	pthread_t thread;
@@ -531,6 +543,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		printf("1\n");
 	else
 		printf("-1\n");
+		pthread_mutex_destroy(&lock);
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
