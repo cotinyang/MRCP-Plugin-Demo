@@ -501,7 +501,7 @@ static apt_bool_t aneex_recog_from_db(char *audio_path, char* db_path)
 	int res;
 
 	res=TestAneex(audio_path, db_path);
-	printf("Answer=",res,"\n");
+	printf("Answer=\n",res);
 
 	return TRUE;
 }
