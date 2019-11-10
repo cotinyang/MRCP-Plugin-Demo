@@ -138,7 +138,7 @@ void* threadFunc(void* thread_data);
 //процедура, запускающая поток
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel);
 //для проверки итогов распознавания
-int result;
+int result=0;
 
 /** Declare this macro to set plugin version */
 MRCP_PLUGIN_VERSION_DECLARE
@@ -501,8 +501,8 @@ void* threadFunc(void* thread_data){
 	//получаем структуру с данными
 	pthrData* data = (pthrData*) thread_data;
 
- 	data->Match=TestAneex(data->audio_path, data->db_path);
- 	result=data->Match;
+ 	//result=TestAneex(data->audio_path, data->db_path);
+ 	//result++;
 
 	return NULL;
 }
@@ -521,7 +521,9 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	threadData.Match = 0;
 
 	//запускаем поток
-	//pthread_create(&(thread), NULL, threadFunc, &threadData);
+	pthread_create(&thread, NULL, threadFunc, &threadData);
+	// переводим в отсоединенный режим
+	pthread_detach(thread);
 
 	if (result==0)
 		printf("0\n");
