@@ -499,7 +499,7 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 
 void* threadFunc(void* thread_data){
 	//получаем структуру с данными
-	pthrData *data = (pthrData*) thread_data;
+	pthrData* data = (pthrData*) thread_data;
 
  	data->Match=TestAneex(data->audio_path, data->db_path);
  	result=data->Match;
@@ -507,9 +507,6 @@ void* threadFunc(void* thread_data){
 	return NULL;
 }
 
-//читаем файл из Etalon2 для демо
-//ищем его в базе TC
-//-m MSCALE -i BINARY -b 0.9
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
 	if (result>0)
@@ -524,7 +521,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	threadData.Match = 0;
 
 	//запускаем поток
-	pthread_create(&(thread), NULL, threadFunc, &threadData);
+	//pthread_create(&(thread), NULL, threadFunc, &threadData);
 
 	if (result==0)
 		printf("0\n");
