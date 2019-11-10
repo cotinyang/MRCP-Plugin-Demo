@@ -496,7 +496,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	const char *db_url;
 	int id_type=1, id_mode=1;
 	int b_thresh=0.8;
-	int res;
+	int res=0;
 
 	res=TestAneex("/usr/local/unimrcp/data/Etalon2/avto01.wav", db_path);
 	if (res==0)
