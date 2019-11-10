@@ -493,7 +493,7 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 //читаем файл из Etalon2 для демо
 //ищем его в базе TC
 //-m MSCALE -i BINARY -b 0.9
-static apt_bool_t aneex_recog_from_db(char *audio_path, char* db_path)
+static apt_bool_t aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
 	const char *apath;
 	const char *db_url;
@@ -509,7 +509,7 @@ static apt_bool_t aneex_recog_from_db(char *audio_path, char* db_path)
 	else
 		printf("-1\n");
 
-	if (res>0)
+	if (res!=0)
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 
 	return TRUE;
@@ -574,7 +574,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 		}
 
-		aneex_recog_from_db(audio_file_path, db_file_path);
+		aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
 
 	}
 	return TRUE;
