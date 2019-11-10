@@ -125,7 +125,6 @@ struct aneex_recog_msg_t {
 static apt_bool_t aneex_recog_msg_signal(aneex_recog_msg_type_e type, mrcp_engine_channel_t *channel, mrcp_message_t *request);
 static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg);
 
-void aneex_recog_from_db();
 char *audio_file_name;
 char *audio_file_path="/usr/local/unimrcp/data/Etalons2/avto01.wav";
 char *db_file_path="/usr/local/unimrcp/data/DB";
@@ -135,6 +134,10 @@ typedef struct{
 	char *db_path;
 	int Match;
 } pthrData;
+//процедура, запускающая поток
+void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel);
+//для проверки итогов распознавания
+int result;
 
 /** Declare this macro to set plugin version */
 MRCP_PLUGIN_VERSION_DECLARE
@@ -494,17 +497,6 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 }
 
 /*
-void* threadFunc(void* thread_data){
-	//получаем структуру с данными
-	pthrData *data = (pthrData*) thread_data;
-
- 	do {
- 		data->Match=TestAneex(data->audio_path, data->db_path);
- 	while(data->Match<=0);
-
-	return NULL;
-}
-
 //выделяем память под массив идентификаторов потоков
 pthread_t* thread = (pthread_t*) malloc(sizeof(pthread_t));
 //сколько потоков - столько и структур с потоковых данных
@@ -531,17 +523,25 @@ free(threadData);
 //-m MSCALE -i BINARY -b 0.9
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
-	int res=0;
+	void* threadFunc(void* thread_data){
+		//получаем структуру с данными
+		pthrData *data = (pthrData*) thread_data;
 
-	res=TestAneex("/usr/local/unimrcp/data/Etalons2/avto01.wav", db_path);
-	if (res==0)
+	 	do {
+	 		data->Match=TestAneex(data->audio_path, data->db_path);
+	 	while(data->Match<=0);
+
+		return NULL;
+	}
+
+	if (result==0)
 		printf("0\n");
-	else if (res==1)
+	else if (result==1)
 		printf("1\n");
 	else
 		printf("-1\n");
 
-	if (res>0)
+	if (result>0)
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 }
 
@@ -599,12 +599,12 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			}
 		}
 
-		//записали входяший голос сюда что-ли? весь или по частям?
+		//записываем входяший голос сюда
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 		}
 
-		aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+		aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/avto01.wav", db_file_path, recog_channel);
 
 	}
 	return TRUE;
