@@ -509,6 +509,7 @@ void* threadFunc(void* thread_data){
 	pthrData* data = (pthrData*) thread_data;
 
 	pthread_mutex_lock(&lock);
+	printf(audio_path);
  	result=TestAneex(data->audio_path, data->db_path);
  	//result++;
  	pthread_mutex_unlock(&lock);

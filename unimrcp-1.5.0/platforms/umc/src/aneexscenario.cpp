@@ -24,7 +24,7 @@
 #include "apt_log.h"
 
 AneexRecogScenario::AneexRecogScenario() :
-	m_DefineGrammar(true),
+	m_DefineGrammar(false),
 	m_Recognize(true),
 	m_ContentType("application/srgs+xml"),
 	m_Content(NULL),
