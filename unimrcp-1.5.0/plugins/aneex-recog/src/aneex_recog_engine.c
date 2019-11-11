@@ -127,7 +127,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 
 // ---------структуры данных для потока---------
 char *audio_file_name;
-char *audio_file_path="/usr/local/unimrcp/data/Etalons2/avto01.wav";
+char *audio_file_path;
 char *db_file_path="/usr/local/unimrcp/data/DB";
 
 typedef struct{
@@ -519,7 +519,7 @@ void* threadFunc(void* thread_data){
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
 	if (result>0) {
-		//pthread_exit(NULL);
+		pthread_exit(NULL);
 		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 	}
@@ -607,6 +607,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		}
 
 		aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/avto01.wav", db_file_path, recog_channel);
+		//aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
 
 	}
 	return TRUE;
