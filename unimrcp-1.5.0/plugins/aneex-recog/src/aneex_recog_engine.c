@@ -540,12 +540,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	// переводим в отсоединенный режим
 	pthread_detach(thread);
 
-	if (result==0)
-		printf("0\n");
-	else if (result==1)
-		printf("1\n");
-	else
-		printf("-1\n");
+	printf("Result=%d\n", result);
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
@@ -608,7 +603,6 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		}
 
 		printf("Size buffer=%d\n", frame->codec_frame.size);
-		printf("Frame duration=%d\n", frame->event_frame.duration);
 		//if (frame->codec_frame.size % 2 == 0)
 			aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/avto01.wav", db_file_path, recog_channel);
 			//aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
