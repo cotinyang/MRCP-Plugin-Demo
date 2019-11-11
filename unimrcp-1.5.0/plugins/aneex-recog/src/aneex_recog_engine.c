@@ -519,7 +519,7 @@ void* threadFunc(void* thread_data){
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
 	if (result>0) {
-		pthread_exit(NULL);
+		//pthread_exit(NULL);
 		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 	}
@@ -543,7 +543,8 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		printf("1\n");
 	else
 		printf("-1\n");
-		pthread_mutex_destroy(&lock);
+
+	//pthread_mutex_destroy(&lock);
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
