@@ -133,7 +133,6 @@ char *db_file_path="/usr/local/unimrcp/data/DB";
 typedef struct{
 	char *audio_path;
 	char *db_path;
-	int Match;
 } pthrData;
 
 pthread_mutex_t lock; //Исключающая блокировка
@@ -510,7 +509,6 @@ void* threadFunc(void* thread_data){
 
 	pthread_mutex_lock(&lock);
  	result=TestAneex(data->audio_path, data->db_path);
- 	//result++;
  	pthread_mutex_unlock(&lock);
 
 	return NULL;
@@ -533,7 +531,6 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	pthrData threadData;
 	threadData.audio_path = audio_path;
 	threadData.db_path = db_path;
-	threadData.Match = 0;
 
 	//запускаем поток
 	pthread_create(&thread, NULL, threadFunc, &threadData);
@@ -602,10 +599,8 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 		}
 
-		printf("Size buffer=%d\n", frame->codec_frame.size);
-		//if (frame->codec_frame.size % 2 == 0)
-			aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/avto01.wav", db_file_path, recog_channel);
-			//aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+		//printf("Size buffer=%d\n", frame->codec_frame.size);
+		aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
 
 	}
 	return TRUE;
