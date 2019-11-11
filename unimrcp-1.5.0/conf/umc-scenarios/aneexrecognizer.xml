@@ -6,8 +6,8 @@
   <!-- <define-grammar enable="1" content-type="application/x-jsgf" content-location="grammar.jsgf"/> -->
   <!-- <recognize enable="1"/> -->
   <!-- <recognize enable="1" audio-source="one-8kHz.pcm"/> -->
-  <recognize enable="1" audio-source="demo-8kHz.pcm"/> 
-  <!-- <recognize enable="1" audio-source="Etalons2/avto01.wav"/> -->  
+  <!--<recognize enable="1" audio-source="demo-8kHz.pcm"/> --> 
+  <recognize enable="1" audio-source="Etalons2/avto01.wav"/>
   <!-- <recognize enable="1" content-type="application/srgs+xml" content-location="grammar.xml"/> -->
 
   <termination enable="1">
