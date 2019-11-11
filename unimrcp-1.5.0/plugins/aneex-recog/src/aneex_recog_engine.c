@@ -509,7 +509,6 @@ void* threadFunc(void* thread_data){
 	pthrData* data = (pthrData*) thread_data;
 
 	pthread_mutex_lock(&lock);
-	printf(data->audio_path);
  	result=TestAneex(data->audio_path, data->db_path);
  	//result++;
  	pthread_mutex_unlock(&lock);
@@ -522,6 +521,10 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	if (result>0) {
 		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
+	}
+	else if (result=-1){
+		pthread_mutex_destroy(&lock);
+		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
 	}
 
 	//поток
