@@ -606,6 +606,8 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 		}
+		printf("Size buffer=%le\n", frame->codec_frame.size);
+		apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"codec_frame.size",frame->codec_frame.size);
 
 		aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/avto01.wav", db_file_path, recog_channel);
 		//aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
