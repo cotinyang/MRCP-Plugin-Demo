@@ -143,7 +143,7 @@ void* threadFunc(void* thread_data);
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel);
 
 //для проверки итогов распознавания
-int result=0;
+int result=-2;
 // ---------структуры данных для потока---------
 
 /** Declare this macro to set plugin version */
@@ -204,8 +204,6 @@ static apt_bool_t aneex_recog_engine_destroy(mrcp_engine_t *engine)
 /** Open recognizer engine */
 static apt_bool_t aneex_recog_engine_open(mrcp_engine_t *engine)
 {
-    printf("DEBUG: Plugin: demo_aneex_engine_open\n");
-
 	aneex_recog_engine_t *aneex_engine = engine->obj;
 	if(aneex_engine->task) {
 		apt_task_t *task = apt_consumer_task_base_get(aneex_engine->task);
@@ -222,6 +220,7 @@ static apt_bool_t aneex_recog_engine_close(mrcp_engine_t *engine)
 		apt_task_t *task = apt_consumer_task_base_get(aneex_engine->task);
 		apt_task_terminate(task,TRUE);
 	}
+
 	return mrcp_engine_close_respond(engine);
 }
 
@@ -282,6 +281,8 @@ static apt_bool_t aneex_recog_channel_open(mrcp_engine_channel_t *channel)
 /** Close engine channel (asynchronous response MUST be sent)*/
 static apt_bool_t aneex_recog_channel_close(mrcp_engine_channel_t *channel)
 {
+    printf("DEBUG: Plugin: aneex_recog_channel_close\n");
+	pthread_exit(NULL);
 	return aneex_recog_msg_signal(ANEEX_RECOG_MSG_CLOSE_CHANNEL,channel,NULL);
 }
 
@@ -519,7 +520,6 @@ void* threadFunc(void* thread_data){
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
 	if (result>0) {
-		pthread_exit(NULL);
 		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 	}
@@ -543,8 +543,6 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		printf("1\n");
 	else
 		printf("-1\n");
-
-	//pthread_mutex_destroy(&lock);
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
