@@ -281,7 +281,7 @@ static apt_bool_t aneex_recog_channel_open(mrcp_engine_channel_t *channel)
 static apt_bool_t aneex_recog_channel_close(mrcp_engine_channel_t *channel)
 {
     printf("DEBUG: Plugin: aneex_recog_channel_close\n");
-    //pthread_exit(NULL);
+    pthread_exit(0);
 	return aneex_recog_msg_signal(ANEEX_RECOG_MSG_CLOSE_CHANNEL,channel,NULL);
 }
 
@@ -464,8 +464,8 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 		if(generic_header) {
 			apt_string_assign(&generic_header->content_type,"application/x-nlsml",message->pool);
 			mrcp_generic_header_property_add(message,GENERIC_HEADER_CONTENT_TYPE);
-		}*/
-	}
+		}
+	}*/
 
 	return TRUE;
 }
