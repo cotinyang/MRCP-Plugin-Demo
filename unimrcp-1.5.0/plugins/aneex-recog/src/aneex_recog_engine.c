@@ -535,7 +535,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	// переводим в отсоединенный режим
 	pthread_detach(thread);
 
-	printf("Result=%d\n", result);
+	printf("Result from plugin=%d\n", result);
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
