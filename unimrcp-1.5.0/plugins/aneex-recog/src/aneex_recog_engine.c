@@ -626,7 +626,7 @@ static apt_bool_t aneex_recog_msg_signal(aneex_recog_msg_type_e type, mrcp_engin
 
 static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 {
-	//printf("DEBUG: aneex_recog_msg_process\n");
+	printf("DEBUG: aneex_recog_msg_process\n");
 	aneex_recog_msg_t *aneex_msg = (aneex_recog_msg_t*)msg->data;
 
 	switch(aneex_msg->type) {
