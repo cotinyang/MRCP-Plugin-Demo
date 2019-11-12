@@ -505,7 +505,7 @@ void* threadFunc(void* thread_data){
 	//получаем структуру с данными
 	pthrData* data = (pthrData*) thread_data;
 
-	pthread_join(3);
+	pthread_join(3,NULL);
 	pthread_mutex_lock(&lock);
  	result=TestAneex(data->audio_path, data->db_path);
  	pthread_mutex_unlock(&lock);
