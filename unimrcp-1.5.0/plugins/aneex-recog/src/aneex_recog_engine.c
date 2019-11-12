@@ -535,7 +535,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	// переводим в отсоединенный режим
 	pthread_detach(thread);
 
-	//printf("Result=%d\n", result);
+	printf("Result=%d\n", result);
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
@@ -644,7 +644,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 			}
 
 			mrcp_engine_channel_close_respond(aneex_msg->channel);
-		    pthread_exit(NULL);
+		    pthread_exit(3);
 			break;
 		}
 		case ANEEX_RECOG_MSG_REQUEST_PROCESS:
