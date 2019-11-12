@@ -518,10 +518,10 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 	}
-	else if (result==-1){
+	/*else if (result==-1){
 		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
-	}
+	}*/
 
 	//поток
 	pthread_t thread;
