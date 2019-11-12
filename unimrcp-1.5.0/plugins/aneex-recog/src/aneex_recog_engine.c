@@ -595,10 +595,10 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		//записываем входяший голос сюда
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
-		}
 
-		//printf("Size buffer=%d\n", frame->codec_frame.size);
-		aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+			//printf("Size buffer=%d\n", frame->codec_frame.size);
+			aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+		}
 
 	}
 	return TRUE;
