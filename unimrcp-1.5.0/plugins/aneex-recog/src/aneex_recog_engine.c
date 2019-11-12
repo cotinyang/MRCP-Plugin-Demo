@@ -506,7 +506,6 @@ void* threadFunc(void* thread_data){
 	//получаем структуру с данными
 	pthrData* data = (pthrData*) thread_data;
 
-	pthread_join(3,NULL);
 	pthread_mutex_lock(&lock);
  	result=TestAneex(data->audio_path, data->db_path);
  	pthread_mutex_unlock(&lock);
@@ -525,7 +524,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
 	}*/
 
-	//pthread_join(thread,NULL);
+	pthread_join(thread,NULL);
 	//структура
 	pthrData threadData;
 	threadData.audio_path = audio_path;
