@@ -524,7 +524,6 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
 	}*/
 
-	pthread_join(thread,NULL);
 	//структура
 	pthrData threadData;
 	threadData.audio_path = audio_path;
@@ -532,8 +531,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 
 	//запускаем поток
 	pthread_create(&thread, NULL, threadFunc, &threadData);
-	// переводим в отсоединенный режим
-	pthread_detach(thread);
+	pthread_join(thread,NULL);
 
 	printf("Result from plugin=%d\n", result);
 }
