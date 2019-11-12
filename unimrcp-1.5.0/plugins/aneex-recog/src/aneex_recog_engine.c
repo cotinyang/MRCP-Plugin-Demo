@@ -135,7 +135,8 @@ typedef struct{
 	char *db_path;
 } pthrData;
 
-pthread_mutex_t lock; //Исключающая блокировка
+pthread_mutex_t lock; 	//Исключающая блокировка
+pthread_t thread;		//поток
 
 void* threadFunc(void* thread_data);
 
@@ -524,8 +525,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
 	}*/
 
-	//поток
-	pthread_t thread;
+	//pthread_join(thread,NULL);
 	//структура
 	pthrData threadData;
 	threadData.audio_path = audio_path;
