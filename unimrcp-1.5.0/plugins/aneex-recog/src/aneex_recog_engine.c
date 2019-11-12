@@ -644,7 +644,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 			}
 
 			mrcp_engine_channel_close_respond(aneex_msg->channel);
-		    pthread_exit(null);
+		    pthread_exit(NULL);
 			break;
 		}
 		case ANEEX_RECOG_MSG_REQUEST_PROCESS:
