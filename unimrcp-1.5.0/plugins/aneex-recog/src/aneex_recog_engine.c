@@ -518,10 +518,10 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 	}
-	/*else if (result==-1){
+	else if (result==-1){
 		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
-	}*/
+	}
 
 	//поток
 	pthread_t thread;
@@ -644,7 +644,6 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 			}
 
 			mrcp_engine_channel_close_respond(aneex_msg->channel);
-		    pthread_exit(3);
 			break;
 		}
 		case ANEEX_RECOG_MSG_REQUEST_PROCESS:
