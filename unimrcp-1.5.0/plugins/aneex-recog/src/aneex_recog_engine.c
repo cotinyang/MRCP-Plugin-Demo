@@ -281,6 +281,7 @@ static apt_bool_t aneex_recog_channel_open(mrcp_engine_channel_t *channel)
 static apt_bool_t aneex_recog_channel_close(mrcp_engine_channel_t *channel)
 {
     printf("DEBUG: Plugin: aneex_recog_channel_close\n");
+    pthread_exit(NULL);
 	return aneex_recog_msg_signal(ANEEX_RECOG_MSG_CLOSE_CHANNEL,channel,NULL);
 }
 
