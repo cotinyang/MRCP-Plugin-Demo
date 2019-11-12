@@ -598,7 +598,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 
 			//printf("Size buffer=%d\n", frame->codec_frame.size);
 			//aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
-			aneex_recog_from_db("/usr/local/unimrcp/data/Etalons/avto 02.wav", db_file_path, recog_channel);
+			aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/avto 02.wav", db_file_path, recog_channel);
 		}
 
 	}
