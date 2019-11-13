@@ -27,11 +27,11 @@
   <components>
     <!-- Factory of MRCP resources -->
     <resource-factory>
-      <resource id="speechsynth" enable="true"/>
-      <resource id="speechrecog" enable="true"/>
-      <resource id="aneexrecog" enable="true"/>        
-      <resource id="recorder" enable="true"/>
-      <resource id="speakverify" enable="true"/>
+      <resource id="speechsynth" enable="false"/>
+      <resource id="speechrecog" enable="false"/>
+      <resource id="aneexrecog" enable="true"/>
+      <resource id="recorder" enable="false"/>
+      <resource id="speakverify" enable="false"/>
     </resource-factory>
 
     <!-- SofiaSIP MRCPv2 signaling agent -->
@@ -112,10 +112,10 @@
 
     <!-- Factory of plugins (MRCP engines) -->
     <plugin-factory>
-      <engine id="Demo-Synth-1" name="demosynth" enable="true"/>
-      <engine id="Demo-Recog-1" name="demorecog" enable="true"/>
-      <engine id="Demo-Verifier-1" name="demoverifier" enable="true"/>
-      <engine id="Recorder-1" name="mrcprecorder" enable="true"/>
+      <engine id="Demo-Synth-1" name="demosynth" enable="false"/>
+      <engine id="Demo-Recog-1" name="demorecog" enable="false"/>
+      <engine id="Demo-Verifier-1" name="demoverifier" enable="false"/>
+      <engine id="Recorder-1" name="mrcprecorder" enable="false"/>
 	  <engine id="Aneex-Recog-1" name="aneexrecog" enable="true"/>
       <!--
         Engines may have additional named ("max-channel-count") and generic (name/value) parameters.
@@ -140,7 +140,7 @@
         <time-skew-detection>1</time-skew-detection>
       </jitter-buffer>
       <ptime>20</ptime>
-      <codecs own-preference="false">PCMU PCMA L16/96/8000 telephone-event/101/8000</codecs>
+      <codecs own-preference="false">L16/96/8000 telephone-event/101/8000</codecs>
       <!-- <codecs own-preference="false">PCMU PCMA L16/96/8000 PCMU/97/16000 PCMA/98/16000 L16/99/16000</codecs> -->
       <!-- Enable/disable RTCP support -->
       <rtcp enable="false">
