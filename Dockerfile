@@ -1,64 +1,68 @@
 FROM debian:latest
 
-RUN apt-get update
-RUN apt-get --assume-yes upgrade
-RUN apt-get --assume-yes install wget curl make tar git cmake gcc g++ \
-                                 libtool pkg-config \
-                                 libboost-all-dev \
-                                 libghc-zlib-dev \
-                                 libghc-bzlib-dev && rm -rf /var/lib/apt/lists/* 
+RUN apt-get update && \
+    apt-get --assume-yes upgrade && \
+    apt-get --assume-yes install wget curl make tar git cmake gcc g++ \
+        libtool pkg-config \
+        libboost-all-dev \
+        libghc-zlib-dev \
+        libghc-bzlib-dev && \
+    apt-get --assume-yes clean
 
-#DATASTORE_LIB
-WORKDIR /usr/src
-RUN git clone https://github.com/clement/tokyo-cabinet.git tc 
+# DATASTORE_LIB
+RUN git clone https://github.com/clement/tokyo-cabinet.git /usr/src/tc
 WORKDIR /usr/src/tc
 RUN ./configure CC=gcc CFLAGS='-fPIC' CXXFLAGS='-fPIC' && make && make install
 
-#ffmpeg
-WORKDIR /usr/src
-RUN git clone https://github.com/FFmpeg/FFmpeg.git ffmpeg
+# ffmpeg
+RUN git clone https://github.com/FFmpeg/FFmpeg.git /usr/src/ffmpeg
 WORKDIR /usr/src/ffmpeg
-RUN ./configure --disable-x86asm
-RUN make && make install
+RUN ./configure --disable-x86asm && make && make install
 
-#MRCP src + deps + FFTSS src
-WORKDIR /tmp
-RUN git clone https://github.com/Anastasya83/MRCP-Plugin-Demo.git mrcp_deps 
-RUN mv /tmp/mrcp_deps/unimrcp-deps-1.5.0/ /usr/local/unimrcp-deps/
+# MRCP src + deps + FFTSS src
+# WORKDIR /tmp
+# RUN git clone https://github.com/Anastasya83/MRCP-Plugin-Demo.git mrcp_deps
+ADD unimrcp-deps-1.5.0 /usr/src/unimrcp-deps/
 
-#FFTSS_LIB
-RUN mv /tmp/mrcp_deps/fftss-3.0-20071031/ /usr/src/fftss && chmod -R 755 /usr/src/fftss
+# FFTSS_LIB
+ADD fftss-3.0-20071031 /usr/src/fftss
+# RUN chmod -R 755 /usr/src/fftss
 WORKDIR /usr/src/fftss
-RUN ./configure CC=gcc CFLAGS='-fPIC' CXXFLAGS='-fPIC' && make && make install
-
-RUN cd /usr/local/unimrcp-deps/ && yes | ./build-dep-libs.sh 
-RUN cd /usr/local/unimrcp-deps/libs/apr && make install 
-RUN cd /usr/local/unimrcp-deps/libs/apr-util && make install 
-RUN cd /usr/local/unimrcp-deps/libs/sofia-sip && make install 
+RUN ./configure CC=gcc CFLAGS='-fPIC' CXXFLAGS='-fPIC' && make && make install && \
+    cd /usr/src/unimrcp-deps/ && yes | ./build-dep-libs.sh && \
+    cd /usr/src/unimrcp-deps/libs/apr && make install && \
+    cd /usr/src/unimrcp-deps/libs/apr-util && make install && \
+    cd /usr/src/unimrcp-deps/libs/sofia-sip && make install
 
 #audioneex
-WORKDIR /usr/src
-RUN git clone https://github.com/Anastasya83/audioneex.git audioneex
+# WORKDIR /usr/src
+RUN git clone https://github.com/Anastasya83/audioneex.git /usr/src/audioneex
 WORKDIR /usr/src/audioneex
-RUN cp -a /usr/src/fftss/include/ audio/fftss/ && cp -a /usr/src/tc/ DAO/tcabinet/
-RUN mkdir build 
+RUN cp -a /usr/src/fftss/include/ audio/fftss/ && cp -a /usr/src/tc/ DAO/tcabinet/ && \
+    mkdir build
 WORKDIR /usr/src/audioneex/build
-RUN cmake -DDATASTORE_T=TCDataStore .. && make 
-RUN cp /usr/src/audioneex/lib/libaudioneex.so /usr/local/lib/ && ldconfig
+RUN cmake -DDATASTORE_T=TCDataStore .. && make && \
+    cp /usr/src/audioneex/lib/libaudioneex.so /usr/local/lib/ && ldconfig
 
-WORKDIR /tmp
-RUN git clone https://github.com/Anastasya83/MRCP-Plugin-Demo.git mrcp 
-RUN mv /tmp/mrcp/unimrcp-1.5.0/ /usr/local/unimrcp/ 
-RUN mv /tmp/mrcp/Etalons2/ /usr/local/unimrcp/data/
-RUN mv /tmp/mrcp/DB/ /usr/local/unimrcp/data/
+# WORKDIR /tmp
+# RUN git clone https://github.com/Anastasya83/MRCP-Plugin-Demo.git mrcp
+ADD unimrcp-1.5.0 /usr/src/unimrcp
+ADD Etalons2 /usr/local/unimrcp/data
+ADD DB/* /usr/local/unimrcp/data/
 
-WORKDIR /usr/local/unimrcp/
-RUN ./bootstrap
-RUN ./configure --with-apr=/usr/local/unimrcp-deps/libs/apr --with-apr-util=/usr/local/unimrcp-deps/libs/apr-util --with-sofia-sip=/usr/local/unimrcp-deps/libs/sofia-sip
-RUN make && make install
+WORKDIR /usr/src/unimrcp
+RUN ./bootstrap && \
+    ./configure --with-apr=/usr/src/unimrcp-deps/libs/apr \
+        --with-apr-util=/usr/src/unimrcp-deps/libs/apr-util \
+        --with-sofia-sip=/usr/src/unimrcp-deps/libs/sofia-sip && \
+    make && \
+    make install && \
+    ldconfig
 
-RUN ldconfig
+WORKDIR /
 
-WORKDIR /usr/local/unimrcp/bin
-CMD ./unimrcpserver
+VOLUME /usr/local/unimrcp/conf
+CMD /usr/local/unimrcp/bin/unimrcpserver -r /usr/local/unimrcp/ -w
 # ./umc
+
+# find . -name "l*.so"
