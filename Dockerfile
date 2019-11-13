@@ -20,7 +20,7 @@ WORKDIR /usr/src/ffmpeg
 RUN ./configure --disable-x86asm && make && make install
 
 # MRCP src + deps + FFTSS src
-WORKDIR /tmp
+# WORKDIR /tmp
 # RUN git clone https://github.com/Anastasya83/MRCP-Plugin-Demo.git mrcp_deps
 ADD unimrcp-deps-1.5.0 /usr/src/unimrcp-deps/
 
@@ -35,14 +35,14 @@ RUN ./configure CC=gcc CFLAGS='-fPIC' CXXFLAGS='-fPIC' && make && make install &
     cd /usr/src/unimrcp-deps/libs/sofia-sip && make install
 
 #audioneex
-WORKDIR /usr/src
-RUN git clone https://github.com/Anastasya83/audioneex.git audioneex
+# WORKDIR /usr/src
+RUN git clone https://github.com/Anastasya83/audioneex.git /usr/src/audioneex
 WORKDIR /usr/src/audioneex
-RUN cp -a /usr/src/fftss/include/ audio/fftss/ && cp -a /usr/src/tc/ DAO/tcabinet/
-RUN mkdir build
+RUN cp -a /usr/src/fftss/include/ audio/fftss/ && cp -a /usr/src/tc/ DAO/tcabinet/ && \
+    mkdir build
 WORKDIR /usr/src/audioneex/build
-RUN cmake -DDATASTORE_T=TCDataStore .. && make
-RUN cp /usr/src/audioneex/lib/libaudioneex.so /usr/local/lib/ && ldconfig
+RUN cmake -DDATASTORE_T=TCDataStore .. && make && \
+    cp /usr/src/audioneex/lib/libaudioneex.so /usr/local/lib/ && ldconfig
 
 # WORKDIR /tmp
 # RUN git clone https://github.com/Anastasya83/MRCP-Plugin-Demo.git mrcp
@@ -58,6 +58,8 @@ RUN ./bootstrap && \
     make && \
     make install && \
     ldconfig
+
+WORKDIR /
 
 VOLUME /usr/local/unimrcp/conf
 CMD /usr/local/unimrcp/bin/unimrcpserver -r /usr/local/unimrcp/ -w
