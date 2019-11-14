@@ -192,7 +192,8 @@ AneexRecogChannel* AneexRecogSession::CreateRecogChannel()
 			pRecogChannel);            /* object to associate */
 
 	pChannel = CreateMrcpChannel(
-			ANEEX_RECOGNIZER_RESOURCE,  /* MRCP resource identifier */
+			//ANEEX_RECOGNIZER_RESOURCE,  /* MRCP resource identifier */
+			MRCP_RECOGNIZER_RESOURCE,  /* MRCP resource identifier */
 			pTermination,              /* media termination, used to terminate audio stream */
 			NULL,                      /* RTP descriptor, used to create RTP termination (NULL by default) */
 			pRecogChannel);            /* object to associate */

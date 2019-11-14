@@ -29,7 +29,7 @@
     <resource-factory>
       <resource id="speechsynth" enable="true"/>
       <resource id="speechrecog" enable="true"/>
-      <resource id="aneexrecog" enable="true"/>        
+      <!--<resource id="aneexrecog" enable="true"/> -->       
       <resource id="recorder" enable="true"/>
       <resource id="speakverify" enable="true"/>
     </resource-factory>
@@ -171,12 +171,12 @@
       <!--
         Profile-based association of engines to resources. For example:
       -->
-      <!--
+      
       <resource-engine-map>
-        <param name="speechsynth" value="Flite-1"/>
-        <param name="speechrecog" value="PocketSphinx-1"/>
+        <!--<param name="speechsynth" value="Flite-1"/>-->
+        <param name="speechrecog" value="Aneex-Recog-1"/>
       </resource-engine-map>
-      -->
+      
     </mrcpv2-profile>
 
     <!-- MRCPv1 default profile -->

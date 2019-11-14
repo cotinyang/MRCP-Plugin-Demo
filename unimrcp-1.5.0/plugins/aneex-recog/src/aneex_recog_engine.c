@@ -184,7 +184,8 @@ MRCP_PLUGIN_DECLARE(mrcp_engine_t*) mrcp_plugin_create(apr_pool_t *pool)
 
 	/* create engine base */
 	return mrcp_engine_create(
-				ANEEX_RECOGNIZER_RESOURCE,  /* MRCP resource identifier */
+				//ANEEX_RECOGNIZER_RESOURCE,  /* MRCP resource identifier */
+				MRCP_RECOGNIZER_RESOURCE,  /* MRCP resource identifier */
 				aneex_engine,               /* object to associate */
 				&engine_vtable,            /* virtual methods table of engine */
 				pool);                     /* pool to allocate memory from */
