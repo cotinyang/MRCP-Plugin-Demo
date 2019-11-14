@@ -221,7 +221,8 @@ static apt_bool_t recorder_file_open(recorder_channel_t *recorder_channel, mrcp_
 		return FALSE;
 	}
 
-	file_name = apr_psprintf(channel->pool,"rec-%dkHz-%s-%"MRCP_REQUEST_ID_FMT".pcm",
+	//file_name = apr_psprintf(channel->pool,"rec-%dkHz-%s-%"MRCP_REQUEST_ID_FMT".pcm",
+	file_name = apr_psprintf(channel->pool,"rec-8kHz.pcm",
 		descriptor->sampling_rate/1000,
 		request->channel_id.session_id.buf,
 		request->start_line.request_id);

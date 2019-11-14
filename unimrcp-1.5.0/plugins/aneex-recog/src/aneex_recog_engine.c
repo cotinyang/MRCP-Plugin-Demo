@@ -128,7 +128,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 // ---------структуры данных для потока---------
 char *audio_file_name;
 char *audio_file_path;
-char *db_file_path="/usr/local/unimrcp/data/DB";
+char *db_file_path="/usr/local/unimrcp/data/DB";rec-8kHz.pcm
 
 typedef struct{
 	char *audio_path;
@@ -595,8 +595,8 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 
 			//printf("Size buffer=%d\n", frame->codec_frame.size);
-			aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
-			//aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/avto 02.wav", db_file_path, recog_channel);
+			//aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+			aneex_recog_from_db("/usr/local/unimrcp/var/rec-8kHz.pcm", db_file_path, recog_channel);
 		}
 
 	}
