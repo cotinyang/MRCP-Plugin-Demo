@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <umcscenario name="aneexrecog" class="AneexRecognizer" profile="uni2">
-  <resource-discovery enable="0"/>
+  <resource-discovery enable="1"/>
   <!-- <define-grammar enable="1" content-type="application/srgs+xml" content-location="grammar.xml"/>-->
   <!-- <define-grammar enable="1" content-type="application/grammar+xml" content-location="grammar.xml"/> -->
   <!-- <define-grammar enable="1" content-type="application/x-jsgf" content-location="grammar.jsgf"/> -->
@@ -18,7 +18,7 @@
   </termination> -->
 
   <rtp-termination enable="1" ip="127.0.0.1" port="5678">
-    <codecs="PCMU PCMA L16/96/8000 PCMU/97/16000 telephone-event/101/8000"/>
+    <codecs>PCMU PCMA L16/96/8000 PCMU/97/16000 PCMA/98/16000 L16/99/16000</codecs>
   </rtp-termination>
 
 </umcscenario>
