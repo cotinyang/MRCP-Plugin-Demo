@@ -10,35 +10,43 @@ RUN apt-get update && \
     apt-get --assume-yes clean
 
 # DATASTORE_LIB
-RUN git clone https://github.com/clement/tokyo-cabinet.git /usr/src/tc
-WORKDIR /usr/src/tc
-RUN ./configure CC=gcc CFLAGS='-fPIC' CXXFLAGS='-fPIC' && make && make install
+ADD tc /usr/src/tc
+RUN cd /usr/src/tc && \
+    ./configure CC=gcc CFLAGS='-fPIC' CXXFLAGS='-fPIC' && \
+    make && \
+    make install
 
 # ffmpeg
-RUN git clone https://github.com/FFmpeg/FFmpeg.git /usr/src/ffmpeg
-WORKDIR /usr/src/ffmpeg
-RUN ./configure --disable-x86asm && make && make install
-
-# MRCP src + deps + FFTSS src
-ADD unimrcp-deps-1.5.0 /usr/src/unimrcp-deps/
+ADD ffmpeg /usr/src/ffmpeg
+RUN cd /usr/src/ffmpeg && \
+    ./configure --disable-x86asm && \
+    make && \
+    make install
 
 # FFTSS_LIB
 ADD fftss-3.0-20071031 /usr/src/fftss
-WORKDIR /usr/src/fftss
-RUN ./configure CC=gcc CFLAGS='-fPIC' CXXFLAGS='-fPIC' && make && make install && \
-    cd /usr/src/unimrcp-deps/ && yes | ./build-dep-libs.sh && \
+RUN cd /usr/src/fftss && \
+    ./configure CC=gcc CFLAGS='-fPIC' CXXFLAGS='-fPIC' && \
+    make && \
+    make install
+
+# MRCP deps
+ADD unimrcp-deps-1.5.0 /usr/src/unimrcp-deps/
+RUN cd /usr/src/unimrcp-deps/ && yes | ./build-dep-libs.sh && \
     cd /usr/src/unimrcp-deps/libs/apr && make install && \
     cd /usr/src/unimrcp-deps/libs/apr-util && make install && \
     cd /usr/src/unimrcp-deps/libs/sofia-sip && make install
 
 #audioneex
-RUN git clone https://github.com/Anastasya83/audioneex.git /usr/src/audioneex
-WORKDIR /usr/src/audioneex
-RUN cp -a /usr/src/fftss/include/ audio/fftss/ && cp -a /usr/src/tc/ DAO/tcabinet/ && \
-    mkdir build
-WORKDIR /usr/src/audioneex/build
-RUN cmake -DDATASTORE_T=TCDataStore .. && make && \
-    cp /usr/src/audioneex/lib/libaudioneex.so /usr/local/lib/ && ldconfig
+ADD audioneex /usr/src/audioneex
+RUN cp -a /usr/src/fftss/include/ /usr/src/audioneex/audio/fftss/ && \
+    cp -a /usr/src/tc/ /usr/src/audioneex/DAO/tcabinet/ && \
+    mkdir /usr/src/audioneex/build && \
+    cd /usr/src/audioneex/build && \
+    cmake -DDATASTORE_T=TCDataStore .. && \
+    make && \
+    cp /usr/src/audioneex/lib/libaudioneex.so /usr/local/lib/ && \
+    ldconfig
 
 ADD unimrcp-1.5.0 /usr/src/unimrcp
 ADD Etalons2 /usr/local/unimrcp/data

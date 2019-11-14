@@ -1,0 +1,9 @@
+[submodule "tc"]
+	path = tc
+	url = https://github.com/clement/tokyo-cabinet.git
+[submodule "ffmpeg"]
+	path = ffmpeg
+	url = https://github.com/FFmpeg/FFmpeg.git
+[submodule "audioneex"]
+	path = audioneex
+	url = https://github.com/Anastasya83/audioneex.git
