@@ -108,9 +108,9 @@ MRCP_DECLARE(apt_bool_t) mrcp_engine_factory_engine_register(mrcp_engine_factory
 		case MRCP_RECORDER_RESOURCE:
 			engine->create_state_machine = mrcp_recorder_state_machine_create;
 			break;
-		case ANEEX_RECOGNIZER_RESOURCE:
-			engine->create_state_machine = aneex_recog_state_machine_create;
-			break;
+		//case ANEEX_RECOGNIZER_RESOURCE:
+		//	engine->create_state_machine = aneex_recog_state_machine_create;
+		//	break;
 		case MRCP_VERIFIER_RESOURCE:
 			engine->create_state_machine = mrcp_verifier_state_machine_create;
 			break;
