@@ -128,7 +128,7 @@ static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 // ---------структуры данных для потока---------
 char *audio_file_name;
 char *audio_file_path;
-char *db_file_path="/usr/local/unimrcp/data/DB";rec-8kHz.pcm
+char *db_file_path="/usr/local/unimrcp/data/DB";
 
 typedef struct{
 	char *audio_path;
