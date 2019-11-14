@@ -242,15 +242,20 @@ static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *e
 	recog_channel->audio_out = NULL;
 
 	capabilities = mpf_sink_stream_capabilities_create(pool);
-	/*mpf_codec_capabilities_add(
+	mpf_codec_capabilities_add(
 			&capabilities->codecs,
-			MPF_SAMPLE_RATE_8000 | MPF_SAMPLE_RATE_16000,
-			"LPCM");*/
+			MPF_SAMPLE_RATE_16000,
+			"LPCM");
 
 	mpf_codec_capabilities_add(
 			&capabilities->codecs,
 			MPF_SAMPLE_RATE_16000,
 			"PCMU");
+
+	mpf_codec_capabilities_add(
+			&capabilities->codecs,
+			MPF_SAMPLE_RATE_16000,
+			"L16");
 
 	//create link to DB file in /data
 
