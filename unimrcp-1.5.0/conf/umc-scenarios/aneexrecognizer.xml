@@ -12,7 +12,7 @@
 
   <termination enable="1">
     <capabilities>
-      <codec name="LPCM" rates="8000 16000"/>
+      <codec name="L16" rates="8000 16000"/>
       <!-- <codec name="PCMU" rates="8000 16000"/>-->
       <!-- PCMU PCMA L16/96/8000 PCMU/97/16000 PCMA/98/16000 L16/99/16000 -->
     </capabilities>
