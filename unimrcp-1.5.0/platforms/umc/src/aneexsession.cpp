@@ -39,7 +39,7 @@ struct AneexRecogChannel
 	AneexRecogChannel() :
 		m_pMrcpChannel(NULL),
 		m_pRecogRequest(NULL),
-		m_Streaming(false),
+		m_Streaming(true),
 		m_pAudioIn(NULL),
 		m_TimeToComplete(0) {}
 };

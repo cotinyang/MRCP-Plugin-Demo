@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <umcscenario name="aneexrecog" class="AneexRecognizer" profile="uni2">
-  <resource-discovery enable="1"/>
+  <resource-discovery enable="0"/>
   <!-- <define-grammar enable="1" content-type="application/srgs+xml" content-location="grammar.xml"/>-->
   <!-- <define-grammar enable="1" content-type="application/grammar+xml" content-location="grammar.xml"/> -->
   <!-- <define-grammar enable="1" content-type="application/x-jsgf" content-location="grammar.jsgf"/> -->
-  <!-- <recognize enable="1"/> -->
+  <!--<recognize enable="1"/> -->
   <!--<recognize enable="1" audio-source="one-16kHz.pcm"/> -->
   <!--<recognize enable="1" audio-source="demo-8kHz.pcm"/>  -->
   <recognize enable="1" audio-source="Etalons2/test_voice.m4a"/>
