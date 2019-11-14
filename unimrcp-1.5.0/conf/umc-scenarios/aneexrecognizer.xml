@@ -10,15 +10,15 @@
   <recognize enable="1" audio-source="Etalons2/test_voice.m4a"/>
   <!-- <recognize enable="1" content-type="application/srgs+xml" content-location="grammar.xml"/> -->
 
-  <!-- <termination enable="1">
+   <termination enable="1">
     <capabilities>
       <codec name="L16" rates="8000 16000"/>
-      <codec name="PCMU" rates="8000 16000"/>
+      <!--<codec name="PCMU" rates="8000 16000"/>-->
     </capabilities>
-  </termination> -->
+  </termination> 
 
-  <rtp-termination enable="1" ip="172.17.0.2" port="5678">
+  <!-- <rtp-termination enable="1" ip="172.17.0.2" port="5678">
     <codecs>PCMU PCMA L16/96/8000</codecs>
-  </rtp-termination>
+  </rtp-termination>-->
 
 </umcscenario>
