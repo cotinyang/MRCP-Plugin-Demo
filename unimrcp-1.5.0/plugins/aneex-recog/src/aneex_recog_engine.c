@@ -250,11 +250,6 @@ static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *e
 	mpf_codec_capabilities_add(
 			&capabilities->codecs,
 			MPF_SAMPLE_RATE_16000,
-			"PCMU");
-
-	mpf_codec_capabilities_add(
-			&capabilities->codecs,
-			MPF_SAMPLE_RATE_16000,
 			"L16");
 
 	//create link to DB file in /data
