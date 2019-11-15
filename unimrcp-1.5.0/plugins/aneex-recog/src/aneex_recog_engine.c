@@ -277,13 +277,15 @@ static apt_bool_t aneex_recog_channel_destroy(mrcp_engine_channel_t *channel)
 /** Open engine channel (asynchronous response MUST be sent)*/
 static apt_bool_t aneex_recog_channel_open(mrcp_engine_channel_t *channel)
 {
+	result=0;
+	audio_file_name="";
+	audio_file_path="";
 	return aneex_recog_msg_signal(ANEEX_RECOG_MSG_OPEN_CHANNEL,channel,NULL);
 }
 
 /** Close engine channel (asynchronous response MUST be sent)*/
 static apt_bool_t aneex_recog_channel_close(mrcp_engine_channel_t *channel)
 {
-    printf("DEBUG: Plugin: aneex_recog_channel_close\n");
 	return aneex_recog_msg_signal(ANEEX_RECOG_MSG_CLOSE_CHANNEL,channel,NULL);
 }
 
@@ -296,8 +298,6 @@ static apt_bool_t aneex_recog_channel_request_process(mrcp_engine_channel_t *cha
 /** Process RECOGNIZE request */
 static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, mrcp_message_t *request, mrcp_message_t *response)
 {
-    //printf("DEBUG: Plugin: aneex_recog_channel_recognize\n");
-
 	/* process RECOGNIZE request */
 	aneex_recog_header_t *recog_header;
 	aneex_recog_channel_t *recog_channel = channel->method_obj;
