@@ -485,7 +485,7 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 		return FALSE;
 	}
 
-	aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+	aneex_recog_from_db("/usr/local/unimrcp/data/demo-8kHz.pcm", db_file_path, recog_channel);
 
 	/* get/allocate recognizer header */
 	recog_header = mrcp_resource_header_prepare(message);
