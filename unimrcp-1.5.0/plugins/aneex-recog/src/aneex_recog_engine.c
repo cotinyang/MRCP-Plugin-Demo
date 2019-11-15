@@ -327,8 +327,9 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 
 	if(!recog_channel->audio_out) {
 		const apt_dir_layout_t *dir_layout = channel->engine->dir_layout;
-		audio_file_name = apr_psprintf(channel->pool,"utter-%dkHz.pcm",
-							descriptor->sampling_rate/1000);
+		audio_file_name = apr_psprintf(channel->pool,"utter-%dkHz-%s.pcm",
+							descriptor->sampling_rate/1000,
+							request->channel_id.session_id.buf);
 		audio_file_path = apt_vardir_filepath_get(dir_layout,audio_file_name,channel->pool);
 		if(audio_file_path) {
 			apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"Open Utterance Output File [%s] for Writing",audio_file_path);
