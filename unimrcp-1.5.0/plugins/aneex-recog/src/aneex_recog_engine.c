@@ -453,7 +453,7 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 	}
 
 	/* read the demo result from file */
-	/*file = fopen(file_path,"r");
+	file = fopen(file_path,"r");
 	if(file) {
 		mrcp_generic_header_t *generic_header;
 		char text[1024];
@@ -462,12 +462,12 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 		apt_string_assign_n(&message->body,text,size,message->pool);
 		fclose(file);
 
-		/*generic_header = mrcp_generic_header_prepare(message);
+		generic_header = mrcp_generic_header_prepare(message);
 		if(generic_header) {
 			apt_string_assign(&generic_header->content_type,"application/x-nlsml",message->pool);
 			mrcp_generic_header_property_add(message,GENERIC_HEADER_CONTENT_TYPE);
 		}
-	}*/
+	}
 
 	return TRUE;
 }
@@ -595,8 +595,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 
 			//printf("Size buffer=%d\n", frame->codec_frame.size);
-			//aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
-			aneex_recog_from_db("/usr/local/unimrcp/var/rec-8kHz.pcm", db_file_path, recog_channel);
+			aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
 		}
 
 	}
