@@ -410,7 +410,7 @@ mrcp_message_t* AneexRecogSession::CreateRecognizeRequest(mrcp_channel_t* pMrcpC
 		mrcp_resource_header_property_add(pMrcpMessage,ANEEX_HEADER_RECOGNITION_TIMEOUT);
 		pRecogHeader->start_input_timers = TRUE;
 		mrcp_resource_header_property_add(pMrcpMessage,ANEEX_HEADER_START_INPUT_TIMERS);
-		pRecogHeader->confidence_threshold = 0.87f;
+		pRecogHeader->confidence_threshold = 0.9f;
 		mrcp_resource_header_property_add(pMrcpMessage,ANEEX_HEADER_CONFIDENCE_THRESHOLD);
 		pRecogHeader->save_waveform = TRUE;
 		mrcp_resource_header_property_add(pMrcpMessage,ANEEX_HEADER_SAVE_WAVEFORM);
