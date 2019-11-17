@@ -539,7 +539,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 /** Callback is called from MPF engine context to write/send new frame */
 static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf_frame_t *frame)
 {
-	printf("DEBUG: aneex_recog_stream_write\n");
+	//printf("DEBUG: aneex_recog_stream_write\n");
 
 	aneex_recog_channel_t *recog_channel = stream->obj;
 	if(recog_channel->stop_response) {
