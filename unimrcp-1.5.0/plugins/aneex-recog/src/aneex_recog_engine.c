@@ -594,7 +594,10 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 
-			//printf("Size buffer=%d\n", frame->codec_frame.size);
+			printf("Size buffer=%d\n", ,recog_channel->cur_size);
+			printf("Time buffer=%d\n", ,recog_channel->cur_time);
+			//recorder_channel->cur_size += frame->codec_frame.size;
+			//recorder_channel->cur_time += CODEC_FRAME_TIME_BASE;
 			aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
 		}
 
