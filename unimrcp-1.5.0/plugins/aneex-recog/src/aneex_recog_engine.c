@@ -594,7 +594,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 
-			printf("File buffer=%d\n", ftell(fp));
+			printf("File buffer=%d\n", ftell(recog_channel->audio_out));
 			//fseek(fp, 0L, SEEK_SET);
 			aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
 		}
