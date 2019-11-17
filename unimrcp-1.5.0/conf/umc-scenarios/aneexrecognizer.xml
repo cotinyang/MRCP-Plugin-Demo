@@ -7,7 +7,7 @@
   <!--<recognize enable="1"/> -->
   <!--<recognize enable="1" audio-source="one-16kHz.pcm"/> -->
   <!--<recognize enable="1" audio-source="demo-8kHz.pcm"/>  -->
-  <recognize enable="1" audio-source="Etalons2/ne dost 06.wav"/>
+  <recognize enable="1" audio-source="Etalons2/avto 02.wav"/>
   <!-- <recognize enable="1" content-type="application/srgs+xml" content-location="grammar.xml"/> -->
 
    <termination enable="1">
