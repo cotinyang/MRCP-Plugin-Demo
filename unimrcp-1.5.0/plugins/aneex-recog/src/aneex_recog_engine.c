@@ -1,18 +1,3 @@
-/*
- * Copyright 2008-2015 Arsen Chaloyan
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 /* 
  * Mandatory rules concerning plugin implementation.
@@ -485,6 +470,8 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 		return FALSE;
 	}
 
+	aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+
 	/* get/allocate recognizer header */
 	recog_header = mrcp_resource_header_prepare(message);
 	if(recog_header) {
@@ -539,7 +526,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 /** Callback is called from MPF engine context to write/send new frame */
 static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf_frame_t *frame)
 {
-	printf("DEBUG: aneex_recog_stream_write\n");
+	//printf("DEBUG: aneex_recog_stream_write\n");
 
 	aneex_recog_channel_t *recog_channel = stream->obj;
 	if(recog_channel->stop_response) {
@@ -594,7 +581,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 
-			//printf("Size buffer=%d\n", frame->codec_frame.size);
+			printf("File buffer=%d\n", ftell(recog_channel->audio_out));
 			aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
 		}
 
