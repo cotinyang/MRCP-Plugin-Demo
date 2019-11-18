@@ -42,7 +42,7 @@ RUN cp -a /usr/src/fftss/include/ /usr/src/audioneex/audio/fftss/ && \
 
 ADD unimrcp-1.5.0 /usr/src/unimrcp
 ADD Etalons2 /usr/local/unimrcp/data
-ADD DB/* /usr/local/unimrcp/data/
+ADD DB /usr/local/unimrcp/data/DB
 
 WORKDIR /usr/src/unimrcp
 RUN ./bootstrap && \
@@ -56,5 +56,5 @@ RUN ./bootstrap && \
 WORKDIR /
 
 VOLUME /usr/local/unimrcp/conf
-CMD /usr/local/unimrcp/bin/unimrcpserver -r /usr/local/unimrcp/ -d -w -o 2 -l 7 && \
-    tail -f /usr/local/unimrcp/log/unimrcpserver-00.log
+CMD /usr/local/unimrcp/bin/unimrcpserver -r /usr/local/unimrcp/ -w -o 1 -l 7
+#    tail -f /dev/null
