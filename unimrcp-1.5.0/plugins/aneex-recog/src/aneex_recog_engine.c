@@ -460,6 +460,8 @@ static apt_bool_t aneex_recog_result_load(aneex_recog_channel_t *recog_channel, 
 /* Raise aneex RECOGNITION-COMPLETE event */
 static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_channel, aneex_recog_completion_cause_e cause)
 {
+	
+	printf("DEBUG: Plugin: aneex_recog_recognition_complete\n")
 	aneex_recog_header_t *recog_header;
 	/* create RECOGNITION-COMPLETE event */
 	mrcp_message_t *message = mrcp_event_create(
@@ -510,6 +512,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 	}
 	else if (result==-1){
 		pthread_mutex_destroy(&lock);
+		printf("DEBUG: Plugin: send aneex_recog_recognition_complete message\n")
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
 	}
 
