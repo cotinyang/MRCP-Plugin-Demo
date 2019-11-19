@@ -603,10 +603,10 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 
-			if (ftell(recog_channel->audio_out) % 720 == 0) {
-				printf("File buffer=%d\n", ftell(recog_channel->audio_out));
+			//буфер по 160 - 20 мс, т.е. 1сек=800
+			if (ftell(recog_channel->audio_out) % 800 == 0) {
+				//printf("File buffer=%d\n", ftell(recog_channel->audio_out));
 				aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
-				//aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/ne dost 10.wav", db_file_path, recog_channel);
 			}
 		}
 
