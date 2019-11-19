@@ -520,6 +520,8 @@ void* threadFunc(void* thread_data){
  	pthread_mutex_unlock(&lock);
  	flag_thread=1;
 
+	printf("Result from plugin=%d\n", result);
+
 	return NULL;
 }
 
@@ -540,8 +542,6 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		//запускаем поток
 		pthread_create(&thread, NULL, threadFunc, &threadData);
 		//pthread_join(thread,NULL);
-
-		printf("Result from plugin=%d\n", result);
 	}
 }
 
@@ -603,9 +603,11 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 		if(recog_channel->audio_out) {
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 
-			printf("File buffer=%d\n", ftell(recog_channel->audio_out));
-			aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
-			//aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/ne dost 10.wav", db_file_path, recog_channel);
+			if (ftell(recog_channel->audio_out) % 720 == 0) {
+				printf("File buffer=%d\n", ftell(recog_channel->audio_out));
+				aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+				//aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/ne dost 10.wav", db_file_path, recog_channel);
+			}
 		}
 
 	}
