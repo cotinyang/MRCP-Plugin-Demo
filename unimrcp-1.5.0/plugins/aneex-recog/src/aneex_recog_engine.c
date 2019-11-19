@@ -541,7 +541,7 @@ void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t 
 		pthread_create(&thread, NULL, threadFunc, &threadData);
 		//pthread_join(thread,NULL);
 
-		//printf("Result from plugin=%d\n", result);
+		printf("Result from plugin=%d\n", result);
 	}
 }
 
@@ -634,7 +634,7 @@ static apt_bool_t aneex_recog_msg_signal(aneex_recog_msg_type_e type, mrcp_engin
 
 static apt_bool_t aneex_recog_msg_process(apt_task_t *task, apt_task_msg_t *msg)
 {
-	printf("DEBUG: aneex_recog_msg_process\n");
+	//printf("DEBUG: aneex_recog_msg_process\n");
 	aneex_recog_msg_t *aneex_msg = (aneex_recog_msg_t*)msg->data;
 
 	switch(aneex_msg->type) {
