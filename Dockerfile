@@ -3,17 +3,17 @@ FROM debian:latest
 RUN apt-get update && \
     apt-get --assume-yes upgrade && \
     apt-get --assume-yes install wget curl tar git cmake build-essential \
-        libtool pkg-config libboost-all-dev libghc-zlib-dev libghc-bzlib-dev \
-        libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavresample-dev libavutil-dev libpostproc-dev \
-        libswresample-dev libswscale-dev libtokyocabinet-dev && \
+        libtool pkg-config libboost-filesystem-dev libboost-system-dev libboost-thread-dev libboost-regex-dev \
+        libghc-zlib-dev libghc-bzlib-dev libavcodec-dev libavdevice-dev libavfilter-dev \
+        libavformat-dev libavresample-dev libavutil-dev libpostproc-dev libswresample-dev libswscale-dev && \
     apt-get --assume-yes clean
 
 # DATASTORE_LIB
 ADD tc /usr/src/tc
-#RUN cd /usr/src/tc && \
-#    ./configure CC=gcc CFLAGS='-fPIC' CXXFLAGS='-fPIC' && \
-#    make && \
-#    make install
+RUN cd /usr/src/tc && \
+    ./configure CC=gcc CFLAGS='-fPIC' CXXFLAGS='-fPIC' && \
+    make && \
+    make install
 
 # FFTSS_LIB
 ADD fftss-3.0-20071031 /usr/src/fftss
