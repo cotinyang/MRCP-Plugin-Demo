@@ -138,14 +138,15 @@ typedef struct{
 pthread_mutex_t lock; 	//Исключающая блокировка
 pthread_t thread;		//поток
 pthrData threadData; 	//структура
+int flag_thread;		//флаг для проверки старта след.потока
 
 void* threadFunc(void* thread_data);
 
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel);
 
 //для проверки итогов распознавания
-int result=0;
-// ---------структуры данных для потока---------
+int result;
+// --------/структуры данных для потока---------
 
 /** Declare this macro to set plugin version */
 MRCP_PLUGIN_VERSION_DECLARE
@@ -311,6 +312,9 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 
 	recog_channel->timers_started = TRUE;
 
+    pthread_mutex_init(&lock, NULL);
+    flag_thread=1;
+
 	/* get recognizer header */
 	recog_header = mrcp_resource_header_get(request);
 	if(recog_header) {
@@ -422,7 +426,6 @@ static apt_bool_t aneex_recog_stream_close(mpf_audio_stream_t *stream)
 static apt_bool_t aneex_recog_start_of_input(aneex_recog_channel_t *recog_channel)
 {
     //printf("DEBUG: Plugin: demo_recog_start_of_input\n");
-    pthread_mutex_init(&lock, NULL);
 
 	/* create START-OF-INPUT event */
 	mrcp_message_t *message = mrcp_event_create(
@@ -485,7 +488,8 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 		return FALSE;
 	}
 
-	aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+	pthread_mutex_destroy(&lock);
+    flag_thread=0;
 
 	/* get/allocate recognizer header */
 	recog_header = mrcp_resource_header_prepare(message);
@@ -510,9 +514,11 @@ void* threadFunc(void* thread_data){
 	//получаем структуру с данными
 	pthrData* data = (pthrData*) thread_data;
 
+	flag_thread=0;
 	pthread_mutex_lock(&lock);
  	result=TestAneex(data->audio_path, data->db_path);
  	pthread_mutex_unlock(&lock);
+ 	flag_thread=1;
 
 	return NULL;
 }
@@ -520,22 +526,23 @@ void* threadFunc(void* thread_data){
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
 	if (result>0) {
-		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 	}
 	else if (result==-1){
-		pthread_mutex_destroy(&lock);
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
 	}
 
-	threadData.audio_path = audio_path;
-	threadData.db_path = db_path;
+	if (flag_thread==1) {
+		//сохраняем данные для использования в функции в потоке
+		threadData.audio_path = audio_path;
+		threadData.db_path = db_path;
 
-	//запускаем поток
-	pthread_create(&thread, NULL, threadFunc, &threadData);
-	pthread_join(thread,NULL);
+		//запускаем поток
+		pthread_create(&thread, NULL, threadFunc, &threadData);
+		//pthread_join(thread,NULL);
 
-	//printf("Result from plugin=%d\n", result);
+		//printf("Result from plugin=%d\n", result);
+	}
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
@@ -597,7 +604,8 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 
 			printf("File buffer=%d\n", ftell(recog_channel->audio_out));
-			aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+			//aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+			aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/avto 02.wav", db_file_path, recog_channel);
 		}
 
 	}
