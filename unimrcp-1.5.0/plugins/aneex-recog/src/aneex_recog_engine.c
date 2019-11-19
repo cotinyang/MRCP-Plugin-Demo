@@ -604,8 +604,8 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			fwrite(frame->codec_frame.buffer,1,frame->codec_frame.size,recog_channel->audio_out);
 
 			printf("File buffer=%d\n", ftell(recog_channel->audio_out));
-			//aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
-			aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/ne dost 10.wav", db_file_path, recog_channel);
+			aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
+			//aneex_recog_from_db("/usr/local/unimrcp/data/Etalons2/ne dost 10.wav", db_file_path, recog_channel);
 		}
 
 	}
