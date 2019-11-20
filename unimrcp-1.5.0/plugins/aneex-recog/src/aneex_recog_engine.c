@@ -133,19 +133,16 @@ char *db_file_path="/usr/local/unimrcp/data/DB";
 typedef struct{
 	char *audio_path;
 	char *db_path;
+	int result; 			//для проверки итогов распознавания
+	int flag_thread;		//флаг для проверки старта след.потока
 } pthrData;
 
-pthread_mutex_t lock; 	//Исключающая блокировка
-pthread_t thread;		//поток
-pthrData threadData; 	//структура
-int flag_thread;		//флаг для проверки старта след.потока
+pthrData threadData;
 
 void* threadFunc(void* thread_data);
 
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel);
 
-//для проверки итогов распознавания
-int result;
 // --------/структуры данных для потока---------
 
 /** Declare this macro to set plugin version */
@@ -312,8 +309,10 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 
 	recog_channel->timers_started = TRUE;
 
-    pthread_mutex_init(&lock, NULL);
-    flag_thread=1;
+	//сохраняем данные для использования в функции в потоке
+	threadData.audio_path = audio_path;
+	threadData.db_path = db_path;
+	threadData.result=0;
 
 	/* get recognizer header */
 	recog_header = mrcp_resource_header_get(request);
@@ -514,35 +513,33 @@ void* threadFunc(void* thread_data){
 	//получаем структуру с данными
 	pthrData* data = (pthrData*) thread_data;
 
-	flag_thread=0;
-	pthread_mutex_lock(&lock);
- 	result=TestAneex(data->audio_path, data->db_path);
- 	pthread_mutex_unlock(&lock);
- 	flag_thread=1;
 
-	printf("Result from plugin=%d\n", result);
+	data->flag_thread=0;
+	data->result=TestAneex(data->audio_path, data->db_path);
+	data->flag_thread=1;
+
+	printf("Result from plugin=%d\n", data->result);
 
 	return NULL;
 }
 
 void aneex_recog_from_db(char *audio_path, char* db_path, aneex_recog_channel_t *recog_channel)
 {
-	if (result>0) {
-		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
-	}
-	else if (result==-1){
-		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
-	}
-
-	if (flag_thread==1) {
-		//сохраняем данные для использования в функции в потоке
-		threadData.audio_path = audio_path;
-		threadData.db_path = db_path;
+	if (data->flag_thread==1) {
+		pthread_t thread;		//поток
 
 		//запускаем поток
 		pthread_create(&thread, NULL, threadFunc, &threadData);
-		//pthread_join(thread,NULL);
+		pthread_detach(thread);
 	}
+
+	if (threadData.result>0) {
+		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
+	}
+	else if (threadData.result==-1){
+		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
+	}
+
 }
 
 /** Callback is called from MPF engine context to write/send new frame */
@@ -606,6 +603,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			//буфер по 160 - 20 мс, т.е. 1сек=800
 			if (ftell(recog_channel->audio_out) % 800 == 0) {
 				//printf("File buffer=%d\n", ftell(recog_channel->audio_out));
+				printf("Flag thread=%d\n", threadData.flag_thread);
 				aneex_recog_from_db(audio_file_path, db_file_path, recog_channel);
 			}
 		}
