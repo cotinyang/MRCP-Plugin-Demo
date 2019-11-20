@@ -239,7 +239,6 @@ static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *e
 	recog_channel->audio_out = NULL;
 	recog_channel->result = 0;
 	recog_channel->flag_thread = 1;
-	recog_channel->audio_file_name="";
 	recog_channel->audio_file_path="";
 
 	capabilities = mpf_sink_stream_capabilities_create(pool);
