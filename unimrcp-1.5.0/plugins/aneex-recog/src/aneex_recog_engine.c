@@ -522,7 +522,7 @@ void aneex_recog_from_db(aneex_recog_channel_t *recog_channel)
 		pthread_t thread;
 
 		pthread_create(&thread, NULL, threadFunc, &(recog_channel->thread_data));
-		pthread_join(thread);
+		//pthread_join(thread);
 	}
 
 	if (recog_channel->thread_data.result>0) {
