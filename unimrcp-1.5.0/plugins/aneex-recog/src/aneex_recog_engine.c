@@ -590,7 +590,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 
 			//буфер по 160 - 20 мс, т.е. 1сек=800
 			if (ftell(recog_channel->audio_out) % 800 == 0) {
-				//printf("File buffer=%d\n", ftell(recog_channel->audio_out));
+				printf("File buffer=%d\n", ftell(recog_channel->audio_out));
 				printf("Flag thread=%d\n", recog_channel->thread_data.flag_thread);
 				aneex_recog_from_db(recog_channel);
 			}
