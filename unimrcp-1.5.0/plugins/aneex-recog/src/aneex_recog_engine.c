@@ -515,10 +515,14 @@ void* threadFunc(void* thread_data){
 void aneex_recog_from_db(aneex_recog_channel_t *recog_channel)
 {
 	if (recog_channel->thread_data.flag_thread==1) {
+
+		printf("File buffer=%d\n", ftell(recog_channel->audio_out));
+		printf("Flag thread=%d\n", recog_channel->thread_data.flag_thread);
+
 		pthread_t thread;
 
 		pthread_create(&thread, NULL, threadFunc, &(recog_channel->thread_data));
-		pthread_detach(thread);
+		pthread_join(thread);
 	}
 
 	if (recog_channel->thread_data.result>0) {
@@ -590,8 +594,6 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 
 			//буфер по 160 - 20 мс, т.е. 1сек=800
 			if (ftell(recog_channel->audio_out) % 800 == 0) {
-				printf("File buffer=%d\n", ftell(recog_channel->audio_out));
-				printf("Flag thread=%d\n", recog_channel->thread_data.flag_thread);
 				aneex_recog_from_db(recog_channel);
 			}
 		}
