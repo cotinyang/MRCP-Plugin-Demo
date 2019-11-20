@@ -125,7 +125,6 @@ struct aneex_recog_channel_t {
 	int 					result; 			//для проверки итогов распознавания
 	int 					flag_thread;		//флаг для проверки старта след.потока
 
-	char					*audio_file_name;
 	char 					*audio_file_path;
 };
 
@@ -301,6 +300,7 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 	aneex_recog_header_t *recog_header;
 	aneex_recog_channel_t *recog_channel = channel->method_obj;
 	const mpf_codec_descriptor_t *descriptor = mrcp_engine_sink_stream_codec_get(channel);
+	char *audio_file_name;
 
 	if(!descriptor) {
 		apt_log(ANEEX_LOG_MARK,APT_PRIO_WARNING,"Failed to Get Codec Descriptor " APT_SIDRES_FMT, MRCP_MESSAGE_SIDRES(request));
@@ -326,11 +326,11 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 
 	if(!recog_channel->audio_out) {
 		const apt_dir_layout_t *dir_layout = channel->engine->dir_layout;
-		recog_channel->audio_file_name = apr_psprintf(channel->pool,"utter-%dkHz-%s.pcm",
+		audio_file_name = apr_psprintf(channel->pool,"utter-%dkHz-%s.pcm",
 							descriptor->sampling_rate/1000,
 							request->channel_id.session_id.buf);
-		recog_channel->audio_file_path = apt_vardir_filepath_get(dir_layout,audio_file_name,channel->pool);
-		if(audio_file_path) {
+		recog_channel->audio_file_path = apt_vardir_filepath_get(audio_file_name,channel->pool);
+		if(recog_channel->audio_file_path) {
 			apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"Open Utterance Output File [%s] for Writing",recog_channel->audio_file_path);
 			recog_channel->audio_out = fopen(recog_channel->audio_file_path,"wb");
 			if(!recog_channel->audio_out) {
