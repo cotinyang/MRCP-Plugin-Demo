@@ -94,8 +94,9 @@ struct aneex_recog_engine_t {
 char *db_file_path="/usr/local/unimrcp/data/DB";
 
 typedef struct{
-	char *audio_path;
-	char *db_path;
+	char *audio_file_path;
+	int  result;
+	int  flag_thread;
 } pthrData;
 
 void* threadFunc(void* thread_data);
@@ -122,10 +123,7 @@ struct aneex_recog_channel_t {
 	/** File to write utterance to */
 	FILE                    *audio_out;
 
-	int 					result; 			//для проверки итогов распознавания
-	int 					flag_thread;		//флаг для проверки старта след.потока
-
-	char 					*audio_file_path;
+	pthrData 				thread_data;
 };
 
 typedef enum {
@@ -237,9 +235,9 @@ static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *e
 	recog_channel->stop_response = NULL;
 	recog_channel->detector = mpf_activity_detector_create(pool);
 	recog_channel->audio_out = NULL;
-	recog_channel->result = 0;
-	recog_channel->flag_thread = 1;
-	recog_channel->audio_file_path="";
+	recog_channel->thread_data.result = 0;
+	recog_channel->thread_data.flag_thread = 1;
+	recog_channel->thread_data.audio_file_path="";
 
 	capabilities = mpf_sink_stream_capabilities_create(pool);
 	mpf_codec_capabilities_add(
@@ -329,11 +327,11 @@ static apt_bool_t aneex_recog_channel_recognize(mrcp_engine_channel_t *channel, 
 							descriptor->sampling_rate/1000,
 							request->channel_id.session_id.buf);
 		recog_channel->audio_file_path = apt_vardir_filepath_get(dir_layout,audio_file_name,channel->pool);
-		if(recog_channel->audio_file_path) {
-			apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"Open Utterance Output File [%s] for Writing",recog_channel->audio_file_path);
-			recog_channel->audio_out = fopen(recog_channel->audio_file_path,"wb");
+		if(recog_channel->thread_data.audio_file_path) {
+			apt_log(ANEEX_LOG_MARK,APT_PRIO_INFO,"Open Utterance Output File [%s] for Writing",recog_channel->thread_data.audio_file_path);
+			recog_channel->audio_out = fopen(recog_channel->thread_data.audio_file_path,"wb");
 			if(!recog_channel->audio_out) {
-				apt_log(ANEEX_LOG_MARK,APT_PRIO_WARNING,"Failed to Open Utterance Output File [%s] for Writing",audio_file_path);
+				apt_log(ANEEX_LOG_MARK,APT_PRIO_WARNING,"Failed to Open Utterance Output File [%s] for Writing",recog_channel->thread_data.audio_file_path);
 			}
 		}
 	}
@@ -480,7 +478,7 @@ static apt_bool_t aneex_recog_recognition_complete(aneex_recog_channel_t *recog_
 		return FALSE;
 	}
 
-	recog_channel->flag_thread=0;
+	recog_channel->thread_data.flag_thread=0;
 
 	/* get/allocate recognizer header */
 	recog_header = mrcp_resource_header_prepare(message);
@@ -505,29 +503,28 @@ void* threadFunc(void* thread_data){
 	//получаем структуру с данными
 	pthrData* data = (pthrData*) thread_data;
 
+	data->flag_thread=0;
+	data->result=TestAneex(data->audio_file_path, db_file_path);
+	data->flag_thread=1;
 
-	recog_channel->flag_thread=0;
-	recog_channel->result=TestAneex(recog_channel->audio_file_path, db_file_path);
-	recog_channel->flag_thread=1;
-
-	printf("Result from plugin=%d\n", recog_channel->result);
+	printf("Result from plugin=%d\n", data->result);
 
 	return NULL;
 }
 
 void aneex_recog_from_db(aneex_recog_channel_t *recog_channel)
 {
-	if (recog_channel->flag_thread==1) {
+	if (recog_channel->thread_data.flag_thread==1) {
 		pthread_t thread;
 
-		pthread_create(&thread, NULL, threadFunc, &threadData);
+		pthread_create(&thread, NULL, threadFunc, &(recog_channel->threadData));
 		pthread_detach(thread);
 	}
 
-	if (recog_channel->result>0) {
+	if (recog_channel->thread_data.result>0) {
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_SUCCESS);
 	}
-	else if (recog_channel->result==-1){
+	else if (recog_channel->thread_data.result==-1){
 		aneex_recog_recognition_complete(recog_channel,ANEEX_COMPLETION_CAUSE_ERROR);
 	}
 
@@ -594,7 +591,7 @@ static apt_bool_t aneex_recog_stream_write(mpf_audio_stream_t *stream, const mpf
 			//буфер по 160 - 20 мс, т.е. 1сек=800
 			if (ftell(recog_channel->audio_out) % 800 == 0) {
 				//printf("File buffer=%d\n", ftell(recog_channel->audio_out));
-				printf("Flag thread=%d\n", recog_channel->flag_thread);
+				printf("Flag thread=%d\n", recog_channel->thread_data.flag_thread);
 				aneex_recog_from_db(recog_channel);
 			}
 		}
