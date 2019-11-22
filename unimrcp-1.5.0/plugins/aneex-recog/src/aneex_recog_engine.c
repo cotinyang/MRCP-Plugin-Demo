@@ -195,7 +195,7 @@ static apt_bool_t aneex_recog_engine_close(mrcp_engine_t *engine)
 
 static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *engine, apr_pool_t *pool)
 {
-    printf("DEBUG: Plugin: aneex_recog_engine_channel_create\n");
+    //printf("DEBUG: Plugin: aneex_recog_engine_channel_create\n");
 
 	mpf_stream_capabilities_t *capabilities;
 	mpf_termination_t *termination; 
@@ -240,7 +240,7 @@ static apt_bool_t aneex_recog_channel_destroy(mrcp_engine_channel_t *channel)
 {
 	/* nothing to destrtoy */
 
-    printf("DEBUG: Plugin:  aneex_recog_channel_destroy\n");
+    //printf("DEBUG: Plugin:  aneex_recog_channel_destroy\n");
 	return TRUE;
 }
 
