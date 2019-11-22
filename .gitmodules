@@ -1,0 +1,6 @@
+[submodule "tc"]
+	path = tc
+	url = https://github.com/clement/tokyo-cabinet.git
+[submodule "audioneex"]
+	path = audioneex
+	url = https://github.com/Anastasya83/audioneex.git

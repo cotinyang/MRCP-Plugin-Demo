@@ -1,31 +1,4 @@
-/*
- * Copyright 2008-2015 Arsen Chaloyan
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
-/* 
- * Mandatory rules concerning plugin implementation.
- * 1. Each plugin MUST implement a plugin/engine creator function
- *    with the exact signature and name (the main entry point)
- *        MRCP_PLUGIN_DECLARE(mrcp_engine_t*) mrcp_plugin_create(apr_pool_t *pool)
- * 2. Each plugin MUST declare its version number
- *        MRCP_PLUGIN_VERSION_DECLARE
- * 3. One and only one response MUST be sent back to the received request.
- * 4. Methods (callbacks) of the MRCP engine channel MUST not block.
- *   (asynchronous response can be sent from the context of other thread)
- * 5. Methods (callbacks) of the MPF engine stream MUST not block.
- */
 #include <stdlib.h>
 #include <pthread.h>
 #include "aneex_recog_engine.h"
@@ -223,7 +196,7 @@ static apt_bool_t aneex_recog_engine_close(mrcp_engine_t *engine)
 
 static mrcp_engine_channel_t* aneex_recog_engine_channel_create(mrcp_engine_t *engine, apr_pool_t *pool)
 {
-    printf("DEBUG: Plugin: aneex_recog_engine_channel_create\n");
+    //printf("DEBUG: Plugin: aneex_recog_engine_channel_create\n");
 
 	mpf_stream_capabilities_t *capabilities;
 	mpf_termination_t *termination; 
@@ -268,7 +241,7 @@ static apt_bool_t aneex_recog_channel_destroy(mrcp_engine_channel_t *channel)
 {
 	/* nothing to destrtoy */
 
-    printf("DEBUG: Plugin:  aneex_recog_channel_destroy\n");
+   //printf("DEBUG: Plugin:  aneex_recog_channel_destroy\n");
 	return TRUE;
 }
 
@@ -516,13 +489,12 @@ void aneex_recog_from_db(aneex_recog_channel_t *recog_channel)
 {
 	if (recog_channel->thread_data.flag_thread==1) {
 
-		printf("File buffer=%d\n", ftell(recog_channel->audio_out));
-		printf("Flag thread=%d\n", recog_channel->thread_data.flag_thread);
+		//printf("File buffer=%d\n", ftell(recog_channel->audio_out));
+		//printf("Flag thread=%d\n", recog_channel->thread_data.flag_thread);
 
 		pthread_t thread;
 
 		pthread_create(&thread, NULL, threadFunc, &(recog_channel->thread_data));
-		//pthread_join(thread);
 	}
 
 	if (recog_channel->thread_data.result>0) {

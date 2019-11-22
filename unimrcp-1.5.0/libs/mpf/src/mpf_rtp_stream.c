@@ -1128,7 +1128,7 @@ static apt_bool_t mpf_socket_bind(apr_socket_t *socket, const char *ip, apr_port
 	}
 	
 	if(apr_socket_bind(socket,*l_sockaddr) != APR_SUCCESS) {
-		apt_log(MPF_LOG_MARK,APT_PRIO_DEBUG,"Failed to Bind Socket to %s:%hu", ip,port);
+		//apt_log(MPF_LOG_MARK,APT_PRIO_DEBUG,"Failed to Bind Socket to %s:%hu", ip,port);
 		return FALSE;
 	}
 	return TRUE;
