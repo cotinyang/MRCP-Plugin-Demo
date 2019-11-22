@@ -56,5 +56,6 @@ RUN ./bootstrap && \
 WORKDIR /
 
 VOLUME /usr/local/unimrcp/conf
+VOLUME /usr/local/unimrcp/var
 CMD /usr/local/unimrcp/bin/unimrcpserver -r /usr/local/unimrcp/ -w -o 1 -l 7
 #    tail -f /dev/null
